@@ -59,7 +59,7 @@ describe Solver do
         pair.must_be_kind_of Pairing
         classroom.students.must_include pair.student
         classroom.companies.must_include pair.company
-        
+
         students.wont_include pair.student.name
         students[pair.student.name] = pair.company.name
 
@@ -103,63 +103,70 @@ describe Solver do
 
     SCALE = 24
     INTERVIEWS_PER_SLOT = 6
-    def build_and_solve_classroom(rng)
+    def build_classroom(rng)
       # Build students and companies
-      classroom = Classroom.create!(name: 'solver scale test', creator: User.first)
-      SCALE.times do |i|
-        classroom.students.create!(name: "scale test student #{i}")
-      end
-
-      # The extra [1] between the 3 and the 2s is important
-      # for making student assignments line up later
-      company_slots = [3] + [1] + ([2] * 5) + ([1] * 10)
-      company_slots.sum.must_equal SCALE
-      company_slots.each_with_index do |s, i|
-        classroom.companies.create!(name: "scale test company #{i}", slots: s)
-      end
-
-      # Generate rankings
-      # We make six shuffled lists of students and consume them
-      # in order, to avoid ending up with a student needing to
-      # inteveiw at the same company multiple times at the end
-      available_students = 6.times.map do
-        classroom.students.to_a.shuffle
-      end
-      student_tier = []
-
-      classroom.companies.each do |company|
-        # puts "\nCompany #{company.name} of #{company_slots.length}"
-
-        # Each company interviews 6 students per slot
-        interview_count = company.slots * INTERVIEWS_PER_SLOT
-        if student_tier.empty?
-          # puts "Begin tier #{available_students.length}"
-          student_tier = available_students.pop
+      classroom = nil
+      Classroom.transaction do
+        classroom = Classroom.create!(name: 'solver scale test', creator: User.first)
+        SCALE.times do |i|
+          classroom.students.create!(name: "scale test student #{i}")
         end
-        students = student_tier.pop(interview_count)
 
-        # Shouldn't run out of students
-        if students.length != interview_count
-          puts "Hit the bad state. Remaining students:"
-          students.each do |s|
-            puts "  #{s.name} with #{s.rankings.count} rankings"
+        # The extra [1] between the 3 and the 2s is important
+        # for making student assignments line up later
+        company_slots = [3] + [1] + ([2] * 5) + ([1] * 10)
+        company_slots.sum.must_equal SCALE
+        company_slots.each_with_index do |s, i|
+          classroom.companies.create!(name: "scale test company #{i}", slots: s)
+        end
+
+        # Generate rankings
+        # We make six shuffled lists of students and consume them
+        # in order, to avoid ending up with a student needing to
+        # inteveiw at the same company multiple times at the end
+        available_students = 6.times.map do
+          classroom.students.to_a.shuffle
+        end
+        student_tier = []
+
+        classroom.companies.each do |company|
+          # puts "\nCompany #{company.name} of #{company_slots.length}"
+
+          # Each company interviews 6 students per slot
+          interview_count = company.slots * INTERVIEWS_PER_SLOT
+          if student_tier.empty?
+            # puts "Begin tier #{available_students.length}"
+            student_tier = available_students.pop
+          end
+          students = student_tier.pop(interview_count)
+
+          # Shouldn't run out of students
+          if students.length != interview_count
+            puts "Hit the bad state. Remaining students:"
+            students.each do |s|
+              puts "  #{s.name} with #{s.rankings.count} rankings"
+            end
+          end
+          students.length.must_equal interview_count
+
+          # Build a ranking for this company for each student
+          students.each do |student|
+            student.rankings.create!(
+            company: company,
+            student_preference: rng.rand(5)+1,
+            interview_result: rng.rand(5)+1
+            )
           end
         end
-        students.length.must_equal interview_count
 
-        # Build a ranking for this company for each student
-        students.each do |student|
-          student.rankings.create!(
-          company: company,
-          student_preference: rng.rand(5)+1,
-          interview_result: rng.rand(5)+1
-          )
-        end
+        # We should have exactly exhausted our pool of students
+        available_students.must_be_empty
       end
 
-      # We should have exactly exhausted our pool of students
-      available_students.must_be_empty
+      return classroom
+    end
 
+    def solve_classroom(classroom)
       # We're set up - time to build and run the solver
       start_time = Time.now
       solver = Solver.new(classroom)
@@ -178,7 +185,8 @@ describe Solver do
       puts "In full-scale test, using seed #{seed}"
       rng = Random.new(seed)
 
-      total_time, iterations = build_and_solve_classroom(rng)
+      classroom = build_classroom(rng)
+      total_time, iterations = solve_classroom(classroom)
       puts "Converged in #{total_time} seconds, #{iterations} iterations"
     end
 
@@ -198,7 +206,8 @@ describe Solver do
       start_time = Time.now
       100.times do |i|
         begin
-          run_time, run_iterations = build_and_solve_classroom(rng)
+          classroom = build_classroom(rng)
+          run_time, run_iterations = solve_classroom(classroom)
           puts "Run #{i} finished in #{run_time} seconds, #{run_iterations} iterations"
           times << run_time
           iterations << run_iterations
