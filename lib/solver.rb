@@ -112,37 +112,7 @@ class Solver
       # print mvc_companies
       # puts
 
-      # We also need the minimum non-zero value in the matrix
-      min_value = @matrix.select { |v| v > 0 }.min
-      # puts "min_value for reduction is #{min_value}"
-
-      # XXX DPR: Not sure if we'll always hit this
-      # or if there's some thrashing behavior we might encounter
-      if min_value == Float::INFINITY
-        raise SolutionError.new("Cannot further reduce the placement matrix. Either there's a programming error or this classroom has no solution!")
-      end
-
-      # To reduce the matrix, we use the following method:
-      # for each element (r,c) in the matrix:
-      #   if r not in mvc_students and c not in mvc_companies (i.e. the cell in the matrix is not covered by any lines)
-      #     subtract min_value from the element
-      #   else if both r in mvc_students and c in mvc_companies (i.e. cell is covered by two lines)
-      #     add min_value to the element
-      # I haven't yet read or come up with a convincing explanation of why this works, but as
-      # far as I can tell it's something to do with lowering our standards for
-      # uncovered nodes while not letting covered nodes stagnate. Worth doing
-      # some more serious thinking (especially if it ends up not working).
-      @matrix.each_with_index do |value, r, c|
-        if !mvc_students[r] and !mvc_companies[c]
-          # Not covered -> lower our standards
-          @matrix[r, c] = value - min_value
-
-        elsif mvc_students[r] and mvc_companies[c]
-          # Covered twice -> raise our stanards
-          @matrix[r, c] = value + min_value
-
-        end
-      end
+      reduce(mvc_students, mvc_companies)
     end
   end
 
@@ -187,6 +157,9 @@ private
 
     # r and c are row and column indicies
     # row and column are actual vectors
+
+    # puts "Pre-reduction"
+    # puts @matrix
 
     # Reduce rows
     @matrix.row_count.times do |r|
@@ -415,6 +388,39 @@ private
     end
 
     return mvc_students, mvc_companies
+  end
+
+  def reduce(mvc_students, mvc_companies)
+    # We'll need the minimum non-zero value in the matrix
+    min_value = @matrix.select { |v| v > 0 }.min
+
+    # XXX DPR: Not sure if we'll always hit this
+    # or if there's some thrashing behavior we might encounter
+    if min_value == Float::INFINITY
+      raise SolutionError.new("Cannot further reduce the placement matrix. Either there's a programming error or this classroom has no solution!")
+    end
+
+    # To reduce the matrix, we use the following method:
+    # for each element (r,c) in the matrix:
+    #   if r not in mvc_students and c not in mvc_companies (i.e. the cell in the matrix is not covered by any lines)
+    #     subtract min_value from the element
+    #   else if both r in mvc_students and c in mvc_companies (i.e. cell is covered by two lines)
+    #     add min_value to the element
+    # I haven't yet read or come up with a convincing explanation of why this works, but as
+    # far as I can tell it's something to do with lowering our standards for
+    # uncovered nodes while not letting covered nodes stagnate. Worth doing
+    # some more serious thinking (especially if it ends up not working).
+    @matrix.each_with_index do |value, r, c|
+      if !mvc_students[r] and !mvc_companies[c]
+        # Not covered -> lower our standards
+        @matrix[r, c] = value - min_value
+
+      elsif mvc_students[r] and mvc_companies[c]
+        # Covered twice -> raise our stanards
+        @matrix[r, c] = value + min_value
+
+      end
+    end
   end
 
   def build_pairings(assignments)
