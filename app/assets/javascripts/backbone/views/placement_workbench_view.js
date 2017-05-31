@@ -85,7 +85,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
     this.companyListElement.empty();
 
     this.companyViews.forEach(function(companyView) {
-      companyView.$el.addClass('large-4 columns');
+      companyView.$el.addClass('large-3 columns');
       this.companyListElement.append(companyView.el);
     }, this);
 

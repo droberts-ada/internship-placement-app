@@ -13,11 +13,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 h4 {
-  font-size: 1.1rem;
+  font-size: .9rem;
 }
 
 .placement-summary .placement-container {
@@ -36,6 +36,10 @@ h4 {
 #unplaced-students {
   padding: 0;
   margin: 0;
+}
+
+#companies li {
+  padding: 3px;
 }
 
 .company {
