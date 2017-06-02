@@ -13,7 +13,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 h4 {
@@ -39,17 +43,24 @@ h4 {
 }
 
 #companies li {
-  padding: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#companies .row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#companies .row:first-child {
+  margin-top: 0px;
 }
 
 .company {
   background-color: #c0c0c0;
   border-radius: 5px;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  padding: 7px;
 }
-
 
 .excellent-match .company {
   background-color: #49bcff;
@@ -71,10 +82,18 @@ h4 {
   background-color: #e2e2e2;
   border-radius: 5px;
   padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 
   box-sizing: border-box;
+}
+
+.student:first-child {
+  margin-top: 0px;
+}
+
+.student:last-child {
+  margin-bottom: 0px;
 }
 
 .student h4 {
