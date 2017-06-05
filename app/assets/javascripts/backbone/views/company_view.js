@@ -100,8 +100,7 @@ const CompanyView = Backbone.View.extend({
     'drop': 'onDrop'
   },
 
-  onClick: function(event) {
-    console.log("In CompanyView.onClick")
+  addStudent: function() {
     let student = this.bus.get('student');
     if (student) {
       // Click on the company the student is already in
@@ -127,14 +126,25 @@ const CompanyView = Backbone.View.extend({
     }
   },
 
+  onClick: function(event) {
+    if (this.bus.dragging) {
+      // Drag event on a selected student generates
+      // a click here, so make sure we're not in
+      // the middle of a drag before doing anything.
+      return;
+    }
+    console.log("In CompanyView.onClick")
+
+    this.addStudent();
+  },
+
   onDragover: function(event) {
     event.preventDefault();
   },
 
   onDrop: function(event) {
     console.log("In CompanyView.onDrop()");
-    // event.preventDefault();
-    // TODO: extract to third function
-    this.onClick(event);
+
+    this.addStudent();
   }
 })

@@ -83,11 +83,22 @@ const PlacementWorkbenchView = Backbone.View.extend({
 
   render: function() {
     this.companyListElement.empty();
+    var row;
 
-    this.companyViews.forEach(function(companyView) {
-      companyView.$el.addClass('large-4 columns');
-      this.companyListElement.append(companyView.el);
+    this.companyViews.forEach(function(companyView, i) {
+      if (i % 4 == 0) {
+        if (row) {
+          this.companyListElement.append(row);
+        }
+        row = $('<div class="row"></div>');
+      }
+      companyView.$el.addClass('large-3 columns');
+      row.append(companyView.el);
     }, this);
+
+    if (row.html() != "") {
+      this.companyListElement.append(row);
+    }
 
     return this;
   },
@@ -109,6 +120,8 @@ const PlacementWorkbenchView = Backbone.View.extend({
       // cmd+u -> undo
       this.onUndo();
       event.preventDefault();
+    } else if (code == 27) {
+      this.studentBus.unselectStudent();
     }
   },
 

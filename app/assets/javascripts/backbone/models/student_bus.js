@@ -38,5 +38,9 @@ const StudentBus = Backbone.Model.extend({
   hasStudent: function() {
     // !! for truthyness
     return !!this.get('student');
+  },
+
+  student: function() {
+    return this.get('student');
   }
 });

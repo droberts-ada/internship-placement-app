@@ -27,12 +27,12 @@
   <header id="workbench-toolbar">
   </header>
 
-  <section class="large-9 columns">
+  <section class="medium-10 columns">
     <ul id="companies" class="row">
     </ul>
   </section>
 
-  <aside id="unplaced-students" class="large-3 columns">
+  <aside id="unplaced-students" class="medium-2 columns">
   </aside>
 
   <footer id="bus-details">
@@ -50,7 +50,7 @@ which we don't really want for a big blob of JSON
 <!-- Underscore templates -->
 <script type="text/template" id="company-template">
   <div class="company">
-    <h3>
+    <h3 title="<#- name #>">
       <#- name #>
     </h3>
     <ul class="student-list">
