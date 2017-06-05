@@ -120,6 +120,8 @@ const PlacementWorkbenchView = Backbone.View.extend({
       // cmd+u -> undo
       this.onUndo();
       event.preventDefault();
+    } else if (code == 27) {
+      this.studentBus.unselectStudent();
     }
   },
 

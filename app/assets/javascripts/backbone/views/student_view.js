@@ -49,22 +49,37 @@ const StudentView = Backbone.View.extend({
 
   onClick: function(event) {
     console.log("Student clicked");
-    if (!this.bus.hasStudent() ) {
-      this.bus.selectStudent(this.model);
-      event.stopPropagation();
+    if (this.dragging) {
+      // ignore the click that results from a drag
+      return;
     }
+
+
+    if (this.model.get('selected')) {
+      this.bus.unselectStudent();
+      return;
+
+    } else if (this.bus.hasStudent()) {
+      this.bus.unselectStudent();
+
+    }
+    this.bus.selectStudent(this.model);
+    event.stopPropagation();
   },
 
   onDragStart: function(event) {
+    console.log("In drag start");
     // TODO: when selected, the element is redrawn, removing it from under the mouse!
     this.bus.selectStudent(this.model);
-    // this.model.
+    this.bus.dragging = true;
   },
 
   onDragStop: function(event) {
+    console.log("In drag stop");
+    this.bus.dragging = false;
     // Stop event triggers *after* the drop event
-    if (this.bus.hasStudent()) {
-      this.bus.unselectStudent();
-    }
+    // if (this.bus.hasStudent()) {
+    //   this.bus.unselectStudent();
+    // }
   }
 })
