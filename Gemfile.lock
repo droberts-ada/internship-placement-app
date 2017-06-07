@@ -101,6 +101,8 @@ GEM
       os (~> 0.9)
       signet (~> 0.7)
     hashie (3.5.5)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     hurley (0.2)
     i18n (0.7.0)
@@ -280,6 +282,7 @@ DEPENDENCIES
   faker
   foundation-rails
   google-api-client
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   jquery-turbolinks

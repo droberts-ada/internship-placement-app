@@ -9,6 +9,35 @@ private
     end
   end
 
+  REFRESH_URL = 'https://accounts.google.com/o/oauth2/token'
+  def refresh_token
+    # Refresh auth token from google_oauth2.
+    # See https://github.com/zquestz/omniauth-google-oauth2/issues/37
+    options = {
+      body: {
+        client_id: ENV["GOOGLE_OAUTH_CLIENT_ID"],
+        client_secret: ENV["GOOGLE_OAUTH_CLIENT_SECRET"],
+        refresh_token: @current_user.oauth_token},
+        grant_type: 'refresh_token'
+      },
+      headers: {
+        'Content-Type' => 'application/x-www-form-urlencoded'
+      }
+    }
+
+    refresh = HTTParty.post(REFRESH_URL, options)
+
+    if refresh.code == 200
+      response = refresh.parsed_response
+      @current_user.oauth_token = response['access_token']
+      @current_user.token_expires_at = Time.now + response['expires_in']
+      @current_user.save!
+    else
+      # TODO: error handling
+      raise
+    end
+  end
+
   def require_login
     lookup_user
     if @current_user.nil?
@@ -18,11 +47,8 @@ private
 
     elsif @current_user.token_expires_at < Time.now
       # TODO DPR: figure out how to refresh a token
-      flash[:status] = :failure
-      flash[:message] = "Auth token expired, pleas re-log in"
-      session[:user_id] = nil
-      @current_user = nil
-      redirect_to root_path
+
+      refresh_token
     end
   end
 end

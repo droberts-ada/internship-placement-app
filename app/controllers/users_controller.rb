@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :lookup_user
+  
   def auth_callback
     auth_hash = request.env['omniauth.auth']
 
@@ -12,10 +14,12 @@ class UsersController < ApplicationController
       flash[:errors] = user.errors.messages
 
     end
-    
+
     redirect_to root_path
   end
 
   def logout
+    session[:user_id] = nil
+    redirect_to root_path
   end
 end
