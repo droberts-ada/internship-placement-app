@@ -11,13 +11,13 @@ private
 
   REFRESH_URL = 'https://accounts.google.com/o/oauth2/token'
   def refresh_token
-    # Refresh auth token from google_oauth2.
+    # Refresh auth token from google_oauth2
     # See https://github.com/zquestz/omniauth-google-oauth2/issues/37
     options = {
       body: {
         client_id: ENV["GOOGLE_OAUTH_CLIENT_ID"],
         client_secret: ENV["GOOGLE_OAUTH_CLIENT_SECRET"],
-        refresh_token: @current_user.oauth_token},
+        refresh_token: @current_user.refresh_token,
         grant_type: 'refresh_token'
       },
       headers: {
@@ -25,16 +25,29 @@ private
       }
     }
 
+    puts
+    puts "Refreshing oauth token for user #{@current_user.email}"
+
     refresh = HTTParty.post(REFRESH_URL, options)
+
+    puts "Got response for refresh"
+    puts refresh
+    puts
 
     if refresh.code == 200
       response = refresh.parsed_response
       @current_user.oauth_token = response['access_token']
       @current_user.token_expires_at = Time.now + response['expires_in']
-      @current_user.save!
+      unless @current_user.save
+        flash[:status] = :failure
+        flash[:message] = "Refreshed user auth token, but could not write to database!"
+        flash[:errors] = @current_user.errors.messages
+        render 'main/index'
+      end
     else
-      # TODO: error handling
-      raise
+      flash[:status] = :failure
+      flash[:message] = "Refreshing user auth token failed with status \'#{refresh['error']}\': #{refresh['error_description']}"
+      render 'main/index'
     end
   end
 
@@ -46,9 +59,9 @@ private
       redirect_to root_path
 
     elsif @current_user.token_expires_at < Time.now
-      # TODO DPR: figure out how to refresh a token
-
+      # Token is expired -> need to refresh
       refresh_token
+
     end
   end
 end

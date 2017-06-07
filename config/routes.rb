@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   # Authentication
+  get '/login', to: 'users#login', as: 'login'
   get '/auth/:provider/callback', to: 'users#auth_callback', as: 'auth_callback'
   get '/logout', to: 'users#logout', as: 'logout'
 

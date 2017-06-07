@@ -1,8 +1,21 @@
 class UsersController < ApplicationController
   skip_before_action :lookup_user
-  
+
+  def login
+    redirect_to 'auth/google_oauth2'
+  end
+
   def auth_callback
+    puts
+    puts ">>>> IN AUTH CALLBACK <<<<"
+
     auth_hash = request.env['omniauth.auth']
+
+    puts "auth_hash"
+    puts auth_hash
+    puts auth_hash["credentials"]
+    puts auth_hash['credentials']['refresh_token']
+    puts "done"
 
     user = User.from_omniauth(auth_hash)
     if user.persisted?
