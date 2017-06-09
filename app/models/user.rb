@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   has_many :classrooms
-  # validates :name, presence: true
-  # validates :email, presence: true,
+  validates :name, presence: true
+
+  # Must have an email, and email must end with
+  # @adadevelopersacademy.org
+  validates :email, presence: true, format: { with: /.+@adadevelopersacademy\.org\z/, message: "Must be a valid email address under the adadevelopersacademy.org domain" }
   def self.from_omniauth(auth)
     # Check if the user already exists
     user = User.find_by(oauth_provider: auth.provider, oauth_uid: auth.uid)
