@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :lookup_user
+  skip_before_action :require_login
 
   def login
     redirect_to 'auth/google_oauth2'
