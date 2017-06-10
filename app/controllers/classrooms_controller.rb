@@ -10,20 +10,26 @@ class ClassroomsController < ApplicationController
   end
 
   def create
-    @classroom = Classroom.new(classroom_params)
-    @classroom.creator = @current_user
-
-    if @classroom.save
-      flash[:status] = :success
-      flash[:message] = "created classroom #{@classroom.id}"
+    if params[:generate]
+      @classroom = ClassroomGenerator::build_classroom
       redirect_to classroom_path(@classroom)
 
     else
-      flash[:status] = :failure
-      flash[:message] = "could not create classroom"
-      flash[:errors] = @classroom.errors.messages
-      render :new
+      @classroom = Classroom.new(classroom_params)
+      @classroom.creator = @current_user
 
+      if @classroom.save
+        flash[:status] = :success
+        flash[:message] = "created classroom #{@classroom.id}"
+        redirect_to classroom_path(@classroom)
+
+      else
+        flash[:status] = :failure
+        flash[:message] = "could not create classroom"
+        flash[:errors] = @classroom.errors.messages
+        render :new
+
+      end
     end
   end
 

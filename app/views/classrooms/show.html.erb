@@ -1,6 +1,6 @@
 <div class="row">
   <section class="columns large-9 small-12">
-    <h2><%= @classroom.name %></h2>
+    <h1>Classroom <%= @classroom.name %></h1>
     <p>Added <%= time_ago_in_words(@classroom.created_at) %> ago by <%= @classroom.creator.name %></p>
 
     <p>Interview results spreadsheet: <%= link_to @classroom.interview_result_spreadsheet || "Not Set", "https://docs.google.com/spreadsheets/d/#{@classroom.interview_result_spreadsheet}" %></p>
@@ -32,7 +32,7 @@
     </p>
 
     <section class="columns small-12">
-      <h3><%= @classroom.placements.count %> Placements</h3>
+      <h2><%= @classroom.placements.count %> Placements</h2>
       <table>
         <thead>
           <tr>
@@ -58,7 +58,7 @@
     </section>
 
     <section class="columns large-6 small-12">
-      <h3><%= @classroom.students.count %> Students</h3>
+      <h2><%= @classroom.students.count %> Students</h2>
       <table>
         <thead>
           <tr>
@@ -76,7 +76,7 @@
     </section>
 
     <section class="columns large-6 small-12">
-      <h3><%= @classroom.companies.count %> Companies</h3>
+      <h2><%= @classroom.companies.count %> Companies</h2>
       <table>
         <thead>
           <tr>
@@ -94,7 +94,7 @@
     </section>
 
     <section class="columns small-12">
-      <h3><%= @classroom.rankings.count %> Rankings</h3>
+      <h2><%= @classroom.rankings.count %> Rankings</h2>
       <table>
         <thead>
           <tr>

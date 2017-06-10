@@ -2,6 +2,7 @@
 
 <section class="button-group">
   <%= link_to "Add a new Classroom", new_classroom_path, class: "button" %>
+  <%= link_to "Generate a test Classroom", classrooms_path(generate: true), method: :post, class: "button" %>
 </section>
 
 <table>
