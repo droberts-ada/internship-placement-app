@@ -1,3 +1,5 @@
+require 'solver'
+
 class Placement < ApplicationRecord
   belongs_to :classroom
   has_many :pairings

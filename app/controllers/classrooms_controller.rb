@@ -1,4 +1,6 @@
 require 'classroom_generator'
+require 'interview_result_spreadsheet'
+require 'student_preference_spreadsheet'
 
 class ClassroomsController < ApplicationController
   before_action :find_classroom, except: [:index, :new, :create]

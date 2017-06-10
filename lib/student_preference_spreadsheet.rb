@@ -1,3 +1,5 @@
+require 'spreadsheet'
+
 class StudentPreferenceSpreadsheet < Spreadsheet
   EXPECTED_HEADERS = ["Timestamp", "Student Name", "Positive Feelings", "Neutral Feelings", "Negative Feelings"].sort.freeze
   FEELING_POINTS = {

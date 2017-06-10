@@ -1,3 +1,5 @@
+require 'access_token'
+
 class Spreadsheet
   class SpreadsheetError < StandardError; end
 

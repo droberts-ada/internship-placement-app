@@ -1,3 +1,5 @@
+require 'spreadsheet'
+
 class InterviewResultSpreadsheet < Spreadsheet
   EXPECTED_HEADERS = ["Timestamp", "Interviewer Name", "Company", "Student Name", "Hiring Decision", "Reason for Hiring Decision"].sort.freeze
   IGNORE_HEADERS = ["Timestamp", "Interviewer Name"].freeze
