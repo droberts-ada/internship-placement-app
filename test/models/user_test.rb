@@ -12,6 +12,7 @@ class UserTest < ActiveSupport::TestCase
       user.wont_be :valid?
       user.errors.messages.must_include :name
     end
+    
 
     it "requires an email" do
       user = User.new(name: "Ada Lovelace")
