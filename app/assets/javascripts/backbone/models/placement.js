@@ -1,5 +1,5 @@
 const Placement = Backbone.Model.extend({
-  urlRoot: 'http://localhost:3000/placements/',
+  urlRoot: window.location.origin + '/placements/',
 
   constructor: function(attributes, options) {
     this.companies = new CompanyCollection();
