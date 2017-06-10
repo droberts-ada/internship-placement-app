@@ -32,14 +32,14 @@
 <script type="text/template" id="placement-card-template">
   <div class="placement-container">
     <a href="<#- url #>">
-      <h3>
-        Placement <#- name ? name : id #>
+      <h3 title="<#- name ? name : id #>">
+        <#- name ? name : id #>
       </h3>
       <p>
         Classroom: <#- classroom_name #>
       </p>
       <p>
-        <#- pairing_count #> of <#- student_count #> students paired
+        <#- pairing_count #> of <#- student_count #> paired, score <#- score #>
       </p>
       <p>
         Last modified <#- updated_at #>
@@ -57,12 +57,13 @@
       {
         id: <%= placement.id %>,
         name: "<%= placement.name %>",
-        updated_at: "<%= placement.updated_at %>",
+        updated_at: "<%= time_ago_in_words(placement.updated_at) %> ago",
         classroom_id: <%= placement.classroom_id %>,
         classroom_name: "<%= placement.classroom.name %>",
         student_count: <%= placement.classroom.students.length %>,
         pairing_count: <%= placement.pairings.length %>,
-        url: "<%= placement_path(placement) %>"
+        url: "<%= placement_path(placement) %>",
+        score: "<%= placement.score %>"
       },
     <% end %>
   ]

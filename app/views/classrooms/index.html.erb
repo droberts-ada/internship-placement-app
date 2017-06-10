@@ -27,7 +27,7 @@
           <%= link_to "Blank", classroom_placements_path(classroom, run_solver: false), method: :post, class: "button" %>
           <%= link_to "Filled", classroom_placements_path(classroom, run_solver: true), method: :post, class: "button" %>
         </td>
-        <td><%= classroom.created_at %></td>
+        <td><%= time_ago_in_words(classroom.created_at).capitalize %> ago</td>
         <td><%= classroom.creator.name %></td>
       </tr>
     <% end %>

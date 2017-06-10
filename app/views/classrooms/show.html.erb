@@ -1,7 +1,7 @@
 <div class="row">
   <section class="columns large-9 small-12">
     <h2><%= @classroom.name %></h2>
-    <p>Added <%= @classroom.created_at %> by <%= @classroom.creator.name %></p>
+    <p>Added <%= time_ago_in_words(@classroom.created_at) %> ago by <%= @classroom.creator.name %></p>
 
     <p>Interview results spreadsheet: <%= link_to @classroom.interview_result_spreadsheet || "Not Set", "https://docs.google.com/spreadsheets/d/#{@classroom.interview_result_spreadsheet}" %></p>
     <p>Student ranking spreadsheet: <%= link_to @classroom.student_preference_spreadsheet || "Not Set", "https://docs.google.com/spreadsheets/d/#{@classroom.student_preference_spreadsheet}" %></p>
@@ -10,8 +10,10 @@
   </section>
 
   <section class="button-group columns large-3 small-12">
-    <%= link_to "Classroom List", classrooms_path, class: "button" %>
+    <%= link_to "Back to Classroom List", classrooms_path, class: "button" %>
     <%= link_to "Edit Classroom", edit_classroom_path(@classroom), class: "button" %>
+    <%= link_to "New Empty Placement", classroom_placements_path(@classroom, run_solver: false), method: :post, class: "button" %>
+    <%= link_to "New Seeded Placement", classroom_placements_path(@classroom, run_solver: true), method: :post, class: "button" %>
     <%= link_to "Delete Classroom", classroom_path, method: :delete, data: { confirm: "This will destroy all placements for this classroom! Are you absolutely sure?" }, class: "alert button" %>
   </section>
 </div>
@@ -48,7 +50,7 @@
               <td><%= placement.pairings.count %> of <%= @classroom.students.count %></td>
               <td><%= placement.score %></td>
               <td>TODO DPR</td>
-              <td><%= placement.created_at %>
+              <td><%= time_ago_in_words(placement.updated_at).capitalize %> ago</td>
             </tr>
           <% end %>
         </tbody>
