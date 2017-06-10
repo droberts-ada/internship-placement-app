@@ -1,3 +1,5 @@
+require 'classroom_generator'
+
 class ClassroomsController < ApplicationController
   before_action :find_classroom, except: [:index, :new, :create]
 
