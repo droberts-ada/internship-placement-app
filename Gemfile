@@ -5,6 +5,8 @@ ruby "2.3.1"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
+gem 'pg'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -64,13 +66,6 @@ group :development, :test do
   gem 'dotenv-rails'
 
   gem 'awesome_print'
-
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg'
 end
 
 group :development do

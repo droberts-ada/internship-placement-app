@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170607232924) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "classrooms", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                                 null: false
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.string   "interview_result_spreadsheet"
     t.string   "student_preference_spreadsheet"
     t.integer  "interviews_per_slot",            default: 6
-    t.index ["creator_id"], name: "index_classrooms_on_creator_id"
+    t.index ["creator_id"], name: "index_classrooms_on_creator_id", using: :btree
   end
 
   create_table "companies", force: :cascade do |t|
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "classroom_id"
-    t.index ["classroom_id"], name: "index_companies_on_classroom_id"
+    t.index ["classroom_id"], name: "index_companies_on_classroom_id", using: :btree
   end
 
   create_table "pairings", force: :cascade do |t|
@@ -38,9 +41,9 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.integer  "company_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.index ["company_id"], name: "index_pairings_on_company_id"
-    t.index ["placement_id"], name: "index_pairings_on_placement_id"
-    t.index ["student_id"], name: "index_pairings_on_student_id"
+    t.index ["company_id"], name: "index_pairings_on_company_id", using: :btree
+    t.index ["placement_id"], name: "index_pairings_on_placement_id", using: :btree
+    t.index ["student_id"], name: "index_pairings_on_student_id", using: :btree
   end
 
   create_table "placements", force: :cascade do |t|
@@ -48,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.datetime "updated_at",   null: false
     t.integer  "classroom_id"
     t.string   "name"
-    t.index ["classroom_id"], name: "index_placements_on_classroom_id"
+    t.index ["classroom_id"], name: "index_placements_on_classroom_id", using: :btree
   end
 
   create_table "rankings", force: :cascade do |t|
@@ -59,8 +62,8 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "interview_result_reason"
-    t.index ["company_id"], name: "index_rankings_on_company_id"
-    t.index ["student_id"], name: "index_rankings_on_student_id"
+    t.index ["company_id"], name: "index_rankings_on_company_id", using: :btree
+    t.index ["student_id"], name: "index_rankings_on_student_id", using: :btree
   end
 
   create_table "students", force: :cascade do |t|
@@ -68,7 +71,7 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "classroom_id"
-    t.index ["classroom_id"], name: "index_students_on_classroom_id"
+    t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,4 +86,8 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.string   "refresh_token"
   end
 
+  add_foreign_key "classrooms", "users", column: "creator_id"
+  add_foreign_key "companies", "classrooms"
+  add_foreign_key "placements", "classrooms"
+  add_foreign_key "students", "classrooms"
 end
