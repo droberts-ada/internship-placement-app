@@ -4,11 +4,11 @@ class InterviewResultSpreadsheet < Spreadsheet
   EXPECTED_HEADERS = ["Timestamp", "Interviewer Name", "Company", "Student Name", "Hiring Decision", "Reason for Hiring Decision"].sort.freeze
   IGNORE_HEADERS = ["Timestamp", "Interviewer Name"].freeze
   RESULT_POINTS = {
-    "Strong Yes" => 5,
-    "Inclined Yes" => 4,
-    "No Preference" => 3,
-    "Inclined No" => 2,
-    "Strong No" => 1
+    "5" => 5,
+    "4" => 4,
+    "3" => 3,
+    "2" => 2,
+    "1" => 1
   }.freeze
 
   def populate

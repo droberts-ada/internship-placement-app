@@ -66,7 +66,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @classroom.students.each do |student| %>
+          <% @classroom.students.order(:name).each do |student| %>
             <tr>
               <td><%= student.name %></td>
             </tr>
@@ -84,7 +84,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @classroom.companies.each do |company| %>
+          <% @classroom.companies.order(:name).each do |company| %>
             <tr>
               <td><%= company.name %></td>
             </tr>
@@ -106,7 +106,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @classroom.students.each do |student| %>
+          <% @classroom.students.order(:name).each do |student| %>
             <% student.rankings.each_with_index do |ranking, i| %>
               <tr>
                 <td><%= i == 0 ? student.name : "" %></td>
