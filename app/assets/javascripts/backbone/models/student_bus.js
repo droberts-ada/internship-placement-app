@@ -3,36 +3,56 @@ const StudentBus = Backbone.Model.extend({
     // Underscore templates can't infer absent values,
     // so we must explicitly set student to null
     student: null,
+    company: null,
     score: 0
   },
 
-  selectStudent: function(student) {
-    currentStudent = this.get('student');
-    if (currentStudent) {
-      if (currentStudent == student) {
-        console.log("Reselected student " + student.get('name'));
+  select: function(role, target) {
+    current = this.get(role);
+    if (current) {
+      if (current == target) {
+        console.log("Reselected " + role + " " + target.get('name'));
         return;
       } else {
-        this.unselectStudent();
+        this.unselect(role, target);
       }
     }
 
-    this.set('student', student);
-    student.set('selected', true);
+    this.set(role, target);
+    target.set('selected', true);
+    this.trigger('select', role, target);
+  },
+
+  selectStudent: function(student) {
+    this.select('student', student);
     this.listenTo(student, 'move', this.unselectStudent);
-    this.trigger('select', student);
+  },
+
+  selectCompany: function(company) {
+    this.select('company', company)
+  },
+
+  unselect: function(role) {
+    var target = this.get(role);
+    if (target) {
+      target.set('selected', false);
+      this.set(role, null);
+      this.trigger('unselect', role);
+    } else {
+      console.error("student_bus.unselect() called with role " + role + ", but no such role was selected!");
+    }
+    return target;
   },
 
   unselectStudent: function() {
-    var student = this.get('student');
+    var student = this.unselect('student');
     if (student) {
       this.stopListening(student, 'move');
-      student.set('selected', false);
-      this.set('student', null);
-      this.trigger('unselect');
-    } else {
-      console.error("student_bus.unselectStudent() called, but no student was selected!");
     }
+  },
+
+  unselectCompany: function() {
+    this.unselect('company');
   },
 
   hasStudent: function() {
@@ -40,7 +60,7 @@ const StudentBus = Backbone.Model.extend({
     return !!this.get('student');
   },
 
-  student: function() {
-    return this.get('student');
+  hasCompany: function() {
+    return !!this.get('company');
   }
 });

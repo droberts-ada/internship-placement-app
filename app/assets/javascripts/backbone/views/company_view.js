@@ -23,21 +23,26 @@ const CompanyView = Backbone.View.extend({
     this.render();
   },
 
-  showMatchQuality: function(student) {
-    const score = student.scoreFor(this.model);
+  showMatchQuality: function(role, target) {
+    if (role == 'student') {
+      var student = target;
+      const score = student.scoreFor(this.model);
 
-    // Clear any existing score display
-    this.hideMatchQuality();
+      // Clear any existing score display
+      this.hideMatchQuality();
 
-    // score will be undefined (falsey) if the student
-    // didn't interview at this company
-    if (score) {
-      this.$el.addClass(Util.classForScore(score));
+      // score will be undefined (falsey) if the student
+      // didn't interview at this company
+      if (score) {
+        this.$el.addClass(Util.classForScore(score));
+      }
     }
   },
 
-  hideMatchQuality: function() {
-    Util.removeScoreClasses(this.el);
+  hideMatchQuality: function(role) {
+    if (role == 'student') {
+      Util.removeScoreClasses(this.el);
+    }
   },
 
   addCard: function(student) {
@@ -127,15 +132,19 @@ const CompanyView = Backbone.View.extend({
   },
 
   onClick: function(event) {
+    console.log("In CompanyView.onClick")
     if (this.bus.dragging) {
       // Drag event on a selected student generates
       // a click here, so make sure we're not in
       // the middle of a drag before doing anything.
       return;
-    }
-    console.log("In CompanyView.onClick")
 
-    this.addStudent();
+    } else if (this.bus.hasStudent()) {
+      this.addStudent();
+
+    } else {
+      this.bus.selectCompany(this.model);
+    }
   },
 
   onDragover: function(event) {
