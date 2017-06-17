@@ -51,7 +51,7 @@ which we don't really want for a big blob of JSON
 <script type="text/template" id="company-template">
   <!-- The inner div is required to get padding between foundation columns. *sigh* -->
   <div class="company">
-    <h3 title="<#- name #>">
+    <h3 title="<#- name #>" class="elide">
       <#- name #>
     </h3>
     <ul class="student-list">
@@ -61,7 +61,7 @@ which we don't really want for a big blob of JSON
 
 <script type="text/template" id="student-template">
   <div class="row" draggable="true">
-    <h4 class="large-9 columns">
+    <h4 class="large-9 columns elide">
       <#- name #>
     </h4>
     <# if (score) { #>

@@ -98,7 +98,6 @@ const CompanyView = Backbone.View.extend({
     });
 
     if (this.model.get('selected')) {
-      console.log("adding selected class to company " + this.model.get('name'));
       this.$el.addClass('selected');
     } else {
       this.$el.removeClass('selected');
@@ -154,7 +153,6 @@ const CompanyView = Backbone.View.extend({
       this.bus.unselectCompany();
 
     } else {
-      console.log("selecting company " + this.model.get('name'));
       this.bus.selectCompany(this.model);
     }
   },
