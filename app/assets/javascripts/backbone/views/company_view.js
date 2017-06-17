@@ -1,5 +1,6 @@
 const CompanyView = Backbone.View.extend({
   tagName: 'li',
+  className: 'company-outer',
   initialize: function(options) {
     // TODO: compile once and share
     this.template = _.template($('#company-template').html());
