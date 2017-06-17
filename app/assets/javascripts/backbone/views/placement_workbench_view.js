@@ -90,7 +90,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
         if (row) {
           this.companyListElement.append(row);
         }
-        row = $('<div class="row"></div>');
+        row = $('<div class="row fullWidth"></div>');
       }
       companyView.$el.addClass('large-3 columns');
       row.append(companyView.el);
