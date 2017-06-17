@@ -11,7 +11,7 @@ class User < ApplicationRecord
     if user
       # TODO: figure out how to actually refresh the auth token
       user.oauth_token = auth.credentials.token
-      user.refresh_token = auth.credentials.refresh_token
+      user.refresh_token ||= auth.credentials.refresh_token
       user.token_expires_at = Time.at(auth.credentials.expires_at)
       user.save!
       return user
