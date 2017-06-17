@@ -5,8 +5,9 @@ const Student = Backbone.Model.extend({
   },
 
   initialize: function(attributes, options) {
-    this.rankings = new RankingCollection(attributes.rankings);
+    this.rankings = new RankingCollection(attributes.rankings, options);
     this.listenTo(this, 'move', this.onMove);
+    this.updateTooltipText();
   },
 
   onMove: function(student, company) {
@@ -23,12 +24,15 @@ const Student = Backbone.Model.extend({
     } else {
       this.set('score', 0);
     }
+
+    this.currentCompany = company;
+    this.updateTooltipText();
   },
 
   scoreFor: function(company) {
     var ranking = this.rankings.get(company.id);
     if (ranking) {
-      return ranking.get('interview_result') * ranking.get('student_preference');
+      return ranking.score();
     } else {
       return undefined;
     }
@@ -36,5 +40,25 @@ const Student = Backbone.Model.extend({
 
   interviewedWith: function(company) {
     return !!this.rankings.get(company.id);
+  },
+
+  updateTooltipText: function() {
+    var text = `${this.get('name')}\n`;
+
+    text += '<interview-result>/<student-preference>/<score>';
+    this.rankings.each(function(ranking) {
+      text += '\n\n';
+      text += ranking.tooltipText();
+    });
+
+    if (this.currentCompany) {
+      var ranking = this.rankings.get(this.currentCompany.id);
+      if (ranking) {
+        text += `\n\nComments from ${this.currentCompany.get('name')}:\n`;
+        text += ranking.get('interview_result_reason');
+      }
+    }
+
+    this.set('tooltipText', text);
   }
 });
