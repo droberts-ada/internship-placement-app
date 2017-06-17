@@ -96,6 +96,13 @@ const CompanyView = Backbone.View.extend({
       }.bind(this)
     });
 
+    if (this.model.get('selected')) {
+      console.log("adding selected class to company " + this.model.get('name'));
+      this.$el.addClass('selected');
+    } else {
+      this.$el.removeClass('selected');
+    }
+
     return this;
   },
 
@@ -142,7 +149,11 @@ const CompanyView = Backbone.View.extend({
     } else if (this.bus.hasStudent()) {
       this.addStudent();
 
+    } else if (this.model.get('selected')){
+      this.bus.unselectCompany();
+
     } else {
+      console.log("selecting company " + this.model.get('name'));
       this.bus.selectCompany(this.model);
     }
   },

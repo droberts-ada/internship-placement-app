@@ -48,12 +48,20 @@ const StudentView = Backbone.View.extend({
   },
 
   onClick: function(event) {
+    event.stopPropagation();
     console.log("Student clicked");
+
+    // Ignore the click that results from a drag
     if (this.dragging) {
-      // ignore the click that results from a drag
       return;
+
     }
 
+    // If a company was selected, unselect it before
+    // selecting the student
+    if (this.bus.hasCompany()) {
+      this.bus.unselectCompany();
+    }
 
     if (this.model.get('selected')) {
       this.bus.unselectStudent();
@@ -64,11 +72,17 @@ const StudentView = Backbone.View.extend({
 
     }
     this.bus.selectStudent(this.model);
-    event.stopPropagation();
   },
 
   onDragStart: function(event) {
     console.log("In drag start");
+
+    // If a company was selected, unselect it before
+    // selecting the student
+    if (this.bus.hasCompany()) {
+      this.bus.unselectCompany();
+    }
+
     // TODO: when selected, the element is redrawn, removing it from under the mouse!
     this.bus.selectStudent(this.model);
     this.bus.dragging = true;

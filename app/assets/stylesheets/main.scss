@@ -62,6 +62,13 @@ h4 {
   padding: 7px;
 }
 
+.selected .company {
+  border-style: dashed;
+  border-width: 3px;
+  border-color: purple;
+  padding: 4px;
+}
+
 .excellent-match .company {
   background-color: #49bcff;
 }
