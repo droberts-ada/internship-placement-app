@@ -14,13 +14,14 @@ const Util = {
     } else if (score > 9) {
       return 'match mediocre-match';
     } else if (score) {
-      return 'bad-match';
+      return 'match bad-match';
     } else {
       return undefined;
     }
   },
   removeScoreClasses: function(element) {
     element = $(element);
+    element.removeClass('match');
     element.removeClass('excellent-match');
     element.removeClass('good-match');
     element.removeClass('mediocre-match');

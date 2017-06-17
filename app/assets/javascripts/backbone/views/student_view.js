@@ -25,7 +25,6 @@ const StudentView = Backbone.View.extend({
       // If a company is selected, display the score for that company
       var company = this.bus.company();
       score = this.model.scoreFor(company);
-      console.log("Student " + this.model.get('name') + ": selected company " + company.get('name') + ", score " + score);
 
     } else {
       // If no company is selected, display the score for the

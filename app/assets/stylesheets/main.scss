@@ -2,6 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// Colors
+$selected-color: purple;
+$excellent-color: #49bcff;
+$good-color: #39b737;
+$mediocre-color: #e2dd36;
+$bad-color: #ef3232;
+
+
 ul, ul ul {
   list-style: none;
   margin-left: 0;
@@ -42,6 +50,9 @@ h4 {
   margin: 0;
 }
 
+//
+// COMPANIES
+//
 #companies li {
   padding-left: 3px;
   padding-right: 3px;
@@ -65,26 +76,29 @@ h4 {
 .selected .company {
   border-style: dashed;
   border-width: 3px;
-  border-color: purple;
+  border-color: $selected-color;
   padding: 4px;
 }
 
 .excellent-match .company {
-  background-color: #49bcff;
+  background-color: $excellent-color;
 }
 
 .good-match .company {
-  background-color: #39b737;
+  background-color: $good-color;
 }
 
 .mediocre-match .company {
-  background-color: #e2dd36;
+  background-color: $mediocre-color;
 }
 
 .bad-match .company {
-  background-color: #ef3232;
+  background-color: $bad-color;
 }
 
+//
+// STUDENTS
+//
 .student {
   background-color: #e2e2e2;
   border-radius: 5px;
@@ -95,14 +109,6 @@ h4 {
   box-sizing: border-box;
 }
 
-.student:first-child {
-  margin-top: 0px;
-}
-
-.student:last-child {
-  margin-bottom: 0px;
-}
-
 .student h4 {
   margin-bottom: 0px;
 }
@@ -111,40 +117,49 @@ h4 {
   background-color: #808080;
 }
 
-.excellent-match.student {
+.match.student {
   border-style: solid;
   border-width: 3px;
-  border-color: #49bcff;
   padding: 7px;
+}
+
+.excellent-match.student {
+  border-color: $excellent-color;
 }
 
 .good-match.student {
-  border-style: solid;
-  border-width: 3px;
-  border-color: #39b737;
-  padding: 7px;
+  border-color: $good-color;
 }
 
 .mediocre-match.student {
-  border-style: solid;
-  border-width: 3px;
-  border-color: #e2dd36;
-  padding: 7px;
+  border-color: $mediocre-color;
 }
 
 .bad-match.student {
-  border-style: solid;
-  border-width: 3px;
-  border-color: #ef3232;
-  padding: 7px;
+  border-color: $bad-color;
 }
 
+// Needs to go last so it overrides match quality
 .student.selected {
   border-style: dashed;
   border-width: 3px;
-  border-color: purple;
+  border-color: $selected-color;
   padding: 7px;
 }
+
+// Less padding for the first and last
+// student in a company list
+.student:first-child {
+  margin-top: 0px;
+}
+
+.student:last-child {
+  margin-bottom: 0px;
+}
+
+//
+// BUS
+//
 
 #bus-details {
   position: fixed;
