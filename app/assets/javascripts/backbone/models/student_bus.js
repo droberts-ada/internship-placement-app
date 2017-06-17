@@ -21,6 +21,7 @@ const StudentBus = Backbone.Model.extend({
     this.set(role, target);
     target.set('selected', true);
     this.trigger('select', role, target);
+    this.trigger('select-' + role, target);
   },
 
   selectStudent: function(student) {
@@ -38,6 +39,7 @@ const StudentBus = Backbone.Model.extend({
       target.set('selected', false);
       this.set(role, null);
       this.trigger('unselect', role);
+      this.trigger('unselect-' + role, target);
     } else {
       console.error("student_bus.unselect() called with role " + role + ", but no such role was selected!");
     }
@@ -62,5 +64,13 @@ const StudentBus = Backbone.Model.extend({
 
   hasCompany: function() {
     return !!this.get('company');
+  },
+
+  student: function() {
+    return this.get('student');
+  },
+
+  company: function() {
+    return this.get('company');
   }
 });
