@@ -67,16 +67,25 @@ class ClassroomsController < ApplicationController
   end
 
   def populate
-    # flash[:status] = :failure
-    # flash[:message] = "Not yet implemented"
-    # redirect_to classroom_path(params[:classroom_id])
-    interview_sheet = InterviewResultSpreadsheet.new(@classroom.interview_result_spreadsheet, @current_user)
-    interviews = interview_sheet.populate
 
-    student_sheet = StudentPreferenceSpreadsheet.new(@classroom.student_preference_spreadsheet, @current_user)
-    preferences = student_sheet.populate
+    begin
+      interview_sheet = InterviewResultSpreadsheet.new(@classroom.interview_result_spreadsheet, @current_user)
+      interviews = interview_sheet.populate
 
-    @classroom.from_spreadsheets(interviews, preferences)
+      student_sheet = StudentPreferenceSpreadsheet.new(@classroom.student_preference_spreadsheet, @current_user)
+      preferences = student_sheet.populate
+
+      @classroom.from_spreadsheets(interviews, preferences)
+
+    rescue Google::Apis::ClientError, Spreadsheet::SpreadsheetError => error
+      flash[:status] = :failure
+      flash[:message] = "Could not parse spreadsheets: " + error.message
+    
+    rescue StandardError => error
+      flash[:status] = :failure
+      flash[:message] = error.message
+
+    end
 
     # render :populate
     redirect_to classroom_path(@classroom)

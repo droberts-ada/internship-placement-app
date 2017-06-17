@@ -77,7 +77,8 @@ class Classroom < ApplicationRecord
 
       # Figure out how many internship slots each company has
       self.companies.each do |company|
-        company.slots = company.rankings.count / self.interviews_per_slot + 1
+        company.slots = company.rankings.count / (self.interviews_per_slot + 1) + 1
+        puts "Company #{company.name} had #{company.rankings.count} interviews -> #{company.slots} slots"
         company.save!
       end
 

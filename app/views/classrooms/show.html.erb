@@ -27,7 +27,7 @@
 
   <% else %>
     <p>
-      <%= button_to "Reload from spreadsheets", populate_classroom_path(@classroom), class: "warning button" %>
+      <%= button_to "Reload from spreadsheets", populate_classroom_path(@classroom), class: "warning button", data: { confirm: "This will destroy all placements for this classroom! Are you absolutely sure?" } %>
       Warning: this will destroy any existing placements for this classroom!
     </p>
 
@@ -81,12 +81,14 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Slots</th>
           </tr>
         </thead>
         <tbody>
           <% @classroom.companies.order(:name).each do |company| %>
             <tr>
               <td><%= company.name %></td>
+              <td><%= company.slots %></td>
             </tr>
           <% end %>
         </tbody>

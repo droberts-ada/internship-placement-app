@@ -13,7 +13,14 @@ class PlacementsController < ApplicationController
     @placement = Placement.build(classroom_id: params[:classroom_id])
     if @placement.save()
       if params[:run_solver]
-        @placement.solve
+        begin
+          @placement.solve
+        rescue StandardError => error
+          flash[:status] = :failure
+          flash[:message] = error.message
+          redirect_to classroom_path(params[:classroom_id])
+          return
+        end
       end
       redirect_to placement_path(@placement)
     else
