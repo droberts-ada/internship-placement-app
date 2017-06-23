@@ -129,7 +129,28 @@ const PlacementWorkbenchView = Backbone.View.extend({
 
   onSave: function() {
     console.debug("Saving placement");
-    result = this.model.save(null, { fromSave: true });
+    result = this.model.save(null, {
+      fromSave: true,
+      success: (model, response) => {
+        var name = model.get('name');
+        name = name ? name : model.id;
+        toastr.success("Successfully saved placement " + name);
+      },
+      error: (model, response) => {
+        console.log("In model save error callback, response:");
+        console.log(response.responseJSON);
+        var name = model.get('name');
+        name = name ? name : model.id;
+        var text = "Could not save placement " + name + ": " + response.responseJSON.message;
+
+        _.mapObject(response.responseJSON.errors, (value, key) => {
+          text += `\n  ${value}: ${key}`
+        });
+
+        // console.log(response);
+        toastr.error(text);
+      }
+    });
     console.log(result);
   },
 

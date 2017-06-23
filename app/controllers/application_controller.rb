@@ -3,6 +3,31 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
 private
+  def report_error(code, message, errors: nil, redirect_path: root_path, render_view: nil)
+    respond_to do |format|
+      format.html do
+        flash[:status] = :failure
+        flash[:message] = message
+        flash[:errors] = errors
+        if render_view
+          render render_view
+        elsif redirect_path
+          redirect_to redirect_path
+        end
+      end
+      format.json do
+        response = {
+          status: :failure,
+          message: message
+        }
+        if errors
+          response[:errors] = errors
+        end
+        render status: code, json: response
+      end
+    end
+  end
+
   def lookup_user
     if session[:user_id]
       @current_user = User.find_by(id: session[:user_id])
@@ -39,24 +64,24 @@ private
       @current_user.oauth_token = response['access_token']
       @current_user.token_expires_at = Time.now + response['expires_in']
       unless @current_user.save
-        flash[:status] = :failure
-        flash[:message] = "Refreshed user auth token, but could not write to database!"
-        flash[:errors] = @current_user.errors.messages
-        render 'main/index'
+        report_error(:unauthorized,
+            "Refreshed user auth token, but could not write to database!",
+            errors: @current_user.errors.messages,
+            render_view: 'main/index')
       end
     else
-      flash[:status] = :failure
-      flash[:message] = "Refreshing user auth token failed with status \'#{refresh['error']}\': #{refresh['error_description']}"
-      render 'main/index'
+      report_error(:unauthorized,
+          "Refreshing user auth token failed with status \'#{refresh['error']}\': #{refresh['error_description']}",
+          render_view: 'main/index')
     end
   end
 
   def require_login
     lookup_user
     if @current_user.nil?
-      flash[:status] = :failure
-      flash[:message] = "You must be logged in to see this page"
-      redirect_to root_path
+      report_error(:unauthorized,
+          "You must be logged in to see this page",
+          redirect_path: root_path)
 
     elsif @current_user.token_expires_at < Time.now
       # Token is expired -> need to refresh

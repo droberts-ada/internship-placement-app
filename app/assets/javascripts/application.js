@@ -28,6 +28,7 @@
 //= require backbone_datalink
 //= require backbone/internship_placer
 //= require backbone-undo/Backbone.Undo
+//= require toastr/toastr
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
