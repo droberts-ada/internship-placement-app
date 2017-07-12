@@ -53,6 +53,14 @@ h4 {
   margin: 0;
 }
 
+#placement-list > li > a {
+  color: inherit;
+}
+
+#placement-list .placement-container:hover {
+  background-color: #b0b0b0;
+}
+
 //
 // COMPANIES
 //

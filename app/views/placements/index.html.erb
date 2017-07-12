@@ -30,8 +30,8 @@
 <!-- Underscore templates are set to use #
      instead of %, to not conflict with ERB -->
 <script type="text/template" id="placement-card-template">
-  <div class="placement-container">
-    <a href="<#- url #>">
+  <a href="<#- url #>">
+    <div class="placement-container">
       <h3 title="<#- name ? name : id #>">
         <#- name ? name : id #>
       </h3>
@@ -47,8 +47,8 @@
       <p>
         Last modified <#- updated_at #>
       </p>
-    </a>
-  </div>
+    </div>
+  </a>
 </script>
 
 
