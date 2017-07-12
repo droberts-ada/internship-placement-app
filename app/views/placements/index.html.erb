@@ -39,6 +39,9 @@
         Classroom: <#- classroom_name #>
       </p>
       <p>
+        Created by: <#- owner_name #>
+      </p>
+      <p>
         <#- pairing_count #> of <#- student_count #> paired, score <#- score #>
       </p>
       <p>
@@ -60,6 +63,7 @@
         updated_at: "<%= time_ago_in_words(placement.updated_at) %> ago",
         classroom_id: <%= placement.classroom_id %>,
         classroom_name: "<%= placement.classroom.name %>",
+        owner_name: "<%= placement.owner ? placement.owner.name : "unknown" %>",
         student_count: <%= placement.classroom.students.length %>,
         pairing_count: <%= placement.pairings.length %>,
         url: "<%= placement_path(placement) %>",

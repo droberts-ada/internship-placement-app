@@ -49,7 +49,7 @@
               <td><%= link_to placement.name ? placement.name : placement.id, placement_path(placement) %></td>
               <td><%= placement.pairings.count %> of <%= @classroom.students.count %></td>
               <td><%= placement.score %></td>
-              <td>TODO DPR</td>
+              <td><%= placement.owner ? placement.owner.name : "unknown" %></td>
               <td><%= time_ago_in_words(placement.updated_at).capitalize %> ago</td>
             </tr>
           <% end %>

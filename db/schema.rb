@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607232924) do
+ActiveRecord::Schema.define(version: 20170712192602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,9 @@ ActiveRecord::Schema.define(version: 20170607232924) do
     t.datetime "updated_at",   null: false
     t.integer  "classroom_id"
     t.string   "name"
+    t.integer  "owner_id"
     t.index ["classroom_id"], name: "index_placements_on_classroom_id", using: :btree
+    t.index ["owner_id"], name: "index_placements_on_owner_id", using: :btree
   end
 
   create_table "rankings", force: :cascade do |t|
@@ -89,5 +91,6 @@ ActiveRecord::Schema.define(version: 20170607232924) do
   add_foreign_key "classrooms", "users", column: "creator_id"
   add_foreign_key "companies", "classrooms"
   add_foreign_key "placements", "classrooms"
+  add_foreign_key "placements", "users", column: "owner_id"
   add_foreign_key "students", "classrooms"
 end

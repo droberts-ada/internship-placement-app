@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :classrooms
+  has_many :placements
   validates :name, presence: true
 
   # Must have an email, and email must end with

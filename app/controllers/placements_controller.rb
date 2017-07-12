@@ -10,7 +10,7 @@ class PlacementsController < ApplicationController
   end
 
   def create
-    @placement = Placement.build(classroom_id: params[:classroom_id])
+    @placement = Placement.build(classroom_id: params[:classroom_id], owner: @current_user)
     if @placement.save()
       if params[:run_solver]
         begin
