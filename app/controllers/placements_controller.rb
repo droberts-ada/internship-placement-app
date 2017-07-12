@@ -10,9 +10,11 @@ class PlacementsController < ApplicationController
   end
 
   def create
+    # params are always strings, but here we want a boolean
+    run_solver = params[:run_solver] && params[:run_solver] != "false"
     @placement = Placement.build(classroom_id: params[:classroom_id], owner: @current_user)
     if @placement.save()
-      if params[:run_solver]
+      if run_solver
         begin
           @placement.solve
         rescue StandardError => error
