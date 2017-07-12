@@ -41,6 +41,7 @@
             <th>Score</th>
             <th>Created By</th>
             <th>Last Modified</th>
+            <th>Duplicate</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,7 @@
               <td><%= placement.score %></td>
               <td><%= placement.owner ? placement.owner.name : "unknown" %></td>
               <td><%= time_ago_in_words(placement.updated_at).capitalize %> ago</td>
+              <td><%= button_to "Duplicate", duplicate_placement_path(placement), class: "button" %>
             </tr>
           <% end %>
         </tbody>

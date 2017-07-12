@@ -72,4 +72,18 @@ class Placement < ApplicationRecord
 
     puts "Generated #{pairings.length} pairings with total score #{self.score} in #{Time.now - start_time} seconds, #{solver.iterations} iterations"
   end
+
+  def duplicate(owner)
+    copy = Placement.build(classroom_id: self.classroom_id, owner: owner)
+    Placement.transaction do
+      copy.save!
+
+      self.pairings.each do |pairing|
+        pair_copy = pairing.dup
+        pair_copy.placement = copy
+        pair_copy.save!
+      end
+    end
+    return copy
+  end
 end

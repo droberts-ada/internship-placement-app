@@ -24,6 +24,9 @@
     <button class="button" id="toolbar-redo-button" title="⌘⇧Z">
       Redo
     </button>
+    <button class="button" id="toolbar-fork-button" action="<%= duplicate_placement_path(@placement)%>">
+      Fork
+    </button>
   </nav>
 </header>
 
@@ -93,4 +96,13 @@ which we don't really want for a big blob of JSON
       <#- student ? student.get('name') : "[None]" #>
     </p>
   </div>
+</script>
+
+<script type="text/template" id="fork-success-template">
+  Duplicated current state in new placement
+  <em><#- name #></em>
+  <br>
+  <a href="<#- url #>" type="button" class="button">
+    Go to Placement
+  </a>
 </script>

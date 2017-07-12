@@ -43,6 +43,8 @@ const PlacementWorkbenchView = Backbone.View.extend({
     this.undoButton.on('click', this.onUndo.bind(this));
     this.redoButton = $('#toolbar-redo-button');
     this.redoButton.on('click', this.onRedo.bind(this));
+    this.forkButton = $('#toolbar-fork-button');
+    this.forkButton.on('click', this.onFork.bind(this));
   },
 
   onCompanyChange: function() {
@@ -178,5 +180,31 @@ const PlacementWorkbenchView = Backbone.View.extend({
 
   canRedo: function() {
     return this.undoManager.isAvailable('redo');
+  },
+
+  onFork: function(event) {
+    event.preventDefault();
+
+    // Compile the template exactly once
+    if (!this.forkSuccessTemplate) {
+      this.forkSuccessTemplate = _.template($('#fork-success-template').html());
+    }
+
+    url = this.forkButton.attr('action');
+    $.post({
+      data: {},
+      dataType: 'json',
+      url: url
+
+    }).done((response, textStatus, jqXHR) => {
+      console.log(response);
+      var text = this.forkSuccessTemplate(response.placement);
+      toastr.success(text);
+
+    }).fail((response, textStatus, jqXHR) => {
+      var text = "Failed to save placement";
+      toastr.error(text);
+    });
+
   }
 });

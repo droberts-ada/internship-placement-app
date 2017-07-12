@@ -1,5 +1,5 @@
 class PlacementsController < ApplicationController
-  before_action :find_placement, only: [:show, :update]
+  before_action :find_placement, only: [:show, :update, :duplicate]
 
   def index
     @classrooms = Classroom.all
@@ -49,6 +49,25 @@ class PlacementsController < ApplicationController
       render status: :bad_request, json: {
         errors: invalid.record.errors.messages
       }
+    end
+  end
+
+  def duplicate
+    puts "Copying placement #{@placement.name}"
+    copy = @placement.duplicate(@current_user)
+    puts "Copy success! New placement is called #{copy.name}"
+
+    respond_to do |format|
+      format.html do
+        return redirect_to placement_path(copy)
+      end
+      format.json do
+        return render json: { errors: [], placement: {
+          name: copy.name,
+          id: copy.id,
+          url: placement_path(copy)
+        } }
+      end
     end
   end
 
