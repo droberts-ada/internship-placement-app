@@ -23,10 +23,7 @@
 //= require foundation
 // require turbolinks
 //= require underscore
-//= require backbone
-//= require backbone_rails_sync
-//= require backbone_datalink
-//= require backbone/internship_placer
+//= require backbone/backbone
 //= require backbone-undo/Backbone.Undo
 //= require toastr/toastr
 //= require_tree .

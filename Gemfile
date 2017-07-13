@@ -39,7 +39,6 @@ gem 'jquery-turbolinks'
 
 # JavaScript Libraries
 gem 'underscore-rails'
-gem 'rails-backbone'
 
 # Use Foundation for front-end stuff
 gem 'foundation-rails'
