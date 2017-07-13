@@ -2,6 +2,8 @@ const PlacementWorkbenchView = Backbone.View.extend({
   initialize: function(options) {
     this.bindUserEvents();
 
+    this.whiteboardElement = this.$('workbench-whiteboard textarea');
+
     this.studentBus = new StudentBus();
     this.busDetails = new StudentBusView({
       model: this.studentBus,
@@ -130,8 +132,10 @@ const PlacementWorkbenchView = Backbone.View.extend({
   },
 
   onSave: function() {
-    console.debug("Saving placement");
+    console.log("Saving placement");
+    console.log(this.whiteboardElement.val());
     result = this.model.save(null, {
+      whiteboard: "dan test text",
       fromSave: true,
       success: (model, response) => {
         var name = model.get('name');

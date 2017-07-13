@@ -81,6 +81,6 @@ private
   end
 
   def placement_update_params
-    params.require(:placement).permit(pairings: [:company_id, :student_id])
+    params.require(:placement).permit(:whiteboard, pairings: [:company_id, :student_id])
   end
 end

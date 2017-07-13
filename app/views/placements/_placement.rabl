@@ -1,5 +1,5 @@
 object @placement
-attributes :id
+attributes :id, :whiteboard
 child :students do
   attributes :id, :name
   child :rankings do |ranking|
