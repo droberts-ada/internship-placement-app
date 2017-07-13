@@ -38,7 +38,9 @@ class PlacementsController < ApplicationController
 
   def update
     begin
-      @placement.set_pairings(placement_update_params['pairings'])
+      updates = placement_update_params
+      @placement.set_pairings(updates.delete('pairings'))
+      @placement.update!(updates)
 
       puts "Transaction success!"
       render json: {

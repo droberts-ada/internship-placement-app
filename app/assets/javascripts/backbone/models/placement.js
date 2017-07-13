@@ -73,17 +73,11 @@ const Placement = Backbone.Model.extend({
 
   // return a copy, ready for serialization
   toJSON: function(options) {
-    var whiteboard = "";
-    if (options && options.whiteboard) {
-      whiteboard = options.whiteboard;
-    }
-    console.log("In placement.toJSON()");
-    console.trace();
-    console.log(options);
+    console.debug("In placement.toJSON()");
     json = {
       id: this.id,
       classroom_id: this.get('classroom_id'),
-      whiteboard: whiteboard,
+      whiteboard: options.whiteboard,
       pairings: []
     }
     this.companies.forEach(function(company) {
@@ -94,7 +88,6 @@ const Placement = Backbone.Model.extend({
         });
       }, this);
     }, this);
-    console.log(json);
     return { placement: json };
   }
 });

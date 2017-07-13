@@ -2,7 +2,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
   initialize: function(options) {
     this.bindUserEvents();
 
-    this.whiteboardElement = this.$('workbench-whiteboard textarea');
+    this.whiteboardElement = this.$('#workbench-whiteboard textarea');
 
     this.studentBus = new StudentBus();
     this.busDetails = new StudentBusView({
@@ -132,10 +132,9 @@ const PlacementWorkbenchView = Backbone.View.extend({
   },
 
   onSave: function() {
-    console.log("Saving placement");
-    console.log(this.whiteboardElement.val());
+    console.debug("Saving placement");
     result = this.model.save(null, {
-      whiteboard: "dan test text",
+      whiteboard: this.whiteboardElement.val(),
       fromSave: true,
       success: (model, response) => {
         var name = model.get('name');
@@ -143,8 +142,8 @@ const PlacementWorkbenchView = Backbone.View.extend({
         toastr.success("Successfully saved placement " + name);
       },
       error: (model, response) => {
-        console.log("In model save error callback, response:");
-        console.log(response.responseJSON);
+        console.debug("In model save error callback, response:");
+        console.debug(response.responseJSON);
         var name = model.get('name');
         name = name ? name : model.id;
         var text = "Could not save placement " + name + ": " + response.responseJSON.message;
@@ -157,7 +156,6 @@ const PlacementWorkbenchView = Backbone.View.extend({
         toastr.error(text);
       }
     });
-    console.log(result);
   },
 
   onUndo: function() {
@@ -201,7 +199,6 @@ const PlacementWorkbenchView = Backbone.View.extend({
       url: url
 
     }).done((response, textStatus, jqXHR) => {
-      console.log(response);
       var text = this.forkSuccessTemplate(response.placement);
       toastr.success(text);
 
