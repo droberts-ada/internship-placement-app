@@ -78,6 +78,7 @@ const Placement = Backbone.Model.extend({
       whiteboard = options.whiteboard;
     }
     console.log("In placement.toJSON()");
+    console.trace();
     console.log(options);
     json = {
       id: this.id,
