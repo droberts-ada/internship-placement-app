@@ -3,7 +3,7 @@ require 'solver'
 class Placement < ApplicationRecord
   belongs_to :classroom
   belongs_to :owner, class_name: "User"
-  has_many :pairings
+  has_many :pairings, dependent: :destroy
   has_many :students, through: :classroom
   has_many :companies, through: :classroom
 
