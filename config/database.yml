@@ -7,15 +7,14 @@ default: &default
 
 development:
   <<: *default
-  database: <APPLICATION_NAME>_development
+  database: ada-placement_development
 # ...
 test:
   <<: *default
-  database: <APPLICATION_NAME>_test
+  database: ada-placement_test
 
 production:
   <<: *default
-  database: <APPLICATION_NAME>_production
-  username: <APPLICATION_NAME>
-  password: <%= ENV['<APPLICATION_NAME>_DATABASE_PASSWORD'] %>
-  
+  database: ada-placement_production
+  username: ada-placement
+  password: <%= ENV['ADA_PLACEMENT_DATABASE_PASSWORD'] %>
