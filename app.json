@@ -5,6 +5,9 @@
   "repository": "https://github.com/Ada-Developers-Academy/internship-placement-app",
   "buildpacks": [
     {
+      "url": "heroku/nodejs"
+    },
+    {
       "url": "heroku/ruby"
     }
   ],
