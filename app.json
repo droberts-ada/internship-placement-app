@@ -1,0 +1,33 @@
+{
+  "name": "Ada Internship Placement App",
+  "description": "Web application for exploring and deciding upon internship placement possibilities at Ada Developers Academy.",
+  "website": "https://placement.adadevelopersacademy.org/",
+  "repository": "https://github.com/Ada-Developers-Academy/internship-placement-app",
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "Large random value used for encrypting secrets (such as session cookies)",
+      "required": true,
+      "generator": "secret"
+    },
+    "GOOGLE_OAUTH_CLIENT_ID": {
+      "description": "Client ID for Google OAuth integration",
+      "required": true
+    },
+    "GOOGLE_OAUTH_CLIENT_SECRET": {
+      "description": "Client secret key for Google OAuth integration",
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "hobby"
+    }
+  },
+  "stack": "heroku-16"
+}
