@@ -1,5 +1,4 @@
 require 'csv'
-require 'ap'
 
 CLASSROOM_FILE = 'classrooms.csv'
 INTERVIEW_FILE = 'interview-feedback.csv'
@@ -143,7 +142,6 @@ interview_results.each do |classroom, students|
           interview[:technical_feedback_for_candidate],
           interview[:nontechnical_feedback_for_candidate]
         ]
-        # ap line
         # if line.include? nil or line.length != headers.length
         #   puts "ERROR: student #{student} company #{company} is missing some interview result data! Line:"
         #   puts line
