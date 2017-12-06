@@ -1,35 +1,4 @@
 #
-# Student preferences
-#
-
-preferences = {}
-CSV.foreach(PREFERENCE_FILE, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
-  student = row[1]
-
-  unless classrooms.include? student
-    puts "ERROR: Student #{student} has no assigned classroom"
-  end
-
-  classroom = classrooms[student]
-  preferences[classroom] ||= {}
-
-  if preferences[classroom].include? student
-    puts "WARNING: duplicate preferences for student #{student}. Using the last line."
-  end
-
-  raw = Hash[row.headers.zip(row.fields)]
-
-  parsed = preferences[classroom][student] = { name: student, timestamp: raw[:timestamp] }
-
-  parsed[:positive] = raw[:positive_feels_please_check_exactly_3_companies_only_select_companies_you_have_interviewed_at].split(',').map { |str| str.strip }
-  parsed[:neutral] = raw[:neutral_feels_please_check_exactly_2_companies_only_select_companies_you_have_interviewed_at].split(',').map { |str| str.strip }
-  parsed[:negative] = raw[:with_reservation_please_check_exactly_1_companies_only_select_companies_you_have_interviewed_at].split(',').map { |str| str.strip }
-  parsed[:companies] = parsed[:positive] + parsed[:neutral] + parsed[:negative]
-  parsed[:companies].sort!
-end
-
-
-#
 # Interview Results
 #
 def load_interview_file(filename)
