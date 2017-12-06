@@ -1,11 +1,13 @@
 require 'csv'
 
-CLASSROOM_FILE = 'classrooms.csv'
-INTERVIEW_FILE = 'interview-feedback.csv'
-PREFERENCE_FILE = 'student-preferences.csv'
+OUTPUT_DIR = Pathname.new(ENV['output_dir'] || Rails.root.join('tmp'))
 
-PARSED_INTERVIEW_FILE = 'interviews-parsed.csv'
-PARSED_PREFERENCE_FILE = 'preferences-parsed.csv'
+CLASSROOM_FILE = OUTPUT_DIR.join('classrooms.csv')
+INTERVIEW_FILE = OUTPUT_DIR.join('interview-feedback.csv')
+PREFERENCE_FILE = OUTPUT_DIR.join('student-preferences.csv')
+
+PARSED_INTERVIEW_FILE_SUFFIX = 'interviews-parsed.csv'
+PARSED_PREFERENCE_FILE_SUFFIX = 'preferences-parsed.csv'
 
 INTERVIEW_SCORES = {
   "This person could be a great addition to our team" => 5,
@@ -131,7 +133,7 @@ namespace :data do
 
   task :output_results do
     interview_results.each do |classroom, students|
-      CSV.open("#{classroom}_#{PARSED_INTERVIEW_FILE}", 'wb') do |csv|
+      CSV.open(OUTPUT_DIR.join("#{classroom}_#{PARSED_INTERVIEW_FILE_SUFFIX}"), 'wb') do |csv|
         headers = ["Timestamp", "Interviewer Name", "Company", "Student Name", "Hiring Decision", "Reason for Hiring Decision", "Technical Feedback for Candidate", "Nontechnical Feedback for Candidate"]
         csv << headers
 
@@ -160,7 +162,7 @@ namespace :data do
 
   task :output_prefs do
     preferences.each do |classroom, prefs|
-      CSV.open("#{classroom}_#{PARSED_PREFERENCE_FILE}", 'wb') do |csv|
+      CSV.open(OUTPUT_DIR.join("#{classroom}_#{PARSED_PREFERENCE_FILE_SUFFIX}"), 'wb') do |csv|
         headers = ["Timestamp", "Student Name", "Positive Feelings", "Positive Feelings", "Positive Feelings", "Neutral Feelings", "Neutral Feelings", "Negative Feelings"]
         csv << headers
 
