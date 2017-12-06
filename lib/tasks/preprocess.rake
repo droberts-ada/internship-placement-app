@@ -119,3 +119,13 @@ def interview_results
     end
   end
 end
+
+namespace :data do
+  task :validate do
+    if interview_results.keys.sort != preferences.keys.sort
+      puts "ERROR: student names do not all match!"
+      puts "    In interview_results but not in preferences: #{interview_results.keys - preferences.keys}"
+      puts "    In preferences but not in interview_results: #{preferences.keys - interview_results.keys}"
+    end
+  end
+end

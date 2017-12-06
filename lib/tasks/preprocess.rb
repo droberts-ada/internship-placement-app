@@ -1,9 +1,3 @@
-if interview_results.keys.sort != preferences.keys.sort
-  puts "ERROR: student names do not all match!"
-  puts "    In interview_results but not in preferences: #{interview_results.keys - preferences.keys}"
-  puts "    In preferences but not in interview_results: #{preferences.keys - interview_results.keys}"
-end
-
 interview_results.each do |classroom, students|
   CSV.open("#{classroom}_#{PARSED_INTERVIEW_FILE}", 'wb') do |csv|
     headers = ["Timestamp", "Interviewer Name", "Company", "Student Name", "Hiring Decision", "Reason for Hiring Decision", "Technical Feedback for Candidate", "Nontechnical Feedback for Candidate"]
