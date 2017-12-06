@@ -27,7 +27,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
     }, this);
 
     // Do initial work around the list of companies.
-    this.onCompanyChange()
+    this.updateUI();
 
     this.listenTo(this.model.companies, 'update', this.render);
     this.listenTo(this.model.companies, 'add', this.addCompany);
@@ -50,6 +50,10 @@ const PlacementWorkbenchView = Backbone.View.extend({
   },
 
   onCompanyChange: function() {
+    this.updateUI();
+  },
+
+  updateUI: function() {
     // update scores
     let score = 0;
     this.model.companies.forEach(function(company) {
