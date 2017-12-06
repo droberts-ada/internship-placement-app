@@ -39,7 +39,7 @@ def preferences
       student = row[1].strip
 
       unless classrooms.include? student
-        puts "ERROR: Student #{student} has no assigned classroom"
+        raise "ERROR: Student #{student} has no assigned classroom"
       end
 
       classroom = classrooms[student]
@@ -76,7 +76,7 @@ def interview_results
       end
     end.each do |student, results|
       unless classrooms.include? student
-        puts "ERROR: Student #{student} has no assigned classroom"
+        raise "ERROR: Student #{student} has no assigned classroom"
       end
 
       classroom = classrooms[student]
@@ -90,7 +90,7 @@ def interview_results
 
         interview[:numeric_result] = INTERVIEW_SCORES[interview[:feedback_summary]]
         if interview[:numeric_result].nil?
-          puts "ERROR: invalid interview result #{interview[:feedback_summary]} for student #{student} company #{company}"
+          raise "ERROR: invalid interview result #{interview[:feedback_summary]} for student #{student} company #{company}"
         end
         if student_results.include? interview[:company]
           # puts "Duplicate interview for student #{student} company #{company}"
@@ -105,17 +105,18 @@ def interview_results
       end
 
       if student_results.length < 6
-        puts "ERROR: student #{student} only has #{student_results.length} interviews: #{student_results.keys}"
+        raise "ERROR: student #{student} only has #{student_results.length} interviews: #{student_results.keys}"
 
       else
         unless preferences[classroom].include? student
-          puts "ERROR: student #{student} not in preference list"
+          raise "ERROR: student #{student} not in preference list"
         end
 
         if student_results.keys.sort != preferences[classroom][student][:companies]
           puts "ERROR: company mismatch for student #{student}"
           puts "    Interview companies: #{student_results.keys}"
           puts "    Preference companies: #{preferences[classroom][student][:companies]}"
+          raise "Could not process interview results for #{classroom}"
         end
       end
     end
@@ -128,6 +129,7 @@ namespace :data do
       puts "ERROR: student names do not all match!"
       puts "    In interview_results but not in preferences: #{interview_results.keys - preferences.keys}"
       puts "    In preferences but not in interview_results: #{preferences.keys - interview_results.keys}"
+      raise "Data mismatch between interview results & student preferences: Student names don't match."
     end
   end
 
@@ -152,6 +154,7 @@ namespace :data do
             # if line.include? nil or line.length != headers.length
             #   puts "ERROR: student #{student} company #{company} is missing some interview result data! Line:"
             #   puts line
+            #   raise "Could not export interview results CSV"
             # end
             csv << line
           end
@@ -174,7 +177,7 @@ namespace :data do
           if line.include? nil or line.length != headers.length
             puts "ERROR: student #{student} is missing some preference data! Line:"
             puts line
-            raise "Could not output student preferences file."
+            raise "Could not export student preferences CSV"
           end
           csv << line
         end
