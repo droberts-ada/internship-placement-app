@@ -48,6 +48,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
 
   onCompanyChange: function() {
     this.updateUI();
+    this.onSave();
   },
 
   updateUI: function() {
