@@ -172,10 +172,15 @@ namespace :data do
           if line.include? nil or line.length != headers.length
             puts "ERROR: student #{student} is missing some preference data! Line:"
             puts line
+            raise "Could not output student preferences file."
           end
           csv << line
         end
       end
     end
+  end
+
+  task :preprocess => [:validate, :output_results, :output_prefs] do
+    puts "Successfully preprocessed internship interview data"
   end
 end
