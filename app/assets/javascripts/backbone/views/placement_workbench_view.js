@@ -26,15 +26,12 @@ const PlacementWorkbenchView = Backbone.View.extend({
       this.addCompany(company);
     }, this);
 
-    // Do initial work around the list of companies.
-    this.updateUI();
-
     this.listenTo(this.model.companies, 'update', this.render);
     this.listenTo(this.model.companies, 'add', this.addCompany);
 
     this.undoManager.startTracking();
 
-    this.toggleButtons();
+    this.updateUI();
   },
 
   bindUserEvents: function() {
