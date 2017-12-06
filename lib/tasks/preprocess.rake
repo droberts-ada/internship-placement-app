@@ -33,6 +33,14 @@ end
 # Student preferences
 #
 
+def preference_headers
+  {
+    positive: :positive_feels_please_check_exactly_3_companies_only_select_companies_you_have_interviewed_at,
+    neutral: :neutral_feels_please_check_exactly_2_companies_only_select_companies_you_have_interviewed_at,
+    negative: :with_reservation_please_check_exactly_1_companies_only_select_companies_you_have_interviewed_at,
+  }
+end
+
 def preferences
   @preferences ||= {}.tap do |preferences|
     CSV.foreach(PREFERENCE_FILE, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
@@ -53,10 +61,11 @@ def preferences
 
       parsed = preferences[classroom][student] = { name: student, timestamp: raw[:timestamp] }
 
-      parsed[:positive] = raw[:positive_feels_please_check_exactly_3_companies_only_select_companies_you_have_interviewed_at].split(',').map { |str| str.strip }
-      parsed[:neutral] = raw[:neutral_feels_please_check_exactly_2_companies_only_select_companies_you_have_interviewed_at].split(',').map { |str| str.strip }
-      parsed[:negative] = raw[:with_reservation_please_check_exactly_1_companies_only_select_companies_you_have_interviewed_at].split(',').map { |str| str.strip }
-      parsed[:companies] = parsed[:positive] + parsed[:neutral] + parsed[:negative]
+      preference_headers.each do |key, header|
+        parsed[key] = raw[header].split(',').map(&:strip)
+      end
+
+      parsed[:companies] = parsed.slice(*preference_headers.keys).values.sum
       parsed[:companies].sort!
     end
   end
