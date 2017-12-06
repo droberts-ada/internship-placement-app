@@ -14,3 +14,15 @@ INTERVIEW_SCORES = {
   "This person may struggle on our team" => 2,
   "This person is not likely to be successful on our team" => 1
 }
+
+#
+# Classrooms
+#
+
+def classrooms
+  @classrooms ||= {}.tap do |classrooms|
+    CSV.foreach(CLASSROOM_FILE) do |row|
+      classrooms[row[1]] = row[0]
+    end
+  end
+end

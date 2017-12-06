@@ -1,13 +1,4 @@
 #
-# Classrooms
-#
-
-classrooms = {}
-CSV.foreach(CLASSROOM_FILE) do |row|
-  classrooms[row[1]] = row[0]
-end
-
-#
 # Student preferences
 #
 
