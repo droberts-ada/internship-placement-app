@@ -2,7 +2,6 @@ require 'csv'
 
 OUTPUT_DIR = Pathname.new(ENV['output_dir'] || Rails.root.join('tmp'))
 
-CLASSROOM_FILE = OUTPUT_DIR.join('classrooms.csv')
 INTERVIEW_FILE = OUTPUT_DIR.join('interview-feedback.csv')
 PREFERENCE_FILE = OUTPUT_DIR.join('student-preferences.csv')
 
@@ -21,11 +20,17 @@ INTERVIEW_SCORES = {
 # Classrooms
 #
 
-def classrooms
-  @classrooms ||= {}.tap do |classrooms|
-    CSV.foreach(CLASSROOM_FILE) do |row|
-      classrooms[row[1].strip] = row[0].strip
-    end
+def normalized_classroom(classroom)
+  classroom.to_s.gsub(/_.*/,'').to_sym
+end
+
+def student?(student)
+  student.downcase != "not applicable"
+end
+
+def classroom_and_student(mappings)
+  mappings.each do |classroom, student|
+    return normalized_classroom(classroom), student if student?(student)
   end
 end
 
@@ -44,13 +49,8 @@ end
 def preferences
   @preferences ||= {}.tap do |preferences|
     CSV.foreach(PREFERENCE_FILE, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
-      student = row[1].strip
-
-      unless classrooms.include? student
-        raise "ERROR: Student #{student} has no assigned classroom"
-      end
-
-      classroom = classrooms[student]
+      classroom, student = classroom_and_student(row.headers[1] => row[1].strip,
+                                                 row.headers[2] => row[2].strip)
       preferences[classroom] ||= {}
 
       if preferences[classroom].include? student
@@ -79,16 +79,15 @@ def interview_results
   @interview_results ||= {}.tap do |interview_results|
     {}.tap do |data|
       CSV.foreach(INTERVIEW_FILE, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
-        student = row[3].strip
-        data[student] ||= []
-        data[student] << Hash[row.headers.zip(row.fields)]
-      end
-    end.each do |student, results|
-      unless classrooms.include? student
-        raise "ERROR: Student #{student} has no assigned classroom"
-      end
+        classroom, student = classroom_and_student(row.headers[3] => row[3].strip,
+                                                   row.headers[4] => row[4].strip)
 
-      classroom = classrooms[student]
+        data[student] ||= {classroom: classroom, results: []}
+        data[student][:results] << Hash[row.headers.zip(row.fields)]
+      end
+    end.each do |student, student_data|
+      classroom = student_data[:classroom]
+      results = student_data[:results]
 
       interview_results[classroom] ||= {}
       interview_results[classroom][student] ||= {}
