@@ -128,4 +128,33 @@ namespace :data do
       puts "    In preferences but not in interview_results: #{preferences.keys - interview_results.keys}"
     end
   end
+
+  task :output_results do
+    interview_results.each do |classroom, students|
+      CSV.open("#{classroom}_#{PARSED_INTERVIEW_FILE}", 'wb') do |csv|
+        headers = ["Timestamp", "Interviewer Name", "Company", "Student Name", "Hiring Decision", "Reason for Hiring Decision", "Technical Feedback for Candidate", "Nontechnical Feedback for Candidate"]
+        csv << headers
+
+        students.each do |student, results|
+          results.each do |company, interview|
+            line = [
+              interview[:timestamp],
+              interview[:interviewer_name],
+              company,
+              student,
+              interview[:numeric_result],
+              interview[:explanation_of_feedback_summary],
+              interview[:technical_feedback_for_candidate],
+              interview[:nontechnical_feedback_for_candidate]
+            ]
+            # if line.include? nil or line.length != headers.length
+            #   puts "ERROR: student #{student} company #{company} is missing some interview result data! Line:"
+            #   puts line
+            # end
+            csv << line
+          end
+        end
+      end
+    end
+  end
 end
