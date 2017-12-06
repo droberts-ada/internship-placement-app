@@ -133,7 +133,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
     }
   },
 
-  onSave: function() {
+  onSave: _.debounce(function() {
     console.debug("Saving placement");
     result = this.model.save(null, {
       whiteboard: this.whiteboardElement.val(),
@@ -158,7 +158,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
         toastr.error(text);
       }
     });
-  },
+  }, 300), // Batch all save attempts within a 300ms window
 
   onUndo: function() {
     console.debug("Undoing action");
