@@ -24,7 +24,7 @@ INTERVIEW_SCORES = {
 def classrooms
   @classrooms ||= {}.tap do |classrooms|
     CSV.foreach(CLASSROOM_FILE) do |row|
-      classrooms[row[1]] = row[0]
+      classrooms[row[1].strip] = row[0].strip
     end
   end
 end
@@ -36,7 +36,7 @@ end
 def preferences
   @preferences ||= {}.tap do |preferences|
     CSV.foreach(PREFERENCE_FILE, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
-      student = row[1]
+      student = row[1].strip
 
       unless classrooms.include? student
         puts "ERROR: Student #{student} has no assigned classroom"
@@ -70,7 +70,7 @@ def interview_results
   @interview_results ||= {}.tap do |interview_results|
     {}.tap do |data|
       CSV.foreach(INTERVIEW_FILE, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
-        student = row[3]
+        student = row[3].strip
         data[student] ||= []
         data[student] << Hash[row.headers.zip(row.fields)]
       end
