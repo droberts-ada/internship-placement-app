@@ -3,6 +3,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
     this.bindUserEvents();
 
     this.whiteboardElement = this.$('#workbench-whiteboard textarea');
+    this.whiteboardElement.on('input', _.debounce(this.onSave.bind(this), 500));
 
     this.studentBus = new StudentBus();
     this.busDetails = new StudentBusView({
