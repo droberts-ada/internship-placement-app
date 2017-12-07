@@ -3,6 +3,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
     this.bindUserEvents();
 
     this.whiteboardElement = this.$('#workbench-whiteboard textarea');
+    this.whiteboardElement.on('input', _.debounce(this.onSave.bind(this), 500));
 
     this.studentBus = new StudentBus();
     this.busDetails = new StudentBusView({
@@ -26,15 +27,12 @@ const PlacementWorkbenchView = Backbone.View.extend({
       this.addCompany(company);
     }, this);
 
-    // Do initial work around the list of companies.
-    this.onCompanyChange()
-
     this.listenTo(this.model.companies, 'update', this.render);
     this.listenTo(this.model.companies, 'add', this.addCompany);
 
     this.undoManager.startTracking();
 
-    this.toggleButtons();
+    this.updateUI();
   },
 
   bindUserEvents: function() {
@@ -50,6 +48,11 @@ const PlacementWorkbenchView = Backbone.View.extend({
   },
 
   onCompanyChange: function() {
+    this.updateUI();
+    this.onSave();
+  },
+
+  updateUI: function() {
     // update scores
     let score = 0;
     this.model.companies.forEach(function(company) {
@@ -131,7 +134,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
     }
   },
 
-  onSave: function() {
+  onSave: _.debounce(function() {
     console.debug("Saving placement");
     result = this.model.save(null, {
       whiteboard: this.whiteboardElement.val(),
@@ -156,7 +159,7 @@ const PlacementWorkbenchView = Backbone.View.extend({
         toastr.error(text);
       }
     });
-  },
+  }, 300), // Batch all save attempts within a 300ms window
 
   onUndo: function() {
     console.debug("Undoing action");
