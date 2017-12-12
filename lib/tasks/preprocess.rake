@@ -46,6 +46,25 @@ def preference_headers
   }
 end
 
+# HACK: We have some company names that include commas
+# but we use commas as the delimiter between companies
+def hack_fix_company_names(data)
+  companies = ['AWS, Identity, Directory and Access Services',
+               'AWS, Payments',
+               'AWS, Silk']
+
+  companies.each do |company|
+    fixed_name = company.gsub(/,/, ';')
+    data.gsub!(/#{company}/, fixed_name)
+  end
+
+  return data
+end
+
+def hack_unfix_company_name(company)
+  company.gsub(/;/, ',')
+end
+
 def preferences
   @preferences ||= {}.tap do |preferences|
     CSV.foreach(PREFERENCE_FILE, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
@@ -62,7 +81,9 @@ def preferences
       parsed = preferences[classroom][student] = { name: student, timestamp: raw[:timestamp] }
 
       preference_headers.each do |key, header|
-        parsed[key] = raw[header].split(',').map(&:strip)
+        parsed[key] = hack_fix_company_names(raw[header]).split(',').map do |company|
+          hack_unfix_company_name(company.strip)
+        end
       end
 
       parsed[:companies] = parsed.slice(*preference_headers.keys).values.sum
