@@ -1,5 +1,7 @@
+require 'spreadsheet'
+
 class PlacementsController < ApplicationController
-  before_action :find_placement, only: [:show, :update, :duplicate]
+  before_action :find_placement, only: [:show, :update, :duplicate, :export]
 
   def index
     @classrooms = Classroom.all
@@ -69,6 +71,42 @@ class PlacementsController < ApplicationController
           id: copy.id,
           url: placement_path(copy)
         } }
+      end
+    end
+  end
+
+  def export
+    headers = %w(Name Sponsorship)
+    rows = @placement.as_rows
+
+    url = Spreadsheet.export_data(headers, rows, @current_user)
+
+    respond_to do |format|
+      format.html do
+        flash[:status] = :success
+        flash[:message] = "exported placement to #{url}"
+        return render :show
+      end
+      format.json do
+        return render json: {
+          errors: [],
+          name: @placement.name,
+          url: url
+        }
+      end
+    end
+
+  rescue StandardError => ex
+    respond_to do |format|
+      format.html do
+        flash[:status] = :failure
+        flash[:message] = "could not export placement: #{ex.message}"
+        return render :show
+      end
+      format.json do
+        return render status: :bad_request, json: {
+          errors: ["could not export placement: #{ex.message}"]
+        }
       end
     end
   end

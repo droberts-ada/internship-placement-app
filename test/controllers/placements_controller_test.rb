@@ -87,4 +87,45 @@ class PlacementsControllerTest < ActionController::TestCase
     get :show, params: {id: bogus_placement_id}
     assert_response :not_found
   end
+
+  let(:full_placement) do
+    # HACK: Remove student "Mary Johnson" b/c they did not interview anywhere
+    students(:no_company).destroy
+
+    placements(:full)
+  end
+
+  test "Exporting full placement returns Google Sheets URL" do
+    # HACK: We're skipping the actual login flow that should be done
+    session[:user_id] = users(:google_user).id
+
+    VCR.use_cassette('placement_controller_export') do
+      post :export, params: {id: full_placement.id, format: :json}
+      assert_response :success
+      data = JSON.parse(@response.body)
+
+      assert_includes data, 'name'
+      assert_includes data, 'url'
+
+      assert_match /^https:\/\/docs\.google\.com\//, data['url']
+    end
+  end
+
+  test "Exporting non-full placement returns error message" do
+    # HACK: We're skipping the actual login flow that should be done
+    session[:user_id] = users(:google_user).id
+
+    # Remove one of the pairings
+    full_placement.pairings.first.destroy
+
+    VCR.use_cassette('placement_controller_export') do
+      post :export, params: {id: full_placement.id, format: :json}
+      assert_response :bad_request
+      data = JSON.parse(@response.body)
+
+      assert_includes data, 'errors'
+      assert_kind_of Array, data['errors']
+      refute_empty data['errors']
+    end
+  end
 end
