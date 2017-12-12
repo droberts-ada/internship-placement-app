@@ -86,4 +86,9 @@ class Placement < ApplicationRecord
     end
     return copy
   end
+
+  def full?
+    # This is a complete placement if we have made pairings for all students
+    students.count == pairings.count
+  end
 end

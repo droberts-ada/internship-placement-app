@@ -164,4 +164,22 @@ class PlacementTest < ActiveSupport::TestCase
     after_pairs = Placement.find(p.id).pairings
     assert_equal 0, after_pairs.length
   end
+
+  let(:full_placement) do
+    # HACK: Remove student "Mary Johnson" b/c they did not interview anywhere
+    students(:no_company).destroy
+
+    placements(:full)
+  end
+
+  test "Calling full? with all students placed will return true" do
+    assert full_placement.full?
+  end
+
+  test "Calling full? with not all students placed will return false" do
+    # Remove one of the pairings
+    full_placement.pairings.first.destroy
+
+    refute full_placement.full?
+  end
 end
