@@ -164,4 +164,47 @@ class PlacementTest < ActiveSupport::TestCase
     after_pairs = Placement.find(p.id).pairings
     assert_equal 0, after_pairs.length
   end
+
+  let(:full_placement) do
+    # HACK: Remove student "Mary Johnson" b/c they did not interview anywhere
+    students(:no_company).destroy
+
+    placements(:full)
+  end
+
+  test "Calling full? with all students placed will return true" do
+    assert full_placement.full?
+  end
+
+  test "Calling full? with not all students placed will return false" do
+    # Remove one of the pairings
+    full_placement.pairings.first.destroy
+
+    refute full_placement.full?
+  end
+
+  test "Calling as_rows with all students placed will return array of arrays" do
+    assert_kind_of Array, full_placement.as_rows
+
+    full_placement.as_rows.each do |row|
+      assert_kind_of Array, row
+    end
+  end
+
+  test "Calling as_rows with all students placed will return rows of pairings" do
+    pairings = full_placement.pairings.map do |pair|
+      [pair.student.name, pair.company.name]
+    end
+
+    assert_equal full_placement.as_rows.sort, pairings.sort
+  end
+
+  test "Calling as_rows with not all students placed raises RuntimeError" do
+    # Remove one of the pairings
+    full_placement.pairings.first.destroy
+
+    assert_raise RuntimeError do
+      full_placement.as_rows
+    end
+  end
 end

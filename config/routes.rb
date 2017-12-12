@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :placements, only: [:index, :show, :update] do
     member do
       post 'duplicate'
+      post 'export'
     end
   end
   

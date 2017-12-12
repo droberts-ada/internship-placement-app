@@ -37,8 +37,8 @@ const PlacementWorkbenchView = Backbone.View.extend({
 
   bindUserEvents: function() {
     $(document).on('keydown', this.onKeypress.bind(this));
-    this.saveButton = $('#toolbar-save-button');
-    this.saveButton.on('click', this.onSave.bind(this));
+    this.exportButton = $('#toolbar-export-button');
+    this.exportButton.on('click', this.onExport.bind(this));
     this.undoButton = $('#toolbar-undo-button');
     this.undoButton.on('click', this.onUndo.bind(this));
     this.redoButton = $('#toolbar-redo-button');
@@ -210,5 +210,33 @@ const PlacementWorkbenchView = Backbone.View.extend({
       toastr.error(text);
     });
 
+  },
+
+  onExport: function(event) {
+    event.preventDefault();
+
+    // Compile the templat exactly once
+    if (!this.exportSuccessTemplate) {
+      this.exportSuccessTemplate = _.template($('#export-success-template').html());
+    }
+
+    url = this.exportButton.attr('action');
+    $.post({
+      data: {},
+      dataType: 'json',
+      url: url
+
+    }).done((response, textStatus, jqXHR) => {
+      var text = this.exportSuccessTemplate(response);
+      toastr.success(text);
+
+    }).fail((response, textStatus, jqXHR) => {
+      let text = "Failed to export placement";
+      if (response.errors && response.errors.length > 0) {
+        text = response.errors[0];
+      }
+
+      toastr.error(text);
+    });
   }
 });

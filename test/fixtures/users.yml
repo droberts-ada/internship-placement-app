@@ -1,11 +1,8 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+google_user:
+  oauth_provider: google_oauth2
+  oauth_uid: 123456
+  name: Google User
+  email: google-user@adadevelopersacademy.org
+  oauth_token: "google-oauth-token"
+  token_expires_at: "2020-01-01 00:00:00"
+  refresh_token: "google-oauth-refresh-token"

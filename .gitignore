@@ -57,3 +57,6 @@ ssl/*
 
 # NPM stuff
 node_modules
+
+# VCR recorded cassettes
+/test/cassettes/
