@@ -91,4 +91,15 @@ class Placement < ApplicationRecord
     # This is a complete placement if we have made pairings for all students
     students.count == pairings.count
   end
+
+  def as_rows
+    raise "Cannot export incomplete placement" unless full?
+
+    rows = []
+    pairings.each do |pair|
+      rows << [pair.student.name, pair.company.name]
+    end
+
+    return rows
+  end
 end
