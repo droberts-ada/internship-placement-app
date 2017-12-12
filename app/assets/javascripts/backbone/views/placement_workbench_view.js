@@ -231,9 +231,11 @@ const PlacementWorkbenchView = Backbone.View.extend({
       toastr.success(text);
 
     }).fail((response, textStatus, jqXHR) => {
+      const errors = response.responseJSON.errors;
+
       let text = "Failed to export placement";
-      if (response.errors && response.errors.length > 0) {
-        text = response.errors[0];
+      if (errors && errors.length > 0) {
+        text = errors[0];
       }
 
       toastr.error(text);
