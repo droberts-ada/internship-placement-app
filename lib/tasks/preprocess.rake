@@ -122,7 +122,7 @@ def interview_results
           raise "ERROR: invalid interview result #{interview[:feedback_summary]} for student #{student} company #{company}"
         end
         if student_results.include? interview[:company]
-          # puts "Duplicate interview for student #{student} company #{company}"
+          puts "ERROR: Duplicate interview for student #{student} company #{company}"
           if student_results[company][:numeric_result] >= interview[:numeric_result]
             # puts "Using existing score of #{student_results[company][:numeric_result]}"
             next
