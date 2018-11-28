@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class PlacementsControllerTest < ActionController::TestCase
+describe PlacementsController do
   before do
     login_user(users(:instructor))
   end
 
   test "Get list of placements" do
-    get :index
+    get placements_path
     assert_response :success
     data = JSON.parse(@response.body)
 
@@ -14,7 +14,7 @@ class PlacementsControllerTest < ActionController::TestCase
   end
 
   test "Show a real placement" do
-    get :show, params: {id: placements(:full).id}
+    get placement_path(placements(:full))
     assert_response :success
     data = JSON.parse(@response.body)
 
@@ -27,7 +27,7 @@ class PlacementsControllerTest < ActionController::TestCase
   end
 
   test "Placement contains students" do
-    get :show, params: {id: placements(:full).id}
+    get placement_path(placements(:full))
     assert_response :success
     data = JSON.parse(@response.body)
 
@@ -55,7 +55,7 @@ class PlacementsControllerTest < ActionController::TestCase
   end
 
   test "Placement contains companies" do
-    get :show, params: {id: placements(:full).id}
+    get placement_path(placements(:full))
     assert_response :success
     data = JSON.parse(@response.body)
 
@@ -69,7 +69,7 @@ class PlacementsControllerTest < ActionController::TestCase
   end
 
   test "Placement contains pairings" do
-    get :show, params: {id: placements(:full).id}
+    get placement_path(placements(:full))
     assert_response :success
     data = JSON.parse(@response.body)
 
@@ -88,7 +88,7 @@ class PlacementsControllerTest < ActionController::TestCase
   test "Show a placement that D.N.E." do
     bogus_placement_id = 1337
     assert_nil Placement.find_by(id: bogus_placement_id)
-    get :show, params: {id: bogus_placement_id}
+    get placement_path(bogus_placement_id)
     assert_response :not_found
   end
 end
