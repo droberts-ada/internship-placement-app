@@ -132,7 +132,10 @@ GEM
     mime-types-data (3.2018.0812)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
-    minitest (5.11.3)
+    minitest (5.10.3)
+    minitest-rails (3.0.0)
+      minitest (~> 5.8)
+      railties (~> 5.0)
     minitest-reporters (1.1.12)
       ansi
       builder
@@ -279,6 +282,8 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   listen (~> 3.0.5)
+  minitest (~> 5.10.3)
+  minitest-rails
   minitest-reporters
   minitest-spec-rails
   oj

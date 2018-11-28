@@ -86,6 +86,8 @@ group :development do
 end
 
 group :test do
+  gem 'minitest', '~> 5.10.3'
+  gem 'minitest-rails'
   gem 'minitest-reporters'
   gem 'minitest-spec-rails'
 end
