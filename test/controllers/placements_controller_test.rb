@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class PlacementsControllerTest < ActionController::TestCase
+  before do
+    login_user(users(:instructor))
+  end
+
   test "Get list of placements" do
     get :index
     assert_response :success
