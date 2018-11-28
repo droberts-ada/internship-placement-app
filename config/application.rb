@@ -17,5 +17,8 @@ module InternshipPlacer
 
     # Automatically load all code from <rails_root>/lib
     config.autoload_paths << Rails.root.join('lib')
+
+    # Use PST by default
+    config.time_zone = 'Pacific Time (US & Canada)'
   end
 end
