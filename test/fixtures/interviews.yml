@@ -1,0 +1,4 @@
+ada_space:
+  student: ada
+  company: space_labs
+  scheduled_at: <%= Date.tomorrow.at_noon %>
