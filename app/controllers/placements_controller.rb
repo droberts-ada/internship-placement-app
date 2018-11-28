@@ -78,7 +78,7 @@ private
     begin
       @placement = Placement.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render status: :not_found, content: false
+      render_not_found
     end
   end
 
