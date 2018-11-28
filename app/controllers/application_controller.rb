@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :require_login
 
+  def render_not_found
+    render file: 'public/404.html', status: :not_found
+  end
+
 private
   def report_error(code, message, errors: nil, redirect_path: root_path, render_view: nil)
     respond_to do |format|

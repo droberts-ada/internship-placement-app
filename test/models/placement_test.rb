@@ -5,13 +5,19 @@ class PlacementTest < ActiveSupport::TestCase
   # Constructor
   #
   test "Create a placement" do
-    Placement.create!(classroom: classrooms(:jets))
+    Placement.create!(classroom: classrooms(:jets), owner: users(:instructor))
   end
 
   test "Cannot create a placement without a classroom" do
     p = Placement.new
     assert_not p.valid?
     assert_includes p.errors.messages, :classroom
+  end
+
+  test "Cannot create a placement without an owner" do
+    p = Placement.new
+    assert_not p.valid?
+    assert_includes p.errors.messages, :owner
   end
 
   test "Placement gets students and companies through classroom" do
@@ -25,7 +31,7 @@ class PlacementTest < ActiveSupport::TestCase
   # set_pairings
   #
   test "Set valid pairings" do
-    p = Placement.create!(classroom: classrooms(:jets))
+    p = Placement.create!(classroom: classrooms(:jets), owner: users(:instructor))
 
     pairings = [ {
       student_id: students(:ada).id,
@@ -43,7 +49,7 @@ class PlacementTest < ActiveSupport::TestCase
   end
 
   test "Cannot set an invalid pairing" do
-    p = Placement.create!(classroom: classrooms(:jets))
+    p = Placement.create!(classroom: classrooms(:jets), owner: users(:instructor))
 
     # Attempt to assign the student to multiple companies
     pairings = [ {
@@ -62,7 +68,7 @@ class PlacementTest < ActiveSupport::TestCase
   end
 
   test "Calling set_pairings deletes old pairings" do
-    p = Placement.create!(classroom: classrooms(:jets))
+    p = Placement.create!(classroom: classrooms(:jets), owner: users(:instructor))
 
     # First, create a valid pairing
     pairings = [ {
@@ -89,7 +95,7 @@ class PlacementTest < ActiveSupport::TestCase
   end
 
   test "Previous and new pairing state do not conflict" do
-    p = Placement.create!(classroom: classrooms(:jets))
+    p = Placement.create!(classroom: classrooms(:jets), owner: users(:instructor))
 
     # First, create a valid pairing
     pairings = [ {
@@ -114,7 +120,7 @@ class PlacementTest < ActiveSupport::TestCase
   end
 
   test "Attempting to set invalid pairings rolls back to valid state" do
-    p = Placement.create!(classroom: classrooms(:jets))
+    p = Placement.create!(classroom: classrooms(:jets), owner: users(:instructor))
 
     # First, create a valid pairing
     pairings = [ {
@@ -147,7 +153,7 @@ class PlacementTest < ActiveSupport::TestCase
   end
 
   test "Calling set_pairings with no arguments will clear pairings" do
-    p = Placement.create!(classroom: classrooms(:jets))
+    p = Placement.create!(classroom: classrooms(:jets), owner: users(:instructor))
 
     # First, create a valid pairing
     pairings = [ {
