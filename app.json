@@ -29,5 +29,5 @@
       "size": "hobby"
     }
   },
-  "stack": "heroku-16"
+  "stack": "heroku-18"
 }
