@@ -26,7 +26,7 @@
   "formation": {
     "web": {
       "quantity": 1,
-      "hobby"
+      "size": "hobby"
     }
   },
   "stack": "heroku-16"
