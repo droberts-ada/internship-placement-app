@@ -23,5 +23,16 @@ describe Interview do
 
       expect(second).wont_be :valid?
     end
+
+    it 'is not valid unless scheduled in the future' do
+      interview.scheduled_at = nil
+      expect(interview).wont_be :valid?
+
+      interview.scheduled_at = Date.yesterday.at_noon
+      expect(interview).wont_be :valid?
+
+      interview.scheduled_at = Time.now
+      expect(interview).wont_be :valid?
+    end
   end
 end
