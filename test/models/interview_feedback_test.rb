@@ -25,5 +25,13 @@ describe InterviewFeedback do
 
       expect(feedback).wont_be :valid?
     end
+
+    it 'validates interview result to be 1-5' do
+      [nil, 0, -1, 6].each do |bad_result|
+        feedback.interview_result = bad_result
+
+        expect(feedback).wont_be :valid?
+      end
+    end
   end
 end
