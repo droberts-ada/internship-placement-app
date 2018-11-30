@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181130213332) do
+ActiveRecord::Schema.define(version: 20181130222840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20181130213332) do
     t.datetime "updated_at",   null: false
     t.integer  "classroom_id"
     t.index ["classroom_id"], name: "index_companies_on_classroom_id", using: :btree
+  end
+
+  create_table "interview_feedbacks", force: :cascade do |t|
+    t.string   "interviewer_name",      null: false
+    t.integer  "interview_result",      null: false
+    t.text     "result_explanation",    null: false
+    t.text     "feedback_technical"
+    t.text     "feedback_nontechnical"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "interviews", force: :cascade do |t|
