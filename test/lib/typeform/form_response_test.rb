@@ -19,9 +19,13 @@ describe FormResponse do
     properties: {},
   } end
 
-  let(:answers) do [
+  let(:answers_raw) do [
     answer_text(definition[:fields][0]),
   ] end
+
+  let(:answers) do
+    answers_raw.map { |a| [a[:field][:id], a.except(:field)] }.to_h
+  end
 
   def answer_text(field) {
     type: 'text',
@@ -115,7 +119,7 @@ describe FormResponse do
     it 'sets the form definition from event data' do
       # Must set both or the response will be invalid
       event_good.data[:definition] = definition
-      event_good.data[:answers] = answers
+      event_good.data[:answers] = answers_raw
 
       result = FormResponse.from_webhook_event(event_good)
 
@@ -125,11 +129,11 @@ describe FormResponse do
     it 'sets the answers from event data' do
       # Must set both or the response will be invalid
       event_good.data[:definition] = definition
-      event_good.data[:answers] = answers
+      event_good.data[:answers] = answers_raw
 
       result = FormResponse.from_webhook_event(event_good)
 
-      answers.each do |expected|
+      answers_raw.each do |expected|
         field_id = expected[:field][:id]
         expect(result.answers.keys).must_include field_id
 
