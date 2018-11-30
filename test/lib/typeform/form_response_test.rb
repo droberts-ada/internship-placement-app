@@ -65,4 +65,87 @@ describe FormResponse do
       expect(result.hidden).must_equal hidden
     end
   end
+
+  describe '.from_webhook_event' do
+    def event(name)
+      path = Rails.root.join *(%w(test data typeform)+["#{name}.json"])
+      request = JSON.load(File.open(path))
+      WebhookEvent.from_params(request)
+    end
+
+    let(:event_good) { event(:webhook_req_good) }
+    let(:event_bad) { event(:webhook_req_bad) }
+
+    it 'returns a FormResponse instance' do
+      result = FormResponse.from_webhook_event(event_good)
+
+      expect(result).must_be_kind_of FormResponse
+    end
+
+    it 'raises FormResponseError for invalid event data' do
+      expect {
+        FormResponse.from_webhook_event(event_bad)
+      }.must_raise FormResponseError
+    end
+
+    it 'sets the id from event data' do
+      event_good.data[:token] = id
+
+      result = FormResponse.from_webhook_event(event_good)
+
+      expect(result.id).must_equal id
+    end
+
+    it 'sets the id from event data' do
+      event_good.data[:token] = id
+
+      result = FormResponse.from_webhook_event(event_good)
+
+      expect(result.id).must_equal id
+    end
+
+    it 'sets the form id from event data' do
+      event_good.data[:form_id] = form_id
+
+      result = FormResponse.from_webhook_event(event_good)
+
+      expect(result.form_id).must_equal form_id
+    end
+
+    it 'sets the form definition from event data' do
+      # Must set both or the response will be invalid
+      event_good.data[:definition] = definition
+      event_good.data[:answers] = answers
+
+      result = FormResponse.from_webhook_event(event_good)
+
+      expect(result.definition).must_equal definition
+    end
+
+    it 'sets the answers from event data' do
+      # Must set both or the response will be invalid
+      event_good.data[:definition] = definition
+      event_good.data[:answers] = answers
+
+      result = FormResponse.from_webhook_event(event_good)
+
+      answers.each do |expected|
+        field_id = expected[:field][:id]
+        expect(result.answers.keys).must_include field_id
+
+        actual = result.answers[field_id]
+        expected.except(:field).keys.each do |key|
+          expect(actual[key]).must_equal expected[key]
+        end
+      end
+    end
+
+    it 'sets the hidden variables from event data' do
+      event_good.data[:hidden] = hidden
+
+      result = FormResponse.from_webhook_event(event_good)
+
+      expect(result.hidden).must_equal hidden
+    end
+  end
 end
