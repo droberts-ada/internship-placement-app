@@ -9,13 +9,15 @@ module Typeform
     end
 
     def self.from_params(params)
+      params.to_h.deep_symbolize_keys!
+
       unless valid? params
         raise ArgumentError.new("Invalid Typeform Webhook Event data: #{params}")
       end
 
       id = params[:event_id]
       type = params[:event_type]
-      data = params[type] # this works for form_response type at least...
+      data = params[type.to_sym] # this works for form_response type at least...
 
       new(id, type, data)
     end

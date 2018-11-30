@@ -6,7 +6,7 @@ describe WebhookEvent do
   let(:id) { SecureRandom.hex(32) }
   let(:type) { 'test_type' }
   let(:data) do
-    { test_key: 'test_value' }.with_indifferent_access
+    { test_key: 'test_value' }
   end
 
   describe 'constructor' do
@@ -33,7 +33,7 @@ describe WebhookEvent do
     let(:params) do
       path = Rails.root.join *%w(test data typeform webhook_req_good.json)
 
-      JSON.load(File.open(path)).with_indifferent_access
+      JSON.load(File.open(path))
     end
 
     it 'returns a WebhookEvent instance' do
@@ -43,7 +43,7 @@ describe WebhookEvent do
     end
 
     it 'raises ArgumentError for invalid params data' do
-      params[:event_id] = nil
+      params['event_id'] = nil
 
       expect {
         WebhookEvent.from_params(params)
@@ -51,21 +51,21 @@ describe WebhookEvent do
     end
 
     it 'sets the id from params' do
-      params[:event_id] = id
+      params['event_id'] = id
       result = WebhookEvent.from_params(params)
 
       expect(result.id).must_equal id
     end
 
     it 'sets the type from params' do
-      params[:event_type] = type
+      params['event_type'] = type
       result = WebhookEvent.from_params(params)
 
       expect(result.type).must_equal type
     end
 
     it 'sets the data from params' do
-      type = params[:event_type]
+      type = params['event_type']
       params[type] = data
 
       result = WebhookEvent.from_params(params)
