@@ -27,9 +27,11 @@ describe FormResponse do
     answer_text(definition[:fields][0]),
   ] end
 
-  let(:answers) do
-    answers_raw.map { |a| [a[:field][:id], a.except(:field)] }.to_h
+  def answers_hash(raw)
+    raw.map { |a| [a[:field][:id], a.except(:field)] }.to_h
   end
+
+  let(:answers) { answers_hash(answers_raw) }
 
   def answer_text(field) {
     type: 'text',
@@ -56,13 +58,16 @@ describe FormResponse do
 
     it 'sets the definition' do
       definition = {id: typeform_id, title: 'another form', fields: [field_text]}
+      answers = answers_hash([answer_text(definition[:fields][0])])
+
       result = FormResponse.new(id, form_id, definition, answers, hidden)
       expect(result.definition).must_equal definition
     end
 
     it 'sets the answers' do
       definition = {id: typeform_id, title: 'another form', fields: [field_text]}
-      answers = [answer_text(definition[:fields][0])]
+      answers = answers_hash([answer_text(definition[:fields][0])])
+
       result = FormResponse.new(id, form_id, definition, answers, hidden)
       expect(result.answers).must_equal answers
     end
