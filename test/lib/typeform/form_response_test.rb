@@ -3,8 +3,12 @@ require 'test_helper'
 include Typeform
 
 describe FormResponse do
+  def typeform_id
+    SecureRandom.base64(6)
+  end
+
   let(:id) { SecureRandom.hex(32) }
-  let(:form_id) { SecureRandom.base64(6) }
+  let(:form_id) { typeform_id }
   let(:definition) do {
     id: form_id,
     title: 'test form',
@@ -12,7 +16,7 @@ describe FormResponse do
   } end
 
   def field_text() {
-    id: SecureRandom.base64(6),
+    id: typeform_id,
     title: 'test field',
     type: 'short_text',
     ref: SecureRandom.uuid,
@@ -45,19 +49,19 @@ describe FormResponse do
     end
 
     it 'sets the form id' do
-      form_id = SecureRandom.base64(6)
+      form_id = typeform_id
       result = FormResponse.new(id, form_id, definition, answers, hidden)
       expect(result.form_id).must_equal form_id
     end
 
     it 'sets the definition' do
-      definition = {id: SecureRandom.base64(6), title: 'another form', fields: [field_text]}
+      definition = {id: typeform_id, title: 'another form', fields: [field_text]}
       result = FormResponse.new(id, form_id, definition, answers, hidden)
       expect(result.definition).must_equal definition
     end
 
     it 'sets the answers' do
-      definition = {id: SecureRandom.base64(6), title: 'another form', fields: [field_text]}
+      definition = {id: typeform_id, title: 'another form', fields: [field_text]}
       answers = [answer_text(definition[:fields][0])]
       result = FormResponse.new(id, form_id, definition, answers, hidden)
       expect(result.answers).must_equal answers
