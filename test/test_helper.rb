@@ -42,4 +42,8 @@ class ActiveSupport::TestCase
 
     get auth_callback_path(:google_oauth2)
   end
+
+  def typeform_id
+    SecureRandom.base64(6)
+  end
 end

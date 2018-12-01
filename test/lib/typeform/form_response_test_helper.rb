@@ -4,10 +4,6 @@ module FormResponseTestHelper
   extend ActiveSupport::Concern
 
   included do
-    def typeform_id
-      SecureRandom.base64(6)
-    end
-
     let(:id) { SecureRandom.hex(32) }
     let(:form_id) { typeform_id }
     let(:definition) do {
