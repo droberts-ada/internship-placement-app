@@ -18,6 +18,12 @@ describe InterviewsController do
   end
 
   describe 'feedback webhook' do
+    def request_with_secret(params)
+      query = { typeform_secret: ENV['TYPEFORM_SECRET'] }
+
+      post feedback_interviews_path(query), params: params
+    end
+
     def params(name)
       path = Rails.root.join *(%w(test data typeform)+["#{name}.json"])
       JSON.load(File.open(path))
@@ -27,16 +33,25 @@ describe InterviewsController do
     let(:params_bad) { params(:webhook_req_bad) }
 
     it 'returns 200 OK for valid requests' do
-      post feedback_interviews_path, params: params_good
+      request_with_secret(params_good)
 
       must_respond_with :ok
     end
 
     it 'returns 400 Bad Request for invalid requests' do
       [nil, {}, {event_id: ''}, params_bad].each do |params|
-        post feedback_interviews_path, params: params
+        request_with_secret(params)
 
         must_respond_with :bad_request
+      end
+    end
+
+    it 'returns 404 Not Found when typeform secret is not correct' do
+      [nil, '', SecureRandom.hex(128)].each do |secret|
+        query = {typeform_secret: secret}
+        post feedback_interviews_path(query), params: params_good
+
+        must_respond_with :not_found
       end
     end
   end
