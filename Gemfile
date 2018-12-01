@@ -60,7 +60,7 @@ gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  gem 'pry-byebug', platform: :mri
 
   # Set up environment from .env
   gem 'dotenv-rails'
