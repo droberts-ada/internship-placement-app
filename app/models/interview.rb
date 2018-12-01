@@ -4,7 +4,7 @@ class Interview < ApplicationRecord
   has_many :interview_feedbacks, dependent: :destroy
 
   validates :student, uniqueness: {scope: :company}
-  validate :scheduled_in_future
+  validate :scheduled_in_future, on: :create
 
   private
 

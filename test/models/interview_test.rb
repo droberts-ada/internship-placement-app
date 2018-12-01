@@ -31,15 +31,13 @@ describe Interview do
       expect(second).wont_be :valid?
     end
 
-    it 'is not valid unless scheduled in the future' do
-      interview.scheduled_at = nil
-      expect(interview).wont_be :valid?
+    it 'must be scheduled in the future, when creating new interviews' do
+      [nil, Date.yesterday.at_noon, Time.now].each do |time|
+        attrs = interview.attributes.merge(scheduled_at: time)
 
-      interview.scheduled_at = Date.yesterday.at_noon
-      expect(interview).wont_be :valid?
-
-      interview.scheduled_at = Time.now
-      expect(interview).wont_be :valid?
+        old_interview = Interview.new(attrs)
+        expect(old_interview).wont_be :valid?
+      end
     end
   end
 end
