@@ -12,17 +12,6 @@ module Typeform
       @hidden = hidden
     end
 
-    def self.from_webhook_event(event)
-      data = event.data
-      id = data[:token]
-      form_id = data[:form_id]
-      definition = parse_definition(data[:definition])
-      answers = parse_answers(definition, data[:answers])
-      hidden = parse_hidden(data[:hidden])
-
-      new(id, form_id, definition, answers, hidden)
-    end
-
     def answer(field_id)
       answer = answers[field_id]
       return if answer.blank?
@@ -38,6 +27,17 @@ module Typeform
     end
 
     class << self
+      def from_webhook_event(event)
+        data = event.data
+        id = data[:token]
+        form_id = data[:form_id]
+        definition = parse_definition(data[:definition])
+        answers = parse_answers(definition, data[:answers])
+        hidden = parse_hidden(data[:hidden])
+
+        new(id, form_id, definition, answers, hidden)
+      end
+
       private
 
       def parse_definition(data)
