@@ -30,5 +30,13 @@ describe InterviewsController do
 
       must_respond_with :ok
     end
+
+    it 'returns 400 Bad Request for invalid requests' do
+      [nil, {}, {event_id: ''}].each do |params|
+        post feedback_interviews_path, params: params
+
+        must_respond_with :bad_request
+      end
+    end
   end
 end
