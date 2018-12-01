@@ -172,8 +172,24 @@ describe FormResponse do
         expect(result.answers.keys).must_include field_id
 
         actual = result.answers[field_id]
-        expected.except(:field).keys.each do |key|
-          expect(actual[key]).must_equal expected[key]
+        expect(actual[:type]).must_equal expected[:type]
+
+        case actual[:type]
+        when 'text'
+          # Text answers must match text value
+          expect(actual[:text]).must_equal expected[:text]
+        when 'choice'
+          # The choice must reference a choice from the
+          # definition for the matching field
+          field = definition[:fields].find { |f| f[:id] == field_id }
+          labels = field[:choices].map { |c| c[:label] }
+
+          expect(labels).must_include actual[:choice][:label]
+        else
+          # All expected fields must match exactly
+          expected.except(:field).keys.each do |key|
+            expect(actual[key]).must_equal expected[key]
+          end
         end
       end
     end
