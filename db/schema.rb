@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181130222840) do
+ActiveRecord::Schema.define(version: 20181201040935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20181130222840) do
     t.text     "feedback_nontechnical"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.integer  "interview_id"
+    t.index ["interview_id"], name: "index_interview_feedbacks_on_interview_id", using: :btree
   end
 
   create_table "interviews", force: :cascade do |t|
@@ -112,6 +114,7 @@ ActiveRecord::Schema.define(version: 20181130222840) do
 
   add_foreign_key "classrooms", "users", column: "creator_id"
   add_foreign_key "companies", "classrooms"
+  add_foreign_key "interview_feedbacks", "interviews"
   add_foreign_key "interviews", "companies"
   add_foreign_key "interviews", "students"
   add_foreign_key "placements", "classrooms"

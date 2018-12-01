@@ -1,6 +1,13 @@
 require 'test_helper'
 
 describe Interview do
+  describe 'associations' do
+    it 'has many interview feedbacks' do
+      feedback_assoc = Interview.reflect_on_association(:interview_feedbacks)
+      expect(feedback_assoc.macro).must_equal :has_many
+    end
+  end
+
   describe 'validations' do
     let(:interview) { interviews(:ada_space) }
 

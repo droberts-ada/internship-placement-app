@@ -1,6 +1,7 @@
 class Interview < ApplicationRecord
   belongs_to :student
   belongs_to :company
+  has_many :interview_feedbacks, dependent: :destroy
 
   validates :student, uniqueness: {scope: :company}
   validate :scheduled_in_future
