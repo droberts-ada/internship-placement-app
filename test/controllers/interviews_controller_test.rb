@@ -18,15 +18,22 @@ describe InterviewsController do
   end
 
   describe 'feedback webhook' do
+    let(:interview) { interviews(:ada_space) }
+
     def request_with_secret(params)
       query = { typeform_secret: ENV['TYPEFORM_SECRET'] }
 
       post feedback_interviews_path(query), params: params
     end
 
-    def params(name)
+    def params(name, interview_id=nil)
       path = Rails.root.join *(%w(test data typeform)+["#{name}.json"])
-      JSON.load(File.open(path))
+      params = JSON.load(File.open(path))
+
+      interview_id ||= interview.id
+      params['form_response']['hidden']['interview_id'] = interview_id.to_s
+
+      params
     end
 
     let(:params_good) { params(:webhook_req_good) }
@@ -53,6 +60,38 @@ describe InterviewsController do
 
         must_respond_with :not_found
       end
+    end
+
+    it 'returns 404 Not Found when interview does not exist' do
+      ['', -1, 0, Interview.pluck(:id).max + 1].each do |bad_id|
+        params_no_interview = params(:webhook_req_good, bad_id)
+
+        request_with_secret(params_no_interview)
+
+        must_respond_with :not_found
+      end
+    end
+
+    it 'returns 400 Bad Request when feedback is incomplete' do
+      # WARNING: This assumes that in our hard-coded request data
+      # the first answer is to a required question
+      params_good['form_response']['answers'].delete_at(0)
+
+      request_with_secret(params_good)
+
+      must_respond_with :bad_request
+    end
+
+    it 'creates a new InterviewFeedback' do
+      expect {
+        request_with_secret(params_good)
+      }.must_change -> { InterviewFeedback.count }, 1
+    end
+
+    it 'associates feedback with correct interview' do
+      expect {
+        request_with_secret(params_good)
+      }.must_change -> { interview.interview_feedbacks.count }, 1
     end
   end
 end

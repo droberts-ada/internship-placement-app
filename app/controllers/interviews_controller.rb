@@ -11,11 +11,21 @@ class InterviewsController < ApplicationController
 
     logger.info "Received Typeform form response for form #{response.form_id}: #{response.id}"
 
+    feedback = InterviewFeedback.create_from_form_response(response)
+    if !feedback.persisted?
+      log_error(feedback.errors.full_messages)
+      return head :bad_request
+    end
+
     render plain: 'Success', status: :ok
   rescue ArgumentError, Typeform::FormResponseError => ex
     log_error(ex.backtrace.prepend(ex.message))
 
     head :bad_request
+  rescue ActiveRecord::RecordNotFound => ex
+    log_error(ex.backtrace.prepend(ex.message))
+
+    head :not_found
   end
 
   private
