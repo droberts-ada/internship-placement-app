@@ -24,6 +24,7 @@ describe InterviewsController do
     end
 
     let(:params_good) { params(:webhook_req_good) }
+    let(:params_bad) { params(:webhook_req_bad) }
 
     it 'returns 200 OK for valid requests' do
       post feedback_interviews_path, params: params_good
@@ -32,7 +33,7 @@ describe InterviewsController do
     end
 
     it 'returns 400 Bad Request for invalid requests' do
-      [nil, {}, {event_id: ''}].each do |params|
+      [nil, {}, {event_id: ''}, params_bad].each do |params|
         post feedback_interviews_path, params: params
 
         must_respond_with :bad_request

@@ -4,9 +4,10 @@ class InterviewsController < ApplicationController
 
   def feedback
     event = Typeform::WebhookEvent.from_params(webhook_event_params)
+    response = Typeform::FormResponse.from_webhook_event(event)
 
     render plain: 'Success', status: :ok
-  rescue ArgumentError
+  rescue ArgumentError, Typeform::FormResponseError
     head :bad_request
   end
 
