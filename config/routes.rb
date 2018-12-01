@@ -6,13 +6,20 @@ Rails.application.routes.draw do
       post 'duplicate'
     end
   end
-  
+
   resources :classrooms do
     member do
       get 'populate'
       post 'populate'
     end
     resources :placements, only: [:index, :create]
+  end
+
+  resources :interviews, only: [] do
+    collection do
+      # Webhook for receiving feedback forms
+      post 'feedback'
+    end
   end
 
   # Authentication
