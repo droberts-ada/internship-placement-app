@@ -68,6 +68,8 @@ describe FormResponse do
     var_one: 'test hidden var_one',
   } end
 
+  let(:response) { FormResponse.new(id, form_id, definition, answers, hidden) }
+
   describe 'constructor' do
     it 'sets the response id' do
       id = SecureRandom.hex(32)
@@ -200,6 +202,26 @@ describe FormResponse do
       result = FormResponse.from_webhook_event(event_good)
 
       expect(result.hidden).must_equal hidden
+    end
+  end
+
+  describe '#answer' do
+    it 'returns the answer value for the given field' do
+      field_id = definition[:fields][0][:id]
+      result = response.answer(field_id)
+      expect(result).must_equal answers_raw[0][:text]
+
+      field_id = definition[:fields][1][:id]
+      labels = definition[:fields][1][:choices].map { |c| c[:label] }
+      expect(labels).must_include response.answer(field_id)
+    end
+
+    it 'returns nil for an invalid field ID' do
+      field_id = definition[:fields].map { |f| f[:id] }.sum
+
+      result = response.answer(field_id)
+
+      expect(result).must_be_nil
     end
   end
 end

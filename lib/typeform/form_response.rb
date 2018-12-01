@@ -23,6 +23,19 @@ module Typeform
       new(id, form_id, definition, answers, hidden)
     end
 
+    def answer(field_id)
+      answer = answers[field_id]
+      return if answer.blank?
+
+      case answer[:type]
+      when 'text'
+        answer[:text]
+      when 'choice'
+        answer[:choice][:label]
+      else
+        raise FormResponseError.new("Unknown answer type: #{answer[:type]}")
+      end
+    end
 
     class << self
       private
