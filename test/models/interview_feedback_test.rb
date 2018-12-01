@@ -11,7 +11,7 @@ describe InterviewFeedback do
   describe 'validations' do
     let(:feedback) { interview_feedbacks(:ada_space) }
 
-    it 'is valid' do
+    it 'can be valid' do
       expect(feedback).must_be :valid?
     end
 

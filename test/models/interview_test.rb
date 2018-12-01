@@ -11,7 +11,7 @@ describe Interview do
   describe 'validations' do
     let(:interview) { interviews(:ada_space) }
 
-    it 'is valid' do
+    it 'can be valid' do
       expect(interview).must_be :valid?
     end
 
