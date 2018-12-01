@@ -66,6 +66,11 @@ group :development, :test do
   gem 'dotenv-rails'
 
   gem 'awesome_print'
+
+  # Use pry for rails console
+  gem 'pry-rails'
+
+  gem 'binding_of_caller'
 end
 
 group :development do
@@ -78,11 +83,6 @@ group :development do
 
   # Improve the error message you get in the browser
   gem 'better_errors'
-
-  # Use pry for rails console
-  gem 'pry-rails'
-
-  gem 'binding_of_caller'
 end
 
 group :test do
