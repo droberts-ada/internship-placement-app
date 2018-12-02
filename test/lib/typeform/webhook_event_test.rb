@@ -31,7 +31,7 @@ describe WebhookEvent do
 
   describe '.from_params' do
     let(:params) do
-      path = Rails.root.join *%w(test data typeform webhook_req_good.json)
+      path = File.join fixture_path, %w(files typeform webhook_req_good.json)
 
       JSON.load(File.open(path))
     end

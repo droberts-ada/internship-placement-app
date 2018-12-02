@@ -4,7 +4,7 @@ require 'csv'
 describe Classroom do
   describe '#setup_from_interviews!' do
     def csv(name)
-      path = Rails.root.join *(%w(test data)+["#{name}.csv"])
+      path = File.join fixture_path, 'files', "#{name}.csv"
       CSV.parse(File.open(path).read)
     end
 

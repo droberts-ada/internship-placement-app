@@ -27,7 +27,7 @@ describe InterviewsController do
     end
 
     def params(name, interview_id=nil)
-      path = Rails.root.join *(%w(test data typeform)+["#{name}.json"])
+      path = File.join fixture_path, %w(files typeform), "#{name}.json"
       params = JSON.load(File.open(path))
 
       interview_id ||= interview.id

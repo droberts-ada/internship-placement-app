@@ -50,7 +50,7 @@ describe InterviewFeedback do
 
   describe '.create_from_form_response' do
     def response(name, interview_fixture)
-      path = Rails.root.join *(%w(test data typeform)+["#{name}.json"])
+      path = File.join fixture_path, %w(files typeform), "#{name}.json"
       request = JSON.load(File.open(path))
       event = Typeform::WebhookEvent.from_params(request)
 

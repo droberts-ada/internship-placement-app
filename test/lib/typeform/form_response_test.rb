@@ -46,7 +46,7 @@ describe FormResponse do
 
   describe '.from_webhook_event' do
     def event(name)
-      path = Rails.root.join *(%w(test data typeform)+["#{name}.json"])
+      path = File.join fixture_path, %w(files typeform), "#{name}.json"
       request = JSON.load(File.open(path))
       WebhookEvent.from_params(request)
     end
