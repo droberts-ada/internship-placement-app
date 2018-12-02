@@ -39,6 +39,14 @@ describe InterviewsController do
     let(:params_good) { params(:webhook_req_good) }
     let(:params_bad) { params(:webhook_req_bad) }
 
+    it 'does not use a CSRF token to protect from forgery' do
+      with_forgery_protection do
+        request_with_secret(params_good)
+
+        must_respond_with :ok
+      end
+    end
+
     it 'returns 200 OK for valid requests' do
       request_with_secret(params_good)
 

@@ -1,5 +1,6 @@
 class InterviewsController < ApplicationController
   skip_before_action :require_login,
+                     :verify_authenticity_token,
                      only: [:feedback]
 
   before_action :verify_typeform_secret,

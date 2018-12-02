@@ -46,4 +46,13 @@ class ActiveSupport::TestCase
   def typeform_id
     SecureRandom.base64(6)
   end
+
+  def with_forgery_protection
+    orig = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+
+    yield
+  ensure
+    ActionController::Base.allow_forgery_protection = orig unless orig.nil?
+  end
 end
