@@ -2,6 +2,7 @@
 
 jets:
   name: jets
+  creator: instructor
 
 sharks:
   name: sharks
