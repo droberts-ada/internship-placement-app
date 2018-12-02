@@ -93,5 +93,20 @@ describe InterviewsController do
         request_with_secret(params_good)
       }.must_change -> { interview.interview_feedbacks.count }, 1
     end
+
+    it 'returns 204 No Content for test requests' do
+      event_id = SecureRandom.hex(32)
+      params = {
+        event_id: event_id,
+        event_type: 'form_response',
+        form_response: {
+          token: event_id
+        }
+      }
+
+      request_with_secret(params)
+
+      must_respond_with :no_content
+    end
   end
 end

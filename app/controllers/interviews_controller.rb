@@ -3,6 +3,7 @@ class InterviewsController < ApplicationController
                      only: [:feedback]
 
   before_action :verify_typeform_secret,
+                :ignore_test_requests,
                 only: [:feedback]
 
   def feedback
@@ -37,6 +38,22 @@ class InterviewsController < ApplicationController
 
   def webhook_event_params
     params.to_unsafe_hash
+  end
+
+  # We have to check this before actually parsing the parameters
+  # because unfortunately the test webhooks don't have the same structure
+  # as the real requests! What a good idea!
+  def ignore_test_requests
+    event_id = params[:event_id]
+    response_id = params.dig(:form_response, :token)
+
+    # If we don't have this information, don't do anything
+    # the rest of the controller will handle the error
+    return unless event_id.present? && response_id.present?
+
+    # This is just a heuristic, but real form responses seem to have completely different tokens
+    # and test webhook requests have tokens that start off the same as the event ID
+    head :no_content if event_id[0..5] == response_id[0..5]
   end
 
   def log_error(messages)
