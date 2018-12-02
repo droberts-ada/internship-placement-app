@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  def setup
+  setup do
     OmniAuth.config.test_mode = true
   end
 
