@@ -6,6 +6,8 @@ class Classroom < ApplicationRecord
   has_many :pairings, through: :placements
   belongs_to :creator, class_name: "User"
 
+  validates :name, presence: true
+
   def setup_from_interviews!(interviews)
     # Create companies w/ correct # of slots
     company_names = interviews.transpose.second.map(&:strip)
