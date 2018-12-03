@@ -9,7 +9,7 @@
     <% @interviews.each do |interview| -%>
       <div class="interviews--interview">
         <p class="student-name"><%= interview.student.name %></p>
-        <p class="interview-time"><%= interview.scheduled_at.to_s(:time) %></p>
+        <p class="interview-time"><%= interview.scheduled_at.to_s(:time_12hr) %></p>
       </div>
     <% end -%>
   <% else -%>
@@ -33,7 +33,7 @@
     <% @dates.each do |date| -%>
       <%= link_to interviews_path(date: date.to_s) do %>
         <div class="interviews--date">
-          <p class="interview-date"><%= date.inspect %></p>
+          <p class="interview-date"><%= date.to_s :weekday %></p>
         </div>
       <% end -%>
     <% end -%>
