@@ -5,4 +5,6 @@ class Company < ApplicationRecord
   has_many :interviews, dependent: :destroy
 
   validates :name, presence: true
+
+  validates :slots, numericality: { integer_only: true, greater_than: 0 }
 end

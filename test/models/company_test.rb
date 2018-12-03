@@ -41,5 +41,12 @@ describe Company do
         expect(company).wont_be :valid?
       end
     end
+
+    it 'is only valid with a positive slots count' do
+      [nil, -1, 0].each do |slots|
+        company.slots = slots
+        expect(company).wont_be :valid?
+      end
+    end
   end
 end
