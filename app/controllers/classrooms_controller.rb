@@ -1,6 +1,3 @@
-require 'interview_result_spreadsheet'
-require 'student_preference_spreadsheet'
-
 class ClassroomsController < ApplicationController
   before_action :find_classroom, except: [:index, :new, :create]
 
@@ -72,31 +69,6 @@ class ClassroomsController < ApplicationController
     # TODO DPR: destroy all placements
     @classroom.destroy
     redirect_to classrooms_path
-  end
-
-  def populate
-
-    begin
-      interview_sheet = InterviewResultSpreadsheet.new(@classroom.interview_result_spreadsheet, @current_user)
-      interviews = interview_sheet.populate
-
-      student_sheet = StudentPreferenceSpreadsheet.new(@classroom.student_preference_spreadsheet, @current_user)
-      preferences = student_sheet.populate
-
-      @classroom.from_spreadsheets(interviews, preferences)
-
-    rescue Google::Apis::ClientError, Spreadsheet::SpreadsheetError => error
-      flash[:status] = :failure
-      flash[:message] = "Could not parse spreadsheets: " + error.message
-    
-    rescue StandardError => error
-      flash[:status] = :failure
-      flash[:message] = error.message
-
-    end
-
-    # render :populate
-    redirect_to classroom_path(@classroom)
   end
 
 private

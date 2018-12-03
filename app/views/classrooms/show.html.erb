@@ -17,18 +17,6 @@
 </div>
 
 <div class="row">
-  <% if @classroom.students.count == 0 && @classroom.companies.count == 0 %>
-    <p>
-      Looks like this classroom's data hasn't been loaded yet.
-      <%= button_to "Load from spreadsheets", populate_classroom_path(@classroom), class: "button" %>
-    </p>
-
-  <% else %>
-    <p>
-      <%= button_to "Reload from spreadsheets", populate_classroom_path(@classroom), class: "warning button", data: { confirm: "This will destroy all placements for this classroom! Are you absolutely sure?" } %>
-      Warning: this will destroy any existing placements for this classroom!
-    </p>
-
     <section class="columns small-12">
       <h2><%= @classroom.placements.count %> Placements</h2>
       <table>
@@ -122,5 +110,4 @@
         </tbody>
       </table>
     </section>
-  <% end %>
 </div>

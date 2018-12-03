@@ -8,10 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :classrooms do
-    member do
-      get 'populate'
-      post 'populate'
-    end
     resources :placements, only: [:index, :create]
   end
 
