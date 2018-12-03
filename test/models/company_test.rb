@@ -34,5 +34,12 @@ describe Company do
       company.classroom = nil
       expect(company).wont_be :valid?
     end
+
+    it 'is not valid without a name' do
+      [nil, '', " \t "].each do |name|
+        company.name = name
+        expect(company).wont_be :valid?
+      end
+    end
   end
 end
