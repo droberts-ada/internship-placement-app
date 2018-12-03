@@ -5,8 +5,6 @@
 
     <p>Interview results spreadsheet: <%= link_to @classroom.interview_result_spreadsheet || "Not Set", "https://docs.google.com/spreadsheets/d/#{@classroom.interview_result_spreadsheet}" %></p>
     <p>Student ranking spreadsheet: <%= link_to @classroom.student_preference_spreadsheet || "Not Set", "https://docs.google.com/spreadsheets/d/#{@classroom.student_preference_spreadsheet}" %></p>
-
-    <p>Interviews per internship slot: <%= @classroom.interviews_per_slot %></p>
   </section>
 
   <section class="button-group columns large-3 small-12">
