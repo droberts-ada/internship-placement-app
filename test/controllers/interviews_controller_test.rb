@@ -1,6 +1,8 @@
 require 'test_helper'
 
 describe InterviewsController do
+  let(:interview) { interviews(:ada_space) }
+
   describe 'public routes' do
     it 'has a feedback webhook endpoint' do
       endpoint = {
@@ -25,9 +27,24 @@ describe InterviewsController do
     end
   end
 
-  describe 'feedback webhook' do
-    let(:interview) { interviews(:ada_space) }
+  describe 'show' do
+    it 'redirects to a Typeform page for valid interviews' do
+      get interview_path(interview)
 
+      must_respond_with :redirect
+      must_redirect_to /adadev\.typeform\.com/
+    end
+
+    it 'returns 404 Not Found for invalid interview' do
+      [0, -1, Interview.pluck(:id).max + 1].each do |id|
+        get interview_path(id: id)
+
+        must_respond_with :not_found
+      end
+    end
+  end
+
+  describe 'feedback webhook' do
     def request_with_secret(params)
       query = { typeform_secret: ENV['TYPEFORM_SECRET'] }
 

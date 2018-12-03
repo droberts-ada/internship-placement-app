@@ -1,5 +1,5 @@
 class InterviewsController < ApplicationController
-  skip_before_action :require_login, only: [:index, :feedback]
+  skip_before_action :require_login, only: [:index, :show, :feedback]
 
   skip_before_action :verify_authenticity_token,
                      only: [:feedback]
@@ -29,6 +29,25 @@ class InterviewsController < ApplicationController
     end
 
     @dates = Interview.all.pluck(:scheduled_at).map(&:to_date).uniq
+  end
+
+  def show
+    interview = Interview.find(params[:id])
+
+    form_params = {
+      interview_id: interview.id,
+      student_name: interview.student.name,
+      company_name: interview.company.name,
+      scheduled_at: interview.scheduled_at.to_s(:time_12hr),
+      redirect_to: request.referrer || interviews_path
+    }
+
+    form_url = URI.parse(ENV['TYPEFORM_INTERVIEW_FORM'])
+    form_url.query = URI.encode_www_form(form_params)
+
+    redirect_to form_url.to_s, status: 302
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 
   def feedback

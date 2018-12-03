@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :placements, only: [:index, :create]
   end
 
-  resources :interviews, only: [:index] do
+  resources :interviews, only: [:index, :show] do
     collection do
       # Webhook for receiving feedback forms
       post 'feedback'

@@ -7,10 +7,12 @@
           <strong><%= @date.to_s :weekday %></strong>
     </h2>
     <% @interviews.each do |interview| -%>
-      <div class="interviews--interview">
-        <p class="student-name"><%= interview.student.name %></p>
-        <p class="interview-time"><%= interview.scheduled_at.to_s(:time_12hr) %></p>
-      </div>
+      <%= link_to interview_path(interview), target: '_blank' do %>
+        <div class="interviews--interview">
+          <p class="student-name"><%= interview.student.name %></p>
+          <p class="interview-time"><%= interview.scheduled_at.to_s(:time_12hr) %></p>
+        </div>
+      <% end -%>
     <% end -%>
   <% else -%>
     <%# Otherwise list the possible companies -%>
