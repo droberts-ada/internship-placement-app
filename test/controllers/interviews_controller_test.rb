@@ -17,6 +17,14 @@ describe InterviewsController do
     end
   end
 
+  describe 'index' do
+    it 'returns 200 OK without logging in' do
+      get interviews_path
+
+      must_respond_with :ok
+    end
+  end
+
   describe 'feedback webhook' do
     let(:interview) { interviews(:ada_space) }
 

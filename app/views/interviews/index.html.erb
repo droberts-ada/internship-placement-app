@@ -1,0 +1,41 @@
+<div class="row">
+  <h1>Find Your Interview</h1>
+  <% if @interviews -%>
+    <%# If we have a list of interviews, show that list. -%>
+    <h2>Interviews for
+          <strong><%= @company.name %></strong> on
+          <strong><%= @date.to_s :weekday %></strong>
+    </h2>
+    <% @interviews.each do |interview| -%>
+      <div class="interviews--interview">
+        <p class="student-name"><%= interview.student.name %></p>
+        <p class="interview-time"><%= interview.scheduled_at.to_s(:time) %></p>
+      </div>
+    <% end -%>
+  <% else -%>
+    <%# Otherwise list the possible companies -%>
+    <% if @companies -%>
+      <h2>Which company are you interviewing for?</h2>
+      <% @companies.each do |company| -%>
+        <%= link_to interviews_path(search_params.merge(company_id: company.id)) do %>
+          <div class="interviews--company">
+            <p class="company-name"><%= company.name %></p>
+          </div>
+        <% end -%>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+
+  <%# And interview dates %>
+  <% if @dates -%>
+    <h2>Don't see your company or interview listed above?</h2>
+    <h3>Select today's date:</h3>
+    <% @dates.each do |date| -%>
+      <%= link_to interviews_path(date: date.to_s) do %>
+        <div class="interviews--date">
+          <p class="interview-date"><%= date.inspect %></p>
+        </div>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+</div>

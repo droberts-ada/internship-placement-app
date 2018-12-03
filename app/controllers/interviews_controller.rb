@@ -1,11 +1,35 @@
 class InterviewsController < ApplicationController
-  skip_before_action :require_login,
-                     :verify_authenticity_token,
+  skip_before_action :require_login, only: [:index, :feedback]
+
+  skip_before_action :verify_authenticity_token,
                      only: [:feedback]
 
   before_action :verify_typeform_secret,
                 :ignore_test_requests,
                 only: [:feedback]
+
+  def index
+    # Do we have a specific date?
+    @date = (params[:date] || Date.today).to_date
+    time_range = @date.beginning_of_day..@date.end_of_day
+
+    # Do we have a specific company?
+    @company = Company.find_by(id: params[:company_id])
+
+    if @company
+      @interviews = Interview.where(
+                      scheduled_at: time_range,
+                      company: @company
+                    )
+    else
+      @companies = Company.all
+                          .joins(:interviews)
+                          .merge(Interview.where(scheduled_at: time_range))
+                          .distinct
+    end
+
+    @dates = Interview.all.pluck(:scheduled_at).map(&:to_date).uniq
+  end
 
   def feedback
     event = Typeform::WebhookEvent.from_params(webhook_event_params)
@@ -31,6 +55,11 @@ class InterviewsController < ApplicationController
   end
 
   private
+
+  helper_method :search_params
+  def search_params
+    params.permit(:date, :company_id)
+  end
 
   SECRET = ENV['TYPEFORM_SECRET']
   def verify_typeform_secret
