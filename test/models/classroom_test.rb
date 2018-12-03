@@ -1,29 +1,60 @@
 require 'test_helper'
+require 'csv'
 
 describe Classroom do
-  describe "relations" do
-  end
+  let(:classroom) { classrooms(:jets) }
 
-  describe "purge" do
-    it "blows away everything" do
-      classroom = classrooms(:jets)
-      classroom.pairings.count.must_be :>, 0
-      classroom.placements.count.must_be :>, 0
-      classroom.rankings.count.must_be :>, 0
-      classroom.companies.count.must_be :>, 0
-      classroom.students.count.must_be :>, 0
+  describe 'validations' do
+    it 'can be valid' do
+      expect(classroom).must_be :valid?
+    end
 
-      classroom.purge
-      classroom.reload
-
-      classroom.pairings.count.must_equal 0
-      classroom.placements.count.must_equal 0
-      classroom.rankings.count.must_equal 0
-      classroom.companies.count.must_equal 0
-      classroom.students.count.must_equal 0
+    it 'is not valid with no name' do
+      [nil, '', '   '].each do |name|
+        classroom.name = name
+        expect(classroom).wont_be :valid?
+      end
     end
   end
 
-  describe "from_spreadsheets" do
+  describe '#setup_from_interviews!' do
+    def csv(name)
+      path = File.join fixture_path, 'files', "#{name}.csv"
+      CSV.parse(File.open(path).read)
+    end
+
+    let(:interviews) { csv(:interviews_good) }
+
+    it 'creates each company with correct slots count' do
+      company_counts = {
+        'FizzBuzz Inc' => 4,
+        'Websites-R-Us' => 4,
+      }
+
+      expect {
+        classroom.setup_from_interviews!(interviews)
+
+        company_counts.each do |name, count|
+          company = Company.find_by(name: name)
+          expect(company).wont_equal nil
+
+          expect(company.slots).must_equal count
+        end
+      }.must_change -> { Company.count }, company_counts.count
+    end
+
+    it 'creates each student' do
+      students_count = 4
+
+      expect {
+        classroom.setup_from_interviews!(interviews)
+      }.must_change -> { Student.count }, students_count
+    end
+
+    it 'creates all listed interviews' do
+      expect {
+        classroom.setup_from_interviews!(interviews)
+      }.must_change -> { Interview.count }, interviews.count
+    end
   end
 end

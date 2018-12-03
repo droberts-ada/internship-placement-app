@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  def setup
+  setup do
     OmniAuth.config.test_mode = true
   end
 
@@ -41,5 +41,18 @@ class ActiveSupport::TestCase
     OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
 
     get auth_callback_path(:google_oauth2)
+  end
+
+  def typeform_id
+    SecureRandom.base64(6)
+  end
+
+  def with_forgery_protection
+    orig = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+
+    yield
+  ensure
+    ActionController::Base.allow_forgery_protection = orig unless orig.nil?
   end
 end

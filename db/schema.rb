@@ -10,19 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712234634) do
+ActiveRecord::Schema.define(version: 20181203020044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "creator_id"
-    t.string   "interview_result_spreadsheet"
-    t.string   "student_preference_spreadsheet"
-    t.integer  "interviews_per_slot",            default: 6
     t.index ["creator_id"], name: "index_classrooms_on_creator_id", using: :btree
   end
 
@@ -33,6 +30,29 @@ ActiveRecord::Schema.define(version: 20170712234634) do
     t.datetime "updated_at",   null: false
     t.integer  "classroom_id"
     t.index ["classroom_id"], name: "index_companies_on_classroom_id", using: :btree
+  end
+
+  create_table "interview_feedbacks", force: :cascade do |t|
+    t.string   "interviewer_name",      null: false
+    t.integer  "interview_result",      null: false
+    t.text     "result_explanation",    null: false
+    t.text     "feedback_technical"
+    t.text     "feedback_nontechnical"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "interview_id"
+    t.index ["interview_id"], name: "index_interview_feedbacks_on_interview_id", using: :btree
+  end
+
+  create_table "interviews", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "company_id"
+    t.datetime "scheduled_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["company_id"], name: "index_interviews_on_company_id", using: :btree
+    t.index ["student_id", "company_id"], name: "index_interviews_on_student_id_and_company_id", unique: true, using: :btree
+    t.index ["student_id"], name: "index_interviews_on_student_id", using: :btree
   end
 
   create_table "pairings", force: :cascade do |t|
@@ -91,6 +111,9 @@ ActiveRecord::Schema.define(version: 20170712234634) do
 
   add_foreign_key "classrooms", "users", column: "creator_id"
   add_foreign_key "companies", "classrooms"
+  add_foreign_key "interview_feedbacks", "interviews"
+  add_foreign_key "interviews", "companies"
+  add_foreign_key "interviews", "students"
   add_foreign_key "placements", "classrooms"
   add_foreign_key "placements", "users", column: "owner_id"
   add_foreign_key "students", "classrooms"

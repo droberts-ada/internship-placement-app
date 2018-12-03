@@ -1,0 +1,46 @@
+// Place all the styles related to the interviews controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.interviews--interview,
+.interviews--company,
+.interviews--date {
+  display: inline-block;
+  background-color: #f0f0f0;
+
+  border: 2px solid #e8e8e8;
+  border-radius: 0.5rem;
+
+  margin: 1rem;
+  padding: 1.5rem;
+
+  font-size: 1.2rem;
+
+  &:hover {
+    background-color: #e0e0e0;
+    border-color: #d8d8d8;
+  }
+}
+
+.student-name,
+.company-name,
+.interview-time,
+.interview-date {
+  display: inline-block;
+  margin: 0;
+}
+
+.interviews--date {
+  text-align: center;
+  width: 15%;
+}
+
+.interview-complete {
+  background-color: #d0d0d0;
+  border-color: #c8c8c8;
+
+  &:hover {
+    background-color: #c0c0c0;
+    border-color: #b8b8b8;
+  }
+}

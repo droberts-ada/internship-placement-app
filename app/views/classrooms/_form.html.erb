@@ -1,21 +1,10 @@
 <section>
-  <%= form_for @classroom do |f| %>
+  <%= form_for @classroom, html: {multipart: true} do |f| %>
     <%= f.label :name, "Classroom name" %>
     <%= f.text_field :name %>
 
-    <%= f.label :interviews_per_slot %>
-    <%= f.number_field :interviews_per_slot %>
-
-    <section>
-      <h3>Finding Spreadsheet IDs</h3>
-      <%= image_tag "spreadsheet_id.png", alt: "How to find a spreadsheet's ID" %>
-
-      <%= f.label :interview_result_spreadsheet %>
-      <%= f.text_field :interview_result_spreadsheet %>
-
-      <%= f.label :student_preference_spreadsheet %>
-      <%= f.text_field :student_preference_spreadsheet %>
-    </section>
+    <%= label_tag :interviews_csv %>
+    <%= file_field_tag :interviews_csv, accept: 'text/csv' %>
 
     <%= f.submit class: "button" %>
   <% end %>
