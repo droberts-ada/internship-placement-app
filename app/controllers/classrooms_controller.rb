@@ -27,10 +27,10 @@ class ClassroomsController < ApplicationController
     flash[:status] = :success
     flash[:message] = "created classroom #{@classroom.name}"
     redirect_to @classroom
-  rescue ActiveRecord::RecordInvalid
+  rescue ActiveRecord::RecordInvalid => ex
     flash[:status] = :failure
     flash[:message] = "could not create classroom"
-    flash[:errors] = @classroom.errors.messages
+    flash[:errors] = @classroom.errors.messages.merge(error: [ex.message])
 
     render :new, status: :bad_request
   rescue IOError, CSV::MalformedCSVError => ex
