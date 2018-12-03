@@ -23,7 +23,7 @@ describe Classroom do
       CSV.parse(File.open(path).read)
     end
 
-    let(:interviews) { csv(:interviews) }
+    let(:interviews) { csv(:interviews_good) }
 
     it 'creates each company with correct slots count' do
       company_counts = {

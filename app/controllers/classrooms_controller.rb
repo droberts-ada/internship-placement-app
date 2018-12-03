@@ -1,4 +1,3 @@
-require 'classroom_generator'
 require 'interview_result_spreadsheet'
 require 'student_preference_spreadsheet'
 
@@ -14,27 +13,36 @@ class ClassroomsController < ApplicationController
   end
 
   def create
-    if params[:generate]
-      @classroom = ClassroomGenerator::build_classroom
-      redirect_to classroom_path(@classroom)
+    # Make sure we have a valid interview file
+    interviews_file = params[:interviews_csv]
+    raise IOError.new('No interviews CSV file uploaded') unless interviews_file
+    interviews_csv = CSV.parse(interviews_file.read)
 
-    else
-      @classroom = Classroom.new(classroom_params)
-      @classroom.creator = @current_user
-
-      if @classroom.save
-        flash[:status] = :success
-        flash[:message] = "created classroom #{@classroom.id}"
-        redirect_to classroom_path(@classroom)
-
-      else
-        flash[:status] = :failure
-        flash[:message] = "could not create classroom"
-        flash[:errors] = @classroom.errors.messages
-        render :new
-
+    Classroom.transaction do
+      @classroom = Classroom.create(classroom_params) do |classroom|
+        classroom.creator = @current_user
       end
+      raise ActiveRecord::RecordInvalid unless @classroom.persisted?
+
+      @classroom.setup_from_interviews!(interviews_csv)
     end
+
+    flash[:status] = :success
+    flash[:message] = "created classroom #{@classroom.name}"
+    redirect_to @classroom
+  rescue ActiveRecord::RecordInvalid
+    flash[:status] = :failure
+    flash[:message] = "could not create classroom"
+    flash[:errors] = @classroom.errors.messages
+
+    render :new, status: :bad_request
+  rescue IOError, CSV::MalformedCSVError => ex
+    flash[:status] = :failure
+    flash[:message] = "could not use interviews CSV file"
+    flash[:errors] = {interviews_csv: [ex.message]}
+
+    @classroom ||= Classroom.new(classroom_params)
+    render :new, status: :bad_request
   end
 
   def show
@@ -93,7 +101,7 @@ class ClassroomsController < ApplicationController
 
 private
   def classroom_params
-    params.require(:classroom).permit(:name, :interview_result_spreadsheet, :student_preference_spreadsheet, :interviews_per_slot)
+    params.require(:classroom).permit(:name, :interviews_per_slot)
   end
 
   def find_classroom
