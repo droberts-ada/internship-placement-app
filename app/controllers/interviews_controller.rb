@@ -20,15 +20,16 @@ class InterviewsController < ApplicationController
       @interviews = Interview.where(
                       scheduled_at: time_range,
                       company: @company
-                    )
+                    ).order(scheduled_at: :asc)
     else
       @companies = Company.all
                           .joins(:interviews)
                           .merge(Interview.where(scheduled_at: time_range))
+                          .order(name: :asc)
                           .distinct
     end
 
-    @dates = Interview.all.pluck(:scheduled_at).map(&:to_date).uniq
+    @dates = Interview.all.pluck(:scheduled_at).sort.map(&:to_date).uniq
   end
 
   def show
