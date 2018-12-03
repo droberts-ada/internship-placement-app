@@ -6,6 +6,10 @@ class Interview < ApplicationRecord
   validates :student, uniqueness: {scope: :company}
   validate :scheduled_in_future, on: :create
 
+  def has_feedback?
+    interview_feedbacks.present?
+  end
+
   private
 
   def scheduled_in_future

@@ -40,4 +40,22 @@ describe Interview do
       end
     end
   end
+
+  describe '#has_feedback?' do
+    it 'returns true when the interview has feedback' do
+      i = interviews(:ada_space)
+      # Sanity check
+      expect(InterviewFeedback.where(interview: i).count).must_be :>, 0
+
+      expect(i.has_feedback?).must_equal true
+    end
+
+    it 'returns false when the interview does not have feedback' do
+      i = interviews(:ada_freedom)
+      # Sanity check
+      expect(InterviewFeedback.where(interview: i).count).must_equal 0
+
+      expect(i.has_feedback?).must_equal false
+    end
+  end
 end
