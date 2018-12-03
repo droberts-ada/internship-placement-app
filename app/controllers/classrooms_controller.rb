@@ -13,7 +13,7 @@ class ClassroomsController < ApplicationController
     # Make sure we have a valid interview file
     interviews_file = params[:interviews_csv]
     raise IOError.new('No interviews CSV file uploaded') unless interviews_file
-    interviews_csv = CSV.parse(interviews_file.read)
+    interviews_csv = CSV.parse(interviews_file.read).reject(&:empty?)
 
     Classroom.transaction do
       @classroom = Classroom.create(classroom_params) do |classroom|
