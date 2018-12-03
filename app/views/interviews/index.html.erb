@@ -8,7 +8,7 @@
     </h2>
     <% @interviews.each do |interview| -%>
       <%= link_to interview_path(interview) do %>
-        <div class="interviews--interview">
+        <div class="interviews--interview<%= ' interview-complete' if interview.has_feedback? %>">
           <p class="student-name"><%= interview.student.name %></p>
           <p class="interview-time"><%= interview.scheduled_at.to_s(:time_12hr) %></p>
         </div>
