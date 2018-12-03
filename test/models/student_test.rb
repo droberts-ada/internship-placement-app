@@ -34,5 +34,12 @@ describe Student do
       student.classroom = nil
       expect(student).wont_be :valid?
     end
+
+    it 'is not valid without a name' do
+      [nil, '', " \t "].each do |name|
+        student.name = name
+        expect(student).wont_be :valid?
+      end
+    end
   end
 end

@@ -3,4 +3,6 @@ class Student < ApplicationRecord
   has_many :rankings
   has_many :companies, through: :rankings
   has_many :interviews, dependent: :destroy
+
+  validates :name, presence: true
 end
