@@ -3,7 +3,7 @@ ada_space:
   company: space_labs
   scheduled_at: <%= Date.yesterday.at_noon %>
 
-ada_freedom:
-  student: ada
+grace_freedom:
+  student: grace
   company: freedom_inc
   scheduled_at: <%= Date.tomorrow.at_noon %>
