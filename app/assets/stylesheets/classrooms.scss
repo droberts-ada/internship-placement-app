@@ -1,3 +1,14 @@
 // Place all the styles related to the classrooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.classroom--companies .company-complete {
+  background-color: #b1f1b1;
+}
+
+.classroom--companies .company-count-head,
+.classroom--companies .company-count-row,
+.classroom--students  .student-count-head,
+.classroom--students  .student-count-row {
+  text-align: center;
+}

@@ -49,4 +49,29 @@ describe Company do
       end
     end
   end
+
+  describe '#interviews_complete?' do
+    it 'returns true when all associated interviews are complete' do
+      company = companies(:space_labs)
+      # Sanity check
+      company.interviews.each do |interview|
+        expect(interview.interview_feedbacks).wont_be :empty?
+      end
+
+      expect(company.interviews_complete?).must_equal true
+    end
+
+    it 'returns false when not all associated interviews are complete' do
+      company = companies(:freedom_inc)
+
+      # Sanity check
+      all_completed = true
+      company.interviews.each do |interview|
+        all_completed &&= interview.interview_feedbacks.present?
+      end
+      expect(all_completed).must_equal false
+
+      expect(company.interviews_complete?).must_equal false
+    end
+  end
 end

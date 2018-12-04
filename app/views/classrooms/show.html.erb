@@ -44,16 +44,20 @@
 
     <section class="columns large-6 small-12">
       <h2><%= @classroom.students.count %> Students</h2>
-      <table>
+      <table class="classroom--students">
         <thead>
           <tr>
-            <th>Name</th>
+            <th class="student-name-head">Name</th>
+            <th class="student-count-head">Completed / Total Interviews</th>
           </tr>
         </thead>
         <tbody>
           <% @classroom.students.order(:name).each do |student| %>
-            <tr>
-              <td><%= student.name %></td>
+            <% row_class = 'student-complete' if student.interviews_complete? %>
+
+            <tr class="<%= row_class %>">
+              <td class="student-name-row"><%= student.name %></td>
+              <td class="student-count-row"><%= student.interviews.has_feedback.count %> / <%= student.interviews.count %></td>
             </tr>
           <% end %>
         </tbody>
@@ -62,18 +66,20 @@
 
     <section class="columns large-6 small-12">
       <h2><%= @classroom.companies.count %> Companies</h2>
-      <table>
+      <table class="classroom--companies">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Slots</th>
+            <th class="company-name-head">Name</th>
+            <th class="company-count-head">Completed / Total Interviews</th>
           </tr>
         </thead>
         <tbody>
           <% @classroom.companies.order(:name).each do |company| %>
-            <tr>
-              <td><%= company.name %></td>
-              <td><%= company.slots %></td>
+            <% row_class = 'company-complete' if company.interviews_complete? %>
+
+            <tr class="<%= row_class %>">
+              <td class="company-name-row"><%= company.name %></td>
+              <td class="company-count-row"><%= company.interviews.has_feedback.count %> / <%= company.slots %></td>
             </tr>
           <% end %>
         </tbody>

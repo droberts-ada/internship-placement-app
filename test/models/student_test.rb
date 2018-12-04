@@ -42,4 +42,29 @@ describe Student do
       end
     end
   end
+
+  describe '#interviews_complete?' do
+    it 'returns true when all associated interviews are complete' do
+      student = students(:ada)
+      # Sanity check
+      student.interviews.each do |interview|
+        expect(interview.interview_feedbacks).wont_be :empty?
+      end
+
+      expect(student.interviews_complete?).must_equal true
+    end
+
+    it 'returns false when not all associated interviews are complete' do
+      student = students(:grace)
+
+      # Sanity check
+      all_completed = true
+      student.interviews.each do |interview|
+        all_completed &&= interview.interview_feedbacks.present?
+      end
+      expect(all_completed).must_equal false
+
+      expect(student.interviews_complete?).must_equal false
+    end
+  end
 end

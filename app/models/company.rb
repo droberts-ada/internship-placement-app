@@ -7,4 +7,8 @@ class Company < ApplicationRecord
   validates :name, presence: true
 
   validates :slots, numericality: { integer_only: true, greater_than: 0 }
+
+  def interviews_complete?
+    interviews.all?(&:has_feedback?)
+  end
 end

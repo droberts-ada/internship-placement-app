@@ -41,6 +41,21 @@ describe Interview do
     end
   end
 
+  describe 'scopes' do
+    describe 'has_feedback' do
+      it 'returns all interviews with at least one feedback associated' do
+        has_feedback = Interview.all.has_feedback
+
+        expect(has_feedback).must_include interviews(:ada_space)
+        expect(has_feedback).wont_include interviews(:grace_freedom)
+
+        has_feedback.each do |interview|
+          expect(interview.interview_feedbacks).wont_be :empty?
+        end
+      end
+    end
+  end
+
   describe '#has_feedback?' do
     it 'returns true when the interview has feedback' do
       i = interviews(:ada_space)
@@ -51,7 +66,7 @@ describe Interview do
     end
 
     it 'returns false when the interview does not have feedback' do
-      i = interviews(:ada_freedom)
+      i = interviews(:grace_freedom)
       # Sanity check
       expect(InterviewFeedback.where(interview: i).count).must_equal 0
 
