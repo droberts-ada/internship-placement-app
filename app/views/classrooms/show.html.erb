@@ -2,6 +2,8 @@
   <section class="columns large-9 small-12">
     <h1>Classroom <%= @classroom.name %></h1>
     <p>Added <%= time_ago_in_words(@classroom.created_at) %> ago by <%= @classroom.creator.name %></p>
+
+    <p>Interviews per internship slot: <%= @classroom.interviews_per_slot %></p>
   </section>
 
   <section class="button-group columns large-3 small-12">
