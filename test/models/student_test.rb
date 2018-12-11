@@ -43,6 +43,25 @@ describe Student do
     end
   end
 
+  describe 'scopes' do
+    describe 'without_feedback' do
+      it 'returns all students with no rankings associated' do
+        without_feedback = Student.all.without_feedback
+
+        expect(without_feedback).wont_include students(:ada)
+        expect(without_feedback).wont_include students(:grace)
+        expect(without_feedback).wont_include students(:katherine)
+        expect(without_feedback).wont_include students(:anita)
+
+        expect(without_feedback).must_include students(:no_rankings)
+
+        without_feedback.each do |student|
+          expect(student.rankings).must_be :empty?
+        end
+      end
+    end
+  end
+
   describe '#interviews_complete?' do
     it 'returns true when all associated interviews are complete' do
       student = students(:ada)

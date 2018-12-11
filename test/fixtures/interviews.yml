@@ -7,3 +7,13 @@ grace_freedom:
   student: grace
   company: freedom_inc
   scheduled_at: <%= Date.tomorrow.at_noon %>
+
+no_rankings_space:
+  student: no_rankings
+  company: space_labs
+  scheduled_at: <%= Date.yesterday.at_noon + 40.minutes %>
+
+no_rankings_freedom:
+  student: no_rankings
+  company: freedom_inc
+  scheduled_at: <%= Date.yesterday.at_noon + 80.minutes %>
