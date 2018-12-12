@@ -1,0 +1,9 @@
+<div class="row student-feedback">
+  <h1 class="heading">Post-Interview Company Rankings</h1>
+  <br>
+  <div class="columns small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3">
+    <%= collection_select :student, :id, @students, :id, :name,
+          { prompt: "Select your name"}, { class: "student-feedback--name" } %>
+  </div>
+  <div class="columns"></div>
+</div>

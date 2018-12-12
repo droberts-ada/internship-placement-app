@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :students, only: [] do
+    collection do
+      get 'feedback'
+    end
+  end
+
   # Authentication
   get '/login', to: 'users#login', as: 'login'
   get '/auth/:provider/callback', to: 'users#auth_callback', as: 'auth_callback'
