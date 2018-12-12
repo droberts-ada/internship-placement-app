@@ -5,6 +5,7 @@
 }
 
 .student-feedback--rank,
+.student-feedback--rank-btns,
 .student-feedback--company {
   display: inline-block;
 
@@ -37,5 +38,19 @@
   &:hover {
     background-color: #e0e0e0;
     border-color: #d8d8d8;
+  }
+}
+
+.student-feedback--rank-btns {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.student-feedback--rank-btn-up,
+.student-feedback--rank-btn-down {
+  color: #1779ba;
+
+  &:hover, &:focus {
+    color: #14679e;
   }
 }

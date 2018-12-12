@@ -8,6 +8,7 @@ const StudentFeedbackView = Backbone.View.extend({
     const companyViews = _.map(companies, (company, index) => {
       return new StudentFeedbackCompanyView({
         model: _.extend({}, company, {rank: index + 1}),
+        onRankChange: this.onRankChange.bind(this),
       });
     });
 
@@ -35,6 +36,24 @@ const StudentFeedbackView = Backbone.View.extend({
     } else {
       this._loadCompanies(studentId);
     }
+  },
+
+  onRankChange: function(company, change) {
+    const companies = this.model.companies;
+    const oldIndex = company.rank - 1;
+
+    // Figure out the new index
+    const maxIndex = companies.length - 1;
+    const newIndex = Math.max(0, Math.min(oldIndex + change, maxIndex));
+
+    if(oldIndex === newIndex) return;
+
+    // Swap
+    const tmp = companies[oldIndex];
+    companies[oldIndex] = companies[newIndex];
+    companies[newIndex] = tmp;
+
+    this.render();
   },
 
   _loadCompanies: function(studentId) {
@@ -67,10 +86,25 @@ const StudentFeedbackCompanyView = Backbone.View.extend({
 
   initialize: function(options) {
     this.template = _.template($('#student-feedback--company-template').html());
+
+    this.onRankChange = options.onRankChange;
   },
 
   render: function() {
     this.$el.html(this.template(this.model));
     return this;
+  },
+
+  events: {
+    'click .student-feedback--rank-btn-up': 'onClickUp',
+    'click .student-feedback--rank-btn-down': 'onClickDown',
+  },
+
+  onClickUp: function() { this._changeRank(-1); },
+
+  onClickDown: function() { this._changeRank(+1); },
+
+  _changeRank: function(change) {
+    this.onRankChange(this.model, change);
   },
 });
