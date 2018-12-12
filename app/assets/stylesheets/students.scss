@@ -3,3 +3,39 @@
     text-align: center
   }
 }
+
+.student-feedback--rank,
+.student-feedback--company {
+  display: inline-block;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.student-feedback--rank {
+  width: 10%;
+
+  text-align: center;
+  font-size: 2rem;
+}
+
+.student-feedback--company {
+  width: 70%;
+
+  background-color: #f0f0f0;
+
+  border: 2px solid #e8e8e8;
+  border-radius: 0.5rem;
+
+  margin: 1rem;
+  padding: 1.5rem;
+
+  text-align: center;
+  font-size: 1.2rem;
+
+  &:hover {
+    background-color: #e0e0e0;
+    border-color: #d8d8d8;
+  }
+}

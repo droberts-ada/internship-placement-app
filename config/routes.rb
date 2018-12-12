@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     collection do
       get 'feedback'
     end
+
+    member do
+      get 'companies'
+    end
   end
 
   # Authentication

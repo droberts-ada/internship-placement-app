@@ -4,6 +4,9 @@
   <div class="columns small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3">
     <%= collection_select :student, :id, @students, :id, :name,
           { prompt: "Select your name"}, { class: "student-feedback--name" } %>
+
+    <ul class="student-feedback--companies">
+    </ul>
   </div>
   <div class="columns"></div>
 </div>
@@ -17,4 +20,15 @@ const view = new StudentFeedbackView({
 });
 
 view.render();
+</script>
+
+<!-- Underscore templates are set to use #
+     instead of %, to not conflict with ERB -->
+<script type="text/template" id="student-feedback--company-template">
+<div class="student-feedback--rank">
+  <p><#- rank #></p>
+</div>
+<div class="student-feedback--company">
+  <p><#- name #></p>
+</div>
 </script>
