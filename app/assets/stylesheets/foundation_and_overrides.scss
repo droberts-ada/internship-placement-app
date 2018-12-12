@@ -51,3 +51,9 @@
 //
 // @include motion-ui-transitions;
 // @include motion-ui-animations;
+
+select {
+  // These are missing from our version of Foundation
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
