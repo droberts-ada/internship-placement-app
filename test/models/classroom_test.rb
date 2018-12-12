@@ -26,7 +26,9 @@ describe Classroom do
     let(:interviews) { csv(:interviews_good) }
 
     it 'creates each company with correct slots count' do
-      company_counts = {
+      interviews_per_slot = classroom.interviews_per_slot
+
+      company_interviews = {
         'FizzBuzz Inc' => 4,
         'Websites-R-Us' => 4,
       }
@@ -34,13 +36,13 @@ describe Classroom do
       expect {
         classroom.setup_from_interviews!(interviews)
 
-        company_counts.each do |name, count|
+        company_interviews.each do |name, interviews|
           company = Company.find_by(name: name)
           expect(company).wont_equal nil
 
-          expect(company.slots).must_equal count
+          expect(company.slots).must_equal interviews / interviews_per_slot
         end
-      }.must_change -> { Company.count }, company_counts.count
+      }.must_change -> { Company.count }, company_interviews.count
     end
 
     it 'creates each student' do

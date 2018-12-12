@@ -13,7 +13,9 @@ class Classroom < ApplicationRecord
     company_names = interviews.transpose.second.map(&:strip)
     company_attrs = company_names.reduce({}) do |slots, n|
       slots.merge(n => slots.fetch(n, 0) + 1)
-    end.map { |name, slots| { name: name, slots: slots } }
+    end.map do |name, slots|
+      { name: name, slots: slots / interviews_per_slot }
+    end
 
     companies.create!(company_attrs)
 

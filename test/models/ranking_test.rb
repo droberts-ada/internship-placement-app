@@ -64,7 +64,7 @@ class RankingTest < ActiveSupport::TestCase
     assert_includes r.errors.messages, :student
   end
 
-  test "Student ranking must be integer, 0 < i <= 5" do
+  test "Student ranking must be positive integer" do
     ranking_data = {
       student: students(:no_company),
       company: companies(:no_students),
@@ -85,12 +85,6 @@ class RankingTest < ActiveSupport::TestCase
 
     # Under
     ranking_data[:student_preference] = 0
-    r = Ranking.create(ranking_data)
-    assert_not r.valid?
-    assert_includes r.errors.messages, :student_preference
-
-    # Over
-    ranking_data[:student_preference] = 6
     r = Ranking.create(ranking_data)
     assert_not r.valid?
     assert_includes r.errors.messages, :student_preference

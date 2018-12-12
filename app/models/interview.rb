@@ -14,6 +14,14 @@ class Interview < ApplicationRecord
     interview_feedbacks.present?
   end
 
+  def interview_result
+    return nil if interview_feedbacks.empty?
+
+    results = interview_feedbacks.map(&:interview_result)
+
+    (results.sum.to_f / results.count).round
+  end
+
   private
 
   def scheduled_in_future

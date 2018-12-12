@@ -21,6 +21,7 @@ describe ClassroomsController do
     let(:params_good) do {
       classroom: {
         name: 'Test classroom',
+        interviews_per_slot: 2,
       },
       interviews_csv: interviews_good,
     } end

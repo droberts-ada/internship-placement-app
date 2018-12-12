@@ -7,3 +7,23 @@ ada_space:
 
   feedback_technical: 'Technical feedback for the student'
   feedback_nontechnical: ''
+
+no_rankings_space:
+  interview: no_rankings_space
+  interviewer_name: No Rankings Interviewer 1
+
+  interview_result: 2
+  result_explanation: 'This candidate was not great.'
+
+  feedback_technical: 'Technical feedback for the student'
+  feedback_nontechnical: ''
+
+no_rankings_freedom:
+  interview: no_rankings_freedom
+  interviewer_name: No Rankings Interviewer 2
+
+  interview_result: 5
+  result_explanation: 'This candidate was great!'
+
+  feedback_technical: 'Technical feedback for the student'
+  feedback_nontechnical: ''

@@ -73,7 +73,7 @@ class ClassroomsController < ApplicationController
 
 private
   def classroom_params
-    params.require(:classroom).permit(:name)
+    params.require(:classroom).permit(:name, :interviews_per_slot)
   end
 
   def find_classroom

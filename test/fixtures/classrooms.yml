@@ -3,6 +3,7 @@
 jets:
   name: jets
   creator: instructor
+  interviews_per_slot: 2
 
 sharks:
   name: sharks

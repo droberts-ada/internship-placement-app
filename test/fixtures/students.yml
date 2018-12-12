@@ -20,6 +20,10 @@ no_company:
   name: Mary Jackson
   classroom: jets
 
+no_rankings:
+  name: Sandi Metz
+  classroom: jets
+
 st_stu_one:
   name: st_stu_one
   classroom: solver_test
