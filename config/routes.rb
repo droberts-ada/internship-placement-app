@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
     member do
       get 'companies'
+      post 'rankings'
     end
   end
 

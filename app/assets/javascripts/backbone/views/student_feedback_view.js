@@ -18,12 +18,21 @@ const StudentFeedbackView = Backbone.View.extend({
     companyViews.forEach((companyView) => {
       $companies.append(companyView.render().$el);
     });
+
+    // If we have enough information to submit rankings, display the button
+    if(this.model.studentId !== null && companies.length > 0) {
+      this.$('.student-feedback--submit').show();
+    } else {
+      this.$('.student-feedback--submit').hide();
+    }
+
     // Enable chained calls
     return this;
   },
 
   events: {
     'change .student-feedback--name': 'onNameSelect',
+    'click .student-feedback--submit': 'onSubmitRankings',
   },
 
   onNameSelect: function() {
@@ -54,6 +63,29 @@ const StudentFeedbackView = Backbone.View.extend({
     companies[newIndex] = tmp;
 
     this.render();
+  },
+
+  onSubmitRankings: function() {
+    // Get the rankings for each company
+    const rankings = _.map(this.model.companies.reverse(), (company, index) => {
+      return { company_id: company.id, rank: index + 1 };
+    });
+
+    const endpoint = this._studentEndpoint(this.model.studentId) + '/rankings';
+    $.post({
+      url: endpoint,
+      data: JSON.stringify({rankings: rankings}),
+      success: (response) => {
+        this.$el.html('<h1>Thank you for submitting your feedback.</h1>');
+      },
+      error: (response) => {
+        this.$('.student-feedback--submit')
+            .parent()
+            .append($('<p>Error: '+response.responseJSON.error+'</p>').css('color', 'red'));
+      },
+      contentType: 'application/json',
+      dataType: 'json',
+    });
   },
 
   _loadCompanies: function(studentId) {
