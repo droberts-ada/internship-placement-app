@@ -7,3 +7,14 @@
   </div>
   <div class="columns"></div>
 </div>
+
+<script type="text/javascript">
+$('.student-feedback--name').val(''); // Start form with no student selected
+
+// Create a StudentFeedbackView to handle this form
+const view = new StudentFeedbackView({
+  el: ".student-feedback",
+});
+
+view.render();
+</script>
