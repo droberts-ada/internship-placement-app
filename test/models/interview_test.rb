@@ -73,4 +73,41 @@ describe Interview do
       expect(i.has_feedback?).must_equal false
     end
   end
+
+  describe '#interview_result' do
+    it 'returns the integer average of results from all interview feedbacks' do
+      i = interviews(:ada_space)
+      results = InterviewFeedback.where(interview: i).map(&:interview_result)
+      # Sanity check
+      expect(results.count).must_be :>, 0
+      results_avg = results.sum.to_f / results.count
+      expect(results_avg).must_equal results_avg.to_i # Start with integral average
+
+      # We should get the average from existing feedback
+      expect(i.interview_result).must_equal results_avg.round
+
+      # Find a feedback result that ensures a fractional average
+      result = 1
+      result += 1 if ((results.sum.to_f + 1) / (results.count + 1)).denominator == 1
+      new_avg = (results.sum.to_f + result) / (results.count + 1)
+
+      InterviewFeedback.create!(
+        interview_feedbacks(:ada_space)
+          .attributes
+          .merge({ id: nil, interview_result: result })
+      )
+
+      # We should also get the integer average with new feedback added
+      i.reload
+      expect(i.interview_result).must_equal new_avg.round
+    end
+
+    it 'returns nil when there are no interview feedbacks' do
+      i = interviews(:grace_freedom)
+      # Sanity check
+      expect(InterviewFeedback.where(interview: i).count).must_equal 0
+
+      expect(i.interview_result).must_be_nil
+    end
+  end
 end
