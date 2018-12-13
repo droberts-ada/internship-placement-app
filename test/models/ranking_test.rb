@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class RankingTest < ActiveSupport::TestCase
-  test "Create ranking with student and company" do
+describe Ranking do
+  it "Create ranking with student and company" do
     ranking_data = {
       student: students(:no_company),
       company: companies(:no_students),
@@ -12,7 +12,7 @@ class RankingTest < ActiveSupport::TestCase
     r = Ranking.create!(ranking_data)
   end
 
-  test "Cannot create ranking without student" do
+  it "Cannot create ranking without student" do
     ranking_data = {
       company: companies(:no_students),
       student_preference: 3,
@@ -23,7 +23,7 @@ class RankingTest < ActiveSupport::TestCase
     assert_includes r.errors.messages, :student
   end
 
-  test "Cannot create ranking without company" do
+  it "Cannot create ranking without company" do
     ranking_data = {
       student: students(:no_company),
       student_preference: 3,
@@ -34,7 +34,7 @@ class RankingTest < ActiveSupport::TestCase
     assert_includes r.errors.messages, :company
   end
 
-  test "Cannot create ranking without student_preference" do
+  it "Cannot create ranking without student_preference" do
     ranking_data = {
       student: students(:no_company),
       company: companies(:no_students),
@@ -45,7 +45,7 @@ class RankingTest < ActiveSupport::TestCase
     assert_includes r.errors.messages, :student_preference
   end
 
-  test "Cannot create ranking without interview_result" do
+  it "Cannot create ranking without interview_result" do
     ranking_data = {
       student: students(:no_company),
       company: companies(:no_students),
@@ -56,7 +56,7 @@ class RankingTest < ActiveSupport::TestCase
     assert_includes r.errors.messages, :interview_result
   end
 
-  test "A student-company pair can have only one ranking" do
+  it "A student-company pair can have only one ranking" do
     template = Ranking.first
     r = Ranking.new(student: template.student,
                     company: template.company);
@@ -64,7 +64,7 @@ class RankingTest < ActiveSupport::TestCase
     assert_includes r.errors.messages, :student
   end
 
-  test "Student ranking must be positive integer" do
+  it "Student ranking must be positive integer" do
     ranking_data = {
       student: students(:no_company),
       company: companies(:no_students),
@@ -90,7 +90,7 @@ class RankingTest < ActiveSupport::TestCase
     assert_includes r.errors.messages, :student_preference
   end
 
-  test "Interview result must be integer, 0 < i <= 5" do
+  it "Interview result must be integer, 0 < i <= 5" do
     ranking_data = {
       student: students(:no_company),
       company: companies(:no_students),
