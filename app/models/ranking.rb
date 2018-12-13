@@ -14,4 +14,8 @@ class Ranking < ApplicationRecord
     greater_than: 0,
     less_than_or_equal_to: 5
   }
+
+  def score
+    student_preference + interview_result
+  end
 end

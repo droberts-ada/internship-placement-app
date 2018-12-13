@@ -5,14 +5,14 @@ const Ranking = Backbone.Model.extend({
   },
 
   score: function() {
-    return this.get('interview_result') * this.get('student_preference');
+    return this.get('score');
   },
 
   tooltipText: function() {
     text = '';
     text += this.company.get('name') + ': ';
-    text += this.get('interview_result') + ' / ';
     text += this.get('student_preference') + ' / ';
+    text += this.get('interview_result') + ' / ';
     text += this.score();
     // TODO DPR: get some sort of a modal or something
     // text += '\n' + this.get('interview_result_reason');
