@@ -7,11 +7,11 @@ _.templateSettings = {
 
 const Util = {
   classForScore: function(score) {
-    if (score > 20) {
+    if (score > 10) {
       return 'match excellent-match';
-    } else if (score > 15) {
+    } else if (score > 7) {
       return 'match good-match';
-    } else if (score > 9) {
+    } else if (score > 4) {
       return 'match mediocre-match';
     } else if (score) {
       return 'match bad-match';
