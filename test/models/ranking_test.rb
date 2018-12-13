@@ -123,4 +123,22 @@ describe Ranking do
       assert_includes r.errors.messages, :interview_result
     end
   end
+
+  describe '#score' do
+    it 'returns the sum of the student preference and interview result' do
+      ranking = rankings(:ada_space)
+      student_preference = ranking.student_preference
+      interview_result = ranking.interview_result
+
+      expect(ranking.score).must_equal student_preference + interview_result
+
+      original_score = ranking.score
+      ranking.student_preference += 1
+      expect(ranking.score).must_equal original_score + 1
+
+      original_score = ranking.score
+      ranking.interview_result += 1
+      expect(ranking.score).must_equal original_score + 1
+    end
+  end
 end
