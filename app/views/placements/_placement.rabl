@@ -3,7 +3,7 @@ attributes :id, :whiteboard
 child :students do
   attributes :id, :name
   child :rankings do |ranking|
-    attributes :student_preference, :interview_result, :interview_result_reason, :company_id
+    attributes :student_preference, :interview_result, :score, :interview_result_reason, :company_id
   end
 end
 child :companies do

@@ -5,7 +5,7 @@ const Ranking = Backbone.Model.extend({
   },
 
   score: function() {
-    return this.get('interview_result') * this.get('student_preference');
+    return this.get('score');
   },
 
   tooltipText: function() {

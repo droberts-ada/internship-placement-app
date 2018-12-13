@@ -19,8 +19,7 @@ const Student = Backbone.Model.extend({
     // data will be undefined if we're moving into
     // the list of unplaced students
     if (ranking) {
-      var score = ranking.get('interview_result') * ranking.get('student_preference');
-      this.set('score', score);
+      this.set('score', ranking.score());
     } else {
       this.set('score', 0);
     }
