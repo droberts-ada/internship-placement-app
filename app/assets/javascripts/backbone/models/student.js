@@ -5,7 +5,10 @@ const Student = Backbone.Model.extend({
   },
 
   initialize: function(attributes, options) {
-    this.rankings = new RankingCollection(attributes.rankings, options);
+    this.rankings = new RankingCollection(attributes.rankings, _.extend({}, options, {
+      comparator: ranking => -ranking.get('student_preference'),
+    }));
+
     this.listenTo(this, 'move', this.onMove);
     this.updateTooltipText();
   },
@@ -44,7 +47,7 @@ const Student = Backbone.Model.extend({
   updateTooltipText: function() {
     var text = `${this.get('name')}\n`;
 
-    text += '<interview-result>/<student-preference>/<score>';
+    text += '<student-preference>/<interview-result>/<score>';
     this.rankings.each(function(ranking) {
       text += '\n\n';
       text += ranking.tooltipText();
