@@ -55,6 +55,12 @@ class Solver
       initial_cost(row, col)
     end
 
+    # Convert all costs to positive values by adding 1+abs(lowest cost) to each
+    offset =  @matrix.to_a.flatten.min.abs + 1
+    @matrix = @matrix.map do |cost|
+      cost + offset
+    end
+
     initial_reduction
   end
 
@@ -145,7 +151,7 @@ private
     # To build the cost: subtract each number from 6 (so it's 5 to 1,
     # with 5 the worst and 1 the best) then multiply.
     # TODO DPR: might make sense to adopt this schema gloabally
-    return (6 - ranking.student_preference) * (6 - ranking.interview_result)
+    return -ranking.score
   end
 
   # Optimization: reduce the number of times the algorithm
