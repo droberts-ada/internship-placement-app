@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181211235707) do
+ActiveRecord::Schema.define(version: 20181217233842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,9 +83,8 @@ ActiveRecord::Schema.define(version: 20181211235707) do
     t.integer  "company_id"
     t.integer  "student_preference"
     t.integer  "interview_result"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "interview_result_reason"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.index ["company_id"], name: "index_rankings_on_company_id", using: :btree
     t.index ["student_id"], name: "index_rankings_on_student_id", using: :btree
   end
