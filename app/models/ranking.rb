@@ -22,4 +22,10 @@ class Ranking < ApplicationRecord
   def interview
     Interview.find_by(student: student, company: company)
   end
+
+  def interview_result_reason
+    return nil unless interview && interview.has_feedback?
+
+    interview.interview_feedbacks.map(&:result_explanation).join("\n")
+  end
 end
