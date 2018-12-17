@@ -18,4 +18,8 @@ class Ranking < ApplicationRecord
   def score
     student_preference + interview_result
   end
+
+  def interview
+    Interview.find_by(student: student, company: company)
+  end
 end

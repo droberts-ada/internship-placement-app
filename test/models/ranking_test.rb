@@ -141,4 +141,18 @@ describe Ranking do
       expect(ranking.score).must_equal original_score + 1
     end
   end
+
+  describe '#interview' do
+    it 'returns the interview for this ranking' do
+      ranking = rankings(:ada_space)
+
+      expect(ranking.interview).must_equal interviews(:ada_space)
+    end
+
+      it 'returns nil if there is no interview for this ranking' do
+        ranking = rankings(:grace_stark)
+
+        expect(ranking.interview).must_be_nil
+      end
+  end
 end
