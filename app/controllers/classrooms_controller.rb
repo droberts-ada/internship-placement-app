@@ -71,6 +71,18 @@ class ClassroomsController < ApplicationController
     redirect_to classrooms_path
   end
 
+  def export_feedback
+    # Export all feedback for this classroom
+    feedbacks = InterviewFeedback
+      .includes(interview: [:company, student: :classroom])
+      .where('classrooms.id = ?', @classroom.id)
+      .references(:interviews, :companies, :students, :classrooms)
+
+    serializer = InterviewFeedbackSerializer.new(feedbacks)
+
+    send_data serializer.to_csv, type: :csv, filename: "#{@classroom.name}-feedback.csv"
+  end
+
 private
   def classroom_params
     params.require(:classroom).permit(:name, :interviews_per_slot)
