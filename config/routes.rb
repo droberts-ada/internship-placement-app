@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   resources :classrooms do
     resources :placements, only: [:index, :create]
+
+    member do
+      get 'export-feedback'
+    end
   end
 
   resources :interviews, only: [:index, :show] do
