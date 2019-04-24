@@ -125,20 +125,32 @@ describe Ranking do
   end
 
   describe '#score' do
-    it 'returns the sum of the student preference and interview result' do
+    it 'returns the product of the student preference and interview result' do
       ranking = rankings(:ada_space)
       student_preference = ranking.student_preference
       interview_result = ranking.interview_result
 
-      expect(ranking.score).must_equal student_preference + interview_result
+      expect(ranking.score).must_equal student_preference * interview_result
+    end
 
+    it 'updates the score when student_preference is updated' do
+      ranking = rankings(:ada_space)
+      interview_result = ranking.interview_result
       original_score = ranking.score
+
       ranking.student_preference += 1
-      expect(ranking.score).must_equal original_score + 1
 
+      expect(ranking.score).must_equal original_score + interview_result
+    end
+
+    it 'updates the score when student_preference is updated' do
+      ranking = rankings(:ada_space)
+      student_preference = ranking.student_preference
       original_score = ranking.score
+
       ranking.interview_result += 1
-      expect(ranking.score).must_equal original_score + 1
+
+      expect(ranking.score).must_equal original_score + student_preference
     end
   end
 
@@ -149,11 +161,11 @@ describe Ranking do
       expect(ranking.interview).must_equal interviews(:ada_space)
     end
 
-      it 'returns nil if there is no interview for this ranking' do
-        ranking = rankings(:grace_stark)
+    it 'returns nil if there is no interview for this ranking' do
+      ranking = rankings(:grace_stark)
 
-        expect(ranking.interview).must_be_nil
-      end
+      expect(ranking.interview).must_be_nil
+    end
   end
 
   describe '#interview_result_reason' do
