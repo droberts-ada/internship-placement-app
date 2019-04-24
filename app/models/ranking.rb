@@ -16,7 +16,7 @@ class Ranking < ApplicationRecord
   }
 
   def score
-    student_preference + interview_result
+    student_preference * interview_result
   end
 
   def interview
