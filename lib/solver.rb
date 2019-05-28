@@ -102,7 +102,7 @@ class Solver
       end
 
       # If every company has a student assigned, we're done
-      unless assignments.include? -1
+      unless assignments.include?(-1)
         return build_pairings(assignments)
       end
 

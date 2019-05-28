@@ -20,7 +20,7 @@ class Classroom < ApplicationRecord
     companies.create!(company_attrs)
 
     # Create each interview
-    interviews.each do |(student, company, at)|
+    interviews.each do |student, company, at|
       # TODO: convert time if needed
 
       Interview.create!(

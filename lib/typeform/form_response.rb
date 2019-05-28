@@ -98,14 +98,14 @@ module Typeform
       def lookup_choice(dfn, id, label)
         field = lookup_field(dfn, id)
         if field[:type] != 'multiple_choice'
-          msg = "Looking up choice with label '#{label}' for "
+          msg = "Looking up choice with label '#{label}' for " +
                 "field(#{id}) that is not a multiple choice field"
           raise FormResponseError.new(msg)
         end
 
         choice = field[:choices].find { |c| c[:label] == label }
         if choice.nil?
-          msg = "Could not find choice with label '#{label}' "
+          msg = "Could not find choice with label '#{label}' " +
                 "for field(#{id})"
           raise FormResponseError.new(msg)
         end

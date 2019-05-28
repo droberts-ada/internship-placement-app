@@ -44,7 +44,7 @@ class Placement < ApplicationRecord
     self.pairings.each do |pairing|
       ranking = Ranking.find_by(student_id: pairing.student_id, company_id: pairing.company_id)
       if ranking
-        sum += ranking.student_preference * ranking.interview_result
+        sum += ranking.score
       end
     end
     return sum
@@ -70,7 +70,7 @@ class Placement < ApplicationRecord
       end
     end
 
-    puts "Generated #{pairings.length} pairings with total score #{self.score} in #{Time.now - start_time} seconds, #{solver.iterations} iterations"
+    puts "Generated #{pairings.length} pairings with total score #{self.score} in #{end_time - start_time} seconds, #{solver.iterations} iterations"
   end
 
   def duplicate(owner)
