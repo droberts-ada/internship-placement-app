@@ -1,4 +1,5 @@
 require 'faker'
+require 'set'
 
 puts "In generate_classroom.rb"
 
@@ -8,10 +9,17 @@ class ClassroomGenerator
   def self.build_classroom(rng = Random.new)
     # Build students and companies
     classroom = nil
+    students = Set.new
+    companies = Set.new
     Classroom.transaction do
       classroom = Classroom.create!(name: Faker::Hacker.noun.pluralize, creator: User.first)
       SCALE.times do |i|
-        classroom.students.create!(name: Faker::Cat.name)
+        student = Faker::Cat.name
+        while students.include?(student) do
+          student = Faker::Cat.name
+        end
+        students.add(student)
+        classroom.students.create!(name: student)
       end
 
       # The extra [1] between the 3 and the 2s is important
@@ -21,7 +29,12 @@ class ClassroomGenerator
         raise StandardError.new "AHHHHHHHH"
       end
       company_slots.each_with_index do |s, i|
-        classroom.companies.create!(name: Faker::Company.name, slots: s)
+        company = Faker::Company.name
+        while companies.include?(company) do
+          company = Faker::Company.name
+        end
+        companies.add(company)
+        classroom.companies.create!(name: company, slots: s)
       end
 
       # Generate rankings
