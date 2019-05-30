@@ -2,23 +2,38 @@
   <h2>Interviews for <%= @company.name %></h2>
 
   <table>
-    <% @interviews.each do |interview| %>
+    <thead>
       <tr>
-        <td>
-          <%= interview.student.name %>
-        </td>
-        <td>
-          <%= format_date(interview.scheduled_at) %>
-        </td>
-        <td>
-          <% if interview.has_feedback? %>
-            Submitted on <%= format_date(interview.interview_feedback.updated_at) %>
-            (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview.interview_feedback.id) %>)
-          <% else %>
-            <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
-          <% end %>
-        </td>
+        <th>
+          Student
+        </th>
+        <th>
+          Interview Date & Time
+        </th>
+        <th>
+          Feedback
+        </th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @interviews.each do |interview| %>
+        <tr>
+          <td>
+            <%= interview.student.name %>
+          </td>
+          <td>
+            <%= format_date(interview.scheduled_at) %>
+          </td>
+          <td>
+            <% if interview.has_feedback? %>
+              Submitted on <%= format_date(interview.interview_feedback.updated_at) %>
+              (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview.interview_feedback.id) %>)
+            <% else %>
+              <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </section>

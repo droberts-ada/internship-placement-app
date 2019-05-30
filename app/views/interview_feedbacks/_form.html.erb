@@ -1,22 +1,33 @@
 <%= form_for @interview_feedback, html: {multipart: true}, url: url do |f| %>
-  <%= f.label :interviewer_name, "What is your name?", required: true %>
-  <%= f.text_field :interviewer_name %>
+  <%= f.label :interviewer_name, "What is your name?" %><abbr title="This field is mandatory">*</abbr>
+  <%= f.text_field :interviewer_name, required: true %>
 
-  <%= f.label :interview_result, "Feedback Summary", required: true %>
-  <%= f.radio_button :interview_result, "5" %>
-  <%= f.label :interview_result, "This person could be a great addition to our team.", value: "5" %>
-  <%= f.radio_button :interview_result, "4" %>
-  <%= f.label :interview_result, "This person could be successful on our team.", value: "4" %>
-  <%= f.radio_button :interview_result, "3" %>
-  <%= f.label :interview_result, "This person may or may not be a good addition on our team.", value: "3" %>
-  <%= f.radio_button :interview_result, "2" %>
-  <%= f.label :interview_result, "This person may struggle on our team.", value: "2" %>
-  <%= f.radio_button :interview_result, "1" %>
-  <%= f.label :interview_result, "This person is not likely to be successful on our team.", value: "1" %>
+  <%= f.label :interview_result, "Feedback Summary" %><abbr title="This field is mandatory">*</abbr>
+  <fieldset>
+    <div>
+      <%= f.radio_button :interview_result, "5", required: true %>
+      <%= f.label :interview_result, "This person could be a great addition to our team.", value: "5" %>
+    </div>
+    <div>
+      <%= f.radio_button :interview_result, "4", required: true %>
+      <%= f.label :interview_result, "This person could be successful on our team.", value: "4" %>
+    </div>
+    <div>
+      <%= f.radio_button :interview_result, "3", required: true %>
+      <%= f.label :interview_result, "This person may or may not be a good addition on our team.", value: "3" %>
+    </div>
+    <div>
+      <%= f.radio_button :interview_result, "2", required: true %>
+      <%= f.label :interview_result, "This person may struggle on our team.", value: "2" %>
+    </div>
+    <div>
+      <%= f.radio_button :interview_result, "1", required: true %>
+      <%= f.label :interview_result, "This person is not likely to be successful on our team.", value: "1" %>
+    </div>
+  </fieldset>
 
-  <%= f.label :result_explanation, "Explanation of Feedback Summary", required: true %>
-
-  <%= f.text_area :result_explanation %>
+  <%= f.label :result_explanation, "Explanation of Feedback Summary" %><abbr title="This field is mandatory">*</abbr>
+  <%= f.text_area :result_explanation, required: true %>
 
   <%= f.label :feedback_technical, "Technical Feedback for Student" %>
   <%= f.text_area :feedback_technical %>
