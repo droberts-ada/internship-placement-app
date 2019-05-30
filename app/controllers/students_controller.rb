@@ -5,6 +5,8 @@ class StudentsController < ApplicationController
 
   before_action :find_student, only: [:companies, :rankings]
 
+  BUCKETS = [nil, 1, 4, 4, 5, 5, 5].freeze
+
   def feedback
     @students = Student.without_feedback.order(name: :asc)
   end
@@ -19,7 +21,10 @@ class StudentsController < ApplicationController
     Ranking.transaction do
       params[:rankings].each(&:permit!).map(&:to_h).each do |ranking|
         company_id = ranking[:company_id]
-        rank = ranking[:rank]
+        puts "v" * 80
+        puts ranking
+        puts "^" * 80
+        rank = BUCKETS[ranking[:rank]]
 
         company = Company.find(company_id)
         interview = @student.interviews.find_by(company: company)

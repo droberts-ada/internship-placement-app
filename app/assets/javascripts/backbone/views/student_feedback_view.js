@@ -1,13 +1,18 @@
 const StudentFeedbackView = Backbone.View.extend({
   initialize: function() {
     this._resetModel();
+
+    this.buckets = new Array(6);
+    this.buckets.fill('very interested', 0, 3);
+    this.buckets.fill('interested', 3, 5);
+    this.buckets.fill('somewhat interested', 5, 6);
   },
 
   render: function() {
     const companies = this.model.companies;
     const companyViews = _.map(companies, (company, index) => {
       return new StudentFeedbackCompanyView({
-        model: _.extend({}, company, {rank: index + 1}),
+        model: _.extend({}, company, {rank: this.buckets[index]}),
         onRankChange: this.onRankChange.bind(this),
       });
     });
@@ -80,8 +85,8 @@ const StudentFeedbackView = Backbone.View.extend({
       },
       error: (response) => {
         this.$('.student-feedback--submit')
-            .parent()
-            .append($('<p>Error: '+response.responseJSON.error+'</p>').css('color', 'red'));
+          .parent()
+          .append($('<p>Error: '+response.responseJSON.error+'</p>').css('color', 'red'));
       },
       contentType: 'application/json',
       dataType: 'json',
