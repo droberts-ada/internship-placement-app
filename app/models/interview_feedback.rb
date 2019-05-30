@@ -3,6 +3,7 @@ class InterviewFeedback < ApplicationRecord
 
   validates :interviewer_name, :interview_result, :result_explanation, presence: true
   validates :interview_result, numericality: { integer_only: true, greater_than: 0, less_than: 6 }
+  validates :interview_id, uniqueness: { message: "Feedback has already been submitted for that student."}
 
   def self.create_from_form_response(response)
     # Find the interview this feedback is for

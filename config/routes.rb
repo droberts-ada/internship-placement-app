@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :companies, only: [:index, :show]
 
   resources :interviews, only: [:index, :show] do
-    resources :interview_feedbacks, only: [:new, :edit, :create, :update]
+    resources :interview_feedbacks, only: [:new, :create]
   end
 
   resources :students, only: [] do

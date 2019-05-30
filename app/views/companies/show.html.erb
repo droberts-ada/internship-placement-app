@@ -1,0 +1,12 @@
+<section>
+  <h2>Interviews for <%= @company.name %></h2>
+
+  <ol>
+    <% @interviews.each do |interview| %>
+      <li>
+        <%= format_interview(interview) %>
+        <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
+      </li>
+    <% end %>
+  </ol>
+</section>

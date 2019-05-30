@@ -1,10 +1,18 @@
 class CompaniesController < ApplicationController
+  skip_before_action :require_login
+  skip_before_action :verify_authenticity_token
+
   def index
-    @companies = Company.all
+    @companies = Company.all.reject { |c| c.interviews_complete? }.sort_by { |c| c.name }
   end
 
   def show
-    # TODO: Order by time?
-    @interviews = Interview.where(company: params[:company])
+    @company = Company.find_by(id: params[:id])
+
+    if @company.nil?
+      render_not_found
+    else
+      @interviews = Interview.where(company: @company).sort_by { |i| i.scheduled_at }
+    end
   end
 end

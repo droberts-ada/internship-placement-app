@@ -2,34 +2,23 @@ class InterviewFeedbacksController < ApplicationController
   skip_before_action :require_login
   skip_before_action :verify_authenticity_token
 
-  before_action :find_interview_feedback
+  before_action :find_interview
 
   def new
-    @interview = Interview.find_by(id: params[:id])
-
-    if @interview.nil?
-      render_not_found
-    end
+    @interview_feedback = InterviewFeedback.new
   end
 
   def create
-    @interview = Interview.find_by(id: params[:interview_id])
+    feedback = InterviewFeedback.new(interview_feedback_params)
+    feedback.interview = @interview
 
-    if @interview.nil?
-      render_not_found
-    else
-      feedback = InterviewFeedback.new(interview_feedback_params)
-
-      if feedback.save()
-        render file: 'public/feedback_thanks.html', status: :success
-      else
-        flash[:status] = :failure
-        flash[:message] = "Could not save your feedback"
-        flash[:errors] = feedback.errors.messages
-
-        redirect_back
-      end
+    unless feedback.save()
+      flash[:status] = :failure
+      flash[:message] = "Could not save your feedback"
+      flash[:errors] = feedback.errors.messages
     end
+
+    redirect_to company_path(feedback.interview.company)
   end
 
   private
@@ -43,8 +32,9 @@ class InterviewFeedbacksController < ApplicationController
       :feedback_nontechnical)
   end
 
-  def find_interview_feedback
-    @student = Student.find_by(id: params[:id])
-    render_not_found if @student.nil?
+  def find_interview
+    @interview = Interview.find_by(id: params[:interview_id])
+
+    render_not_found if @interview.nil?
   end
 end
