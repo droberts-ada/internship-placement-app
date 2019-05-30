@@ -2,15 +2,21 @@ class InterviewFeedbacksController < ApplicationController
   skip_before_action :require_login
   skip_before_action :verify_authenticity_token
 
-  before_action :find_interview
+  before_action :find_interview_feedback, only: [:edit, :update]
 
   def new
-    @interview_feedback = InterviewFeedback.new
+    @interview = Interview.find_by(id: params[:interview_id])
+
+    if @interview.nil?
+      render_not_found
+    else
+      @interview_feedback = InterviewFeedback.new
+    end
   end
 
   def create
     feedback = InterviewFeedback.new(interview_feedback_params)
-    feedback.interview = @interview
+    feedback.interview_id = params[:interview_id]
 
     unless feedback.save()
       flash[:status] = :failure
@@ -19,6 +25,24 @@ class InterviewFeedbacksController < ApplicationController
     end
 
     redirect_to company_path(feedback.interview.company)
+  end
+
+  def edit
+  end
+
+  def update
+    @interview_feedback.update_attributes(interview_feedback_params)
+
+    if @interview_feedback.save
+      flash[:status] = :success
+      flash[:message] = "Updated feedback for #{@interview.student.name}"
+      redirect_to company_path(@interview.company)
+    else
+      flash[:status] = :failure
+      flash[:message] = "Could not update feedback for #{@interview.student.name}"
+      flash[:errors] = @interview_feedback.errors.messages
+      render :edit
+    end
   end
 
   private
@@ -32,9 +56,10 @@ class InterviewFeedbacksController < ApplicationController
       :feedback_nontechnical)
   end
 
-  def find_interview
-    @interview = Interview.find_by(id: params[:interview_id])
+  def find_interview_feedback
+    @interview_feedback = InterviewFeedback.find_by(id: params[:id])
+    @interview = @interview_feedback.interview
 
-    render_not_found if @interview.nil?
+    render_not_found if @interview_feedback.nil?
   end
 end

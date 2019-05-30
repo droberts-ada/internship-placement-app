@@ -1,5 +1,5 @@
 <section>
-  <h2>Add Feedback for <%= @interview.student.name %></h2>
+  <h2>Edit Feedback for <%= @interview.student.name %></h2>
   <p>
     interview by
     <%= @interview.company.name %>
@@ -8,5 +8,5 @@
     at
     <%= @interview.scheduled_at.strftime("%l:%M %p") %>
   </p>
-  <%= render partial: "form", locals: {url: interview_interview_feedbacks_path, submit: "Submit Feedback"} %>
+  <%= render partial: "form", locals: {url: interview_interview_feedback_path, submit: "Update Feedback"} %>
 </section>

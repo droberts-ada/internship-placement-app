@@ -1,12 +1,24 @@
 <section>
   <h2>Interviews for <%= @company.name %></h2>
 
-  <ol>
+  <table>
     <% @interviews.each do |interview| %>
-      <li>
-        <%= format_interview(interview) %>
-        <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
-      </li>
+      <tr>
+        <td>
+          <%= interview.student.name %>
+        </td>
+        <td>
+          <%= format_date(interview.scheduled_at) %>
+        </td>
+        <td>
+          <% if interview.has_feedback? %>
+            Submitted on <%= format_date(interview.interview_feedback.updated_at) %>
+            (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview.interview_feedback.id) %>)
+          <% else %>
+            <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-  </ol>
+  </table>
 </section>
