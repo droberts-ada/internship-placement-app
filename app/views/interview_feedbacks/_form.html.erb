@@ -4,23 +4,23 @@
 
   <%= f.label :interview_result, "Feedback Summary" %><abbr title="This field is mandatory">*</abbr>
   <fieldset>
-    <div>
+    <div class="radio">
       <%= f.radio_button :interview_result, "5", required: true %>
       <%= f.label :interview_result, "This person could be a great addition to our team.", value: "5" %>
     </div>
-    <div>
+    <div class="radio">
       <%= f.radio_button :interview_result, "4", required: true %>
       <%= f.label :interview_result, "This person could be successful on our team.", value: "4" %>
     </div>
-    <div>
+    <div class="radio">
       <%= f.radio_button :interview_result, "3", required: true %>
       <%= f.label :interview_result, "This person may or may not be a good addition on our team.", value: "3" %>
     </div>
-    <div>
+    <div class="radio">
       <%= f.radio_button :interview_result, "2", required: true %>
       <%= f.label :interview_result, "This person may struggle on our team.", value: "2" %>
     </div>
-    <div>
+    <div class="radio">
       <%= f.radio_button :interview_result, "1", required: true %>
       <%= f.label :interview_result, "This person is not likely to be successful on our team.", value: "1" %>
     </div>

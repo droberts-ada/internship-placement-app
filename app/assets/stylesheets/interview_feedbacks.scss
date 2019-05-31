@@ -1,0 +1,20 @@
+#interview-feedback {
+  max-width: 50rem;
+  margin: 0 auto;
+
+  .subhead {
+    opacity: 0.7;
+  }
+
+  .radio {
+    margin-left: 0.25em;
+  }
+
+  input[type="text"] {
+    max-width: 20rem;
+  }
+
+  label {
+    display: inline;
+  }
+}

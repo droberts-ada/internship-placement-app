@@ -13,11 +13,11 @@
   </head>
 
   <body>
-    <nav class="top-bar">
+    <nav class="top-bar public">
       <div class="top-bar-title">
-        <strong><%= link_to image_tag("favicon.png"), root_path %></strong>
+        <strong><%= link_to image_tag("brand-logo.svg"), companies_path %></strong>
         <h1>
-          Ada Interview Feedback
+          Interview Feedback
         </h1>
       </div>
     </nav>
@@ -32,7 +32,7 @@
       </ul>
     <% end %>
 
-    <main>
+    <main class="public">
       <%= yield %>
     </main>
 

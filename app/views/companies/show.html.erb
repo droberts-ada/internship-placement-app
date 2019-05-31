@@ -1,7 +1,7 @@
 <section>
   <h2>Interviews for <%= @company.name %></h2>
 
-  <table>
+  <table id="interview-table">
     <thead>
       <tr>
         <th>
@@ -26,15 +26,18 @@
           </td>
           <td>
             <% if interview.has_feedback? %>
-              <% interview.interview_feedbacks.each do |interview_feedback| %>
-                Added by <%= interview_feedback.interviewer_name %> 
-                on <%= format_date(interview_feedback.updated_at) %>
-                <% if defined? edit_interview_interview_feedback_path %>
-                  (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview_feedback.id) %>)
+              <ul>
+                <% interview.interview_feedbacks.each do |interview_feedback| %>
+                  <li>
+                    Added by <%= interview_feedback.interviewer_name %>
+                    on <%= format_date(interview_feedback.updated_at) %>
+                    <% if defined? edit_interview_interview_feedback_path %>
+                      (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview_feedback.id) %>)
+                    <% end %>
+                  </li>
                 <% end %>
-                <br>
-              <% end %>
-              <%= link_to "add another", new_interview_interview_feedback_path(interview.id) %>
+                <li><%= link_to "add another", new_interview_interview_feedback_path(interview.id) %></li>
+              </ul>
             <% else %>
               <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
             <% end %>

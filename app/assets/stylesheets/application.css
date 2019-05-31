@@ -16,3 +16,10 @@
  *= require_tree .
 
  */
+main {
+  padding: 1rem;
+}
+
+footer {
+  padding-left: 1rem;
+}
