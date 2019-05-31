@@ -27,12 +27,16 @@
           <td>
             <% if interview.has_feedback? %>
               <% interview.interview_feedbacks.each do |interview_feedback| %>
-                Submitted on <%= format_date(interview_feedback.updated_at) %>
-                (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview_feedback.id) %>)
+                Added by <%= interview_feedback.interviewer_name %> 
+                on <%= format_date(interview_feedback.updated_at) %>
+                <% if defined? edit_interview_interview_feedback_path %>
+                  (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview_feedback.id) %>)
+                <% end %>
+                <br>
               <% end %>
+              <%= link_to "add another", new_interview_interview_feedback_path(interview.id) %>
             <% else %>
               <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
-
             <% end %>
           </td>
         </tr>
