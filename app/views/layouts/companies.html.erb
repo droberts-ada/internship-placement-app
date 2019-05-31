@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ada Interview Feedback</title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag 'favicon.ico'%>
+  </head>
+
+  <body>
+    <nav class="top-bar">
+      <div class="top-bar-title">
+        <strong><%= link_to image_tag("favicon.png"), root_path %></strong>
+        <h1>
+          Ada Interview Feedback
+        </h1>
+      </div>
+    </nav>
+
+    <% if flash[:errors] %>
+      <ul class="errors">
+        <% flash[:errors].each do |_, problems| %>
+          <% problems.each do |problem| %>
+            <li><%= problem %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer class="clearfix">
+      <p class="float-left">&copy; <%= link_to "Ada Developers Academy", "http://adadevelopersacademy.org/" %>, 2017</p>
+    </footer>
+  </body>
+</html>
