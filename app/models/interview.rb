@@ -1,7 +1,7 @@
 class Interview < ApplicationRecord
   belongs_to :student
   belongs_to :company
-  has_one :interview_feedback, dependent: :destroy
+  has_many :interview_feedbacks, dependent: :destroy
 
   validates :student, uniqueness: {scope: :company}
   validate :scheduled_in_future, on: :create
@@ -11,11 +11,15 @@ class Interview < ApplicationRecord
   end
 
   def has_feedback?
-    interview_feedback.present?
+    interview_feedbacks.present?
   end
 
   def interview_result
-    interview_feedback && interview_feedback.interview_result
+    return nil if interview_feedbacks.empty?
+
+    results = interview_feedbacks.map(&:interview_result)
+
+    (results.sum.to_f / results.count).round
   end
 
   private
