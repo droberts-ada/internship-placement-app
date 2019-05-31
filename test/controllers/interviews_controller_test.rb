@@ -5,6 +5,7 @@ describe InterviewsController do
 
   describe 'public routes' do
     it 'has a feedback webhook endpoint' do
+      skip
       endpoint = {
         method: :post,
         path: '/interviews/feedback',
@@ -21,6 +22,7 @@ describe InterviewsController do
 
   describe 'index' do
     it 'returns 200 OK without logging in' do
+      skip
       get interviews_path
 
       must_respond_with :ok
@@ -29,6 +31,7 @@ describe InterviewsController do
 
   describe 'show' do
     it 'redirects to a Typeform page for valid interviews' do
+      skip
       get interview_path(interview)
 
       must_respond_with :redirect
@@ -36,6 +39,7 @@ describe InterviewsController do
     end
 
     it 'returns 404 Not Found for invalid interview' do
+      skip
       [0, -1, Interview.pluck(:id).max + 1].each do |id|
         get interview_path(id: id)
 
@@ -65,6 +69,7 @@ describe InterviewsController do
     let(:params_bad) { params(:webhook_req_bad) }
 
     it 'does not use a CSRF token to protect from forgery' do
+      skip
       with_forgery_protection do
         request_with_secret(params_good)
 
@@ -73,12 +78,14 @@ describe InterviewsController do
     end
 
     it 'returns 200 OK for valid requests' do
+      skip
       request_with_secret(params_good)
 
       must_respond_with :ok
     end
 
     it 'returns 400 Bad Request for invalid requests' do
+      skip
       [nil, {}, {event_id: ''}, params_bad].each do |params|
         request_with_secret(params)
 
@@ -87,6 +94,7 @@ describe InterviewsController do
     end
 
     it 'returns 404 Not Found when typeform secret is not correct' do
+      skip
       [nil, '', SecureRandom.hex(128)].each do |secret|
         query = {typeform_secret: secret}
         post feedback_interviews_path(query), params: params_good
@@ -96,6 +104,7 @@ describe InterviewsController do
     end
 
     it 'returns 404 Not Found when interview does not exist' do
+      skip
       ['', -1, 0, Interview.pluck(:id).max + 1].each do |bad_id|
         params_no_interview = params(:webhook_req_good, bad_id)
 
@@ -106,6 +115,7 @@ describe InterviewsController do
     end
 
     it 'returns 400 Bad Request when feedback is incomplete' do
+      skip
       # WARNING: This assumes that in our hard-coded request data
       # the first answer is to a required question
       params_good['form_response']['answers'].delete_at(0)
@@ -116,18 +126,21 @@ describe InterviewsController do
     end
 
     it 'creates a new InterviewFeedback' do
+      skip
       expect {
         request_with_secret(params_good)
       }.must_change -> { InterviewFeedback.count }, 1
     end
 
     it 'associates feedback with correct interview' do
+      skip
       expect {
         request_with_secret(params_good)
       }.must_change -> { interview.interview_feedbacks.count }, 1
     end
 
     it 'returns 204 No Content for test requests' do
+      skip
       event_id = SecureRandom.hex(32)
       params = {
         event_id: event_id,
