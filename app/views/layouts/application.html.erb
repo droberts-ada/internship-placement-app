@@ -31,7 +31,7 @@
               <li><%= link_to "Log Out", logout_path, id: "toolbar-logout-button" %></li>
             <% else %>
               <li>Not logged in</li>
-              <li><%= link_to "Log In", "/auth/google_oauth2", id: "toolbar-login-button" %></li>
+              <li><%= link_to "Log In", "/auth/google_oauth2", id: "toolbar-login-button", method: :post %></li>
             <% end %>
         </div>
       </div>
