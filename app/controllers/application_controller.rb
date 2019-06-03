@@ -10,12 +10,17 @@ private
   def report_error(code, message, errors: nil, redirect_path: root_path, render_view: nil)
     respond_to do |format|
       format.html do
-        flash[:status] = :failure
-        flash[:message] = message
-        flash[:errors] = errors
         if render_view
+          flash.now[:status] = :failure
+          flash.now[:message] = message
+          flash.now[:errors] = errors
+
           render render_view
         elsif redirect_path
+          flash[:status] = :failure
+          flash[:message] = message
+          flash[:errors] = errors
+
           redirect_to redirect_path
         end
       end

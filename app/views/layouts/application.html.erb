@@ -37,20 +37,7 @@
       </div>
     </nav>
 
-    <% if flash[:errors] or flash[:message] %>
-      <section class="row status <%= flash[:status] %>">
-        <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:message] %></h3>
-        <% if flash[:errors] %>
-          <ul>
-            <% flash[:errors].each do |name, problems| %>
-              <% problems.each do |problem| %>
-                <li><%= name %>: <%= problem %></li>
-              <% end %>
-            <% end %>
-          </ul>
-        <% end %>
-      </section>
-    <% end %>
+    <%= render partial: "shared/errors" %>
 
     <main>
       <%= yield %>

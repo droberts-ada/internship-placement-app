@@ -22,15 +22,7 @@
       </div>
     </nav>
 
-    <% if flash[:errors] %>
-      <ul class="errors">
-        <% flash[:errors].each do |_, problems| %>
-          <% problems.each do |problem| %>
-            <li><%= problem %></li>
-          <% end %>
-        <% end %>
-      </ul>
-    <% end %>
+    <%= render partial: "shared/errors" %>
 
     <main class="public">
       <%= yield %>

@@ -12,7 +12,7 @@ class CompaniesController < ApplicationController
     if @company.nil?
       render_not_found
     else
-      @interviews = Interview.where(company: @company).sort_by { |i| i.scheduled_at }
+      @interviews = Company.interviews.sort_by { |i| i.scheduled_at }
     end
   end
 end

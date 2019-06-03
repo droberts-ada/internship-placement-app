@@ -19,12 +19,12 @@ class InterviewFeedbacksController < ApplicationController
     feedback.interview_id = params[:interview_id]
 
     unless feedback.save()
-      flash[:status] = :failure
-      flash[:message] = "Could not save your feedback"
-      flash[:errors] = feedback.errors.messages
+      report_error(
+        :bad_request,
+        "Could not save your feedback",
+        errors: feedback.errors,
+        redirect_path: company_path(feedback.interview.company))
     end
-
-    redirect_to company_path(feedback.interview.company)
   end
 
   def edit
@@ -38,10 +38,11 @@ class InterviewFeedbacksController < ApplicationController
       flash[:message] = "Updated feedback for #{@interview.student.name}"
       redirect_to company_path(@interview.company)
     else
-      flash[:status] = :failure
-      flash[:message] = "Could not update feedback for #{@interview.student.name}"
-      flash[:errors] = @interview_feedback.errors.messages
-      render :edit
+      report_error(
+        :bad_request,
+        "Could not update feedback for #{@interview.student.name}",
+        errors: @interview_feedback.errors.messages,
+        render_view: :edit)
     end
   end
 
