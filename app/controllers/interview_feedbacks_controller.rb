@@ -59,8 +59,11 @@ class InterviewFeedbacksController < ApplicationController
 
   def find_interview_feedback
     @interview_feedback = InterviewFeedback.find_by(id: params[:id])
-    @interview = @interview_feedback.interview
 
-    render_not_found if @interview_feedback.nil?
+    if @interview_feedback.nil?
+      render_not_found
+    else
+      @interview = @interview_feedback.interview
+    end
   end
 end
