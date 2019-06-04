@@ -104,7 +104,7 @@ describe InterviewFeedbacksController do
       must_respond_with :success
     end
 
-    it 'Must return NOT FOUND if interview is missing' do
+    it 'Must return NOT FOUND if interview feedback is missing' do
       skip
 
       get edit_interview_interview_feedback_path(Interview.first, InterviewFeedback.maximum(:id).next)
@@ -192,6 +192,37 @@ describe InterviewFeedbacksController do
 
       expect(flash[:status]).must_equal :success
       expect(feedback.interviewer_name).must_equal params[:interviewer_name]
+    end
+
+    it 'Must return NOT FOUND if interview feedback is missing' do
+      skip
+
+      patch interview_interview_feedback_path(Interview.first, InterviewFeedback.maximum(:id).next)
+
+      must_respond_with :not_found
+    end
+
+    it 'Must fail if given an invalid interview_result' do
+      skip
+
+      feedback = InterviewFeedback.new(required_params).tap do |f|
+        f.interview = Interview.first
+      end
+
+      feedback.save!
+
+      params = required_params.merge(
+        {
+          interview_result: 42
+        })
+
+      patch(interview_interview_feedback_path(feedback.interview, feedback),
+            params: { interview_feedback: params })
+
+      feedback.reload
+
+      expect(flash[:status]).must_equal :failure
+      expect(feedback.interview_result).must_equal required_params[:interview_result]
     end
   end
 end
