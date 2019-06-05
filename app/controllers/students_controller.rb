@@ -19,32 +19,40 @@ class StudentsController < ApplicationController
 
   def rankings
     Ranking.transaction do
-      params[:rankings].each(&:permit!).map(&:to_h).each do |ranking|
-        company_id = ranking[:company_id]
-        puts "v" * 80
-        puts ranking
-        puts "^" * 80
-        rank = BUCKETS[ranking[:rank]]
+      rankings = params[:rankings].each(&:permit!).map(&:to_h)
+      ranks = rankings.map { |r| r[:rank].to_i }.sort
 
-        company = Company.find(company_id)
-        interview = @student.interviews.find_by(company: company)
-        if interview.nil?
-          raise ActiveRecord::RecordInvalid.new("Invalid company(##{company_id}) for student with ID #{@student.id}")
+      if ranks == (1..rankings.length).to_a
+        rankings.each do |ranking|
+          company_id = ranking[:company_id]
+
+          rank = BUCKETS[ranking[:rank].to_i]
+
+          company = Company.find(company_id)
+          interview = @student.interviews.find_by(company: company)
+          if interview.nil?
+            raise ActiveRecord::RecordInvalid.new("Invalid company(##{company_id}) for student with ID #{@student.id}")
+          end
+
+          @student.rankings.create!(
+            company: company,
+            student_preference: rank,
+            interview_result: interview.interview_result,
+          )
         end
 
-        @student.rankings.create!(
-          company: company,
-          student_preference: rank,
-          interview_result: interview.interview_result,
-        )
+        head :no_content
+      else
+        render json: {
+                 error: "Invalid rankings.  Rank must be 1 to #{rankings.length} and were: #{ranks}",
+               }, status: :bad_request
       end
     end
 
-    head :no_content
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => ex
     render json: {
-      error: ex.message,
-    }, status: :bad_request
+             error: ex.message,
+           }, status: :bad_request
   end
 
   private
