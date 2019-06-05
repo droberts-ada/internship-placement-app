@@ -15,11 +15,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :companies, only: [:index, :show]
+
   resources :interviews, only: [:index, :show] do
-    collection do
-      # Webhook for receiving feedback forms
-      post 'feedback'
-    end
+    resources :interview_feedbacks, only: [:new, :create]
   end
 
   resources :students, only: [] do

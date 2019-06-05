@@ -1,0 +1,5 @@
+<section>
+  <h2>Edit Feedback for <%= @interview.student.name %></h2>
+  <%= render partial: "section_subhead" %>
+  <%= render partial: "form", locals: {url: interview_interview_feedback_path, submit: "Update Feedback"} %>
+</section>
