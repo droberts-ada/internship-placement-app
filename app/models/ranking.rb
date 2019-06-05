@@ -26,6 +26,6 @@ class Ranking < ApplicationRecord
   def interview_result_reason
     return nil unless interview && interview.has_feedback?
 
-    interview.interview_feedbacks.map(&:result_explanation).join("\n")
+    interview.interview_feedbacks.sort_by { |f| f.updated_at }.map(&:result_explanation).join("\n")
   end
 end
