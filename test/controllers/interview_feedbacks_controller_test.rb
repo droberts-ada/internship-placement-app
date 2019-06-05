@@ -32,10 +32,12 @@ describe InterviewFeedbacksController do
 
   describe 'create' do
     it 'Successfully creates an InterviewFeedback with only required params' do
-      post(interview_interview_feedbacks_path(Interview.first),
-           params: { interview_feedback: required_params })
+      interview = Interview.first
 
-      must_respond_with :success
+      post(interview_interview_feedbacks_path(interview), params: { interview_feedback: required_params })
+
+      must_respond_with :redirect
+      must_redirect_to company_path(interview.company)
 
       feedback = InterviewFeedback.last
 
@@ -45,10 +47,12 @@ describe InterviewFeedbacksController do
     end
 
     it 'Successfully creates an InterviewFeedback with optional params' do
-      post(interview_interview_feedbacks_path(Interview.first),
-           params: { interview_feedback: all_params })
+      interview = Interview.first
 
-      must_respond_with :success
+      post(interview_interview_feedbacks_path(interview), params: { interview_feedback: all_params })
+
+      must_respond_with :redirect
+      must_redirect_to company_path(interview.company)
 
       feedback = InterviewFeedback.last
 

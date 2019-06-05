@@ -16,9 +16,12 @@ class InterviewFeedbacksController < ApplicationController
 
   def create
     feedback = InterviewFeedback.new(interview_feedback_params)
-    feedback.interview_id = params[:interview_id]
+    interview = Interview.find_by(id: params[:interview_id])
+    feedback.interview = interview
 
-    unless feedback.save()
+    if feedback.save()
+      redirect_to company_path(interview.company)
+    else
       report_error(
         :bad_request,
         "Could not save your feedback",
