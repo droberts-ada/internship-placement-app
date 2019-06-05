@@ -54,7 +54,7 @@ const StudentFeedbackView = Backbone.View.extend({
 
   onRankChange: function(company, change) {
     const companies = this.model.companies;
-    const oldIndex = company.rank - 1;
+    const oldIndex = companies.findIndex(c => c.name === company.name);
 
     // Figure out the new index
     const maxIndex = companies.length - 1;

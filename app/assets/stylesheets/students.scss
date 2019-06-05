@@ -1,13 +1,15 @@
-.student-feedback {
-  .heading {
-    text-align: center
+#student-feedback {
+  select {
+    width: 50%;
+    margin: 1em auto 1.5em;
+    display: block;
   }
 }
 
 .student-feedback--note {
   max-width: 45em;
-  text-align: center;
   margin: 1em auto;
+  clear: both;
 }
 
 .student-feedback--rank,
@@ -21,14 +23,14 @@
 }
 
 .student-feedback--rank {
-  width: 10%;
-
-  text-align: center;
+  text-transform: capitalize;
+  text-align: right;
   font-size: 2rem;
+  width: 400px;
 }
 
 .student-feedback--company {
-  width: 70%;
+  min-width: 400px;
 
   background-color: #f0f0f0;
 
