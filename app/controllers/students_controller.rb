@@ -8,7 +8,10 @@ class StudentsController < ApplicationController
   BUCKETS = [nil, 1, 4, 4, 5, 5, 5].freeze
 
   def feedback
-    @students = Student.without_feedback.order(name: :asc)
+    @students = Student.without_feedback
+                  .order(name: :asc)
+                  .select(&:interviews_complete?)
+                  .select { |s| s.interviews.length > 0 }
   end
 
   def companies
