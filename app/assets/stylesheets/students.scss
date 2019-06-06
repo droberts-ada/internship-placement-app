@@ -1,8 +1,81 @@
 #student-feedback {
+  margin: 0 auto;
+
   select {
     width: 50%;
     margin: 1em auto 1.5em;
     display: block;
+  }
+
+  ul {
+    display: table;
+    margin: 0 auto;
+    padding: 0.5rem 7rem 2rem 0;
+  }
+
+  li {
+    display: table-row;
+
+    div {
+      display: table-cell;
+      padding-bottom: 0.25rem;
+    }
+
+    &:first-child {
+      .student-feedback--rank-btn-up {
+        filter: contrast(20%) opacity(30%);
+      }
+    }
+
+    &:nth-child(-n+3) {
+      .student-feedback--rank p {
+        color: #efe;
+        border-color: #6a8;
+        background: #060;
+      }
+    }
+
+    &:nth-child(3) {
+      div {
+        border-bottom: 3px solid #ccc;
+      }
+    }
+
+    &:nth-child(4) {
+      div {
+        padding-top: 0.25rem;
+      }
+    }
+
+    &:nth-child(n+4) {
+      .student-feedback--rank p {
+        color: #360;
+        border-color: #690;
+        background: #6901;
+      }
+    }
+
+    &:nth-child(5) {
+      div {
+        border-bottom: 3px solid #ccc;
+      }
+    }
+
+    &:last-child {
+      div {
+        padding-top: 0.25rem;
+      }
+
+      .student-feedback--rank p {
+        color: #660;
+        border-color: #a90;
+        background: #a901;
+      }
+
+      .student-feedback--rank-btn-down {
+        filter: contrast(20%) opacity(27%);
+      }
+    }
   }
 }
 
@@ -24,29 +97,24 @@
 
 .student-feedback--rank {
   text-transform: capitalize;
-  text-align: right;
-  font-size: 2rem;
-  width: 400px;
+  vertical-align: middle;
+
+  p {
+    border: 3px solid #e8e8e8;
+    padding: 0.2em 0.5em;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+  }
 }
 
 .student-feedback--company {
-  min-width: 400px;
+  font-family: Palatino;
 
-  background-color: #f0f0f0;
-
-  border: 2px solid #e8e8e8;
-  border-radius: 0.5rem;
-
-  margin: 1rem;
-  padding: 1.5rem;
+  padding: 0 2rem 0;
 
   text-align: center;
-  font-size: 1.2rem;
-
-  &:hover {
-    background-color: #e0e0e0;
-    border-color: #d8d8d8;
-  }
+  font-size: 2rem;
 }
 
 .student-feedback--rank-btns {
