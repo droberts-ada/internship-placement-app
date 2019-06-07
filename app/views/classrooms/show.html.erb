@@ -82,7 +82,10 @@
 
             <tr class="<%= row_class %>">
               <td class="company-name-row"><%= company.name %></td>
-              <td class="company-count-row"><%= company.interviews.has_feedback.count %> / <%= company.slots %></td>
+              <td class="company-count-row">
+                <%= company.interviews.has_feedback.count %> / 
+                <%= company.interviews.length %>
+              </td>
             </tr>
           <% end %>
         </tbody>
