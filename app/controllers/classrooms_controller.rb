@@ -2,7 +2,7 @@ class ClassroomsController < ApplicationController
   before_action :find_classroom, except: [:index, :new, :create]
 
   def index
-    @classrooms = Classroom.all
+    @classrooms = Classroom.all.order(created_at: :desc)
   end
 
   def new

@@ -12,7 +12,7 @@ class CompaniesController < ApplicationController
     if @company.nil?
       render_not_found
     else
-      @interviews = @company.interviews.sort_by { |i| i.scheduled_at }
+      @interviews = @company.interviews.order(scheduled_at: :asc)
     end
   end
 end
