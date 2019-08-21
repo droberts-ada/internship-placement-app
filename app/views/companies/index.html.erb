@@ -4,7 +4,7 @@
 
   <ul>
     <% @companies.each do |company| %>
-      <li><%= link_to company.name, company_path(company.id) %></li>
+      <li><%= link_to company.name, company_path(company.uuid) %></li>
     <% end %>
   </ul>
 </section>

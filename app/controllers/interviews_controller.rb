@@ -14,7 +14,7 @@ class InterviewsController < ApplicationController
     time_range = @date.beginning_of_day..@date.end_of_day
 
     # Do we have a specific company?
-    @company = Company.find_by(id: params[:company_id])
+    @company = Company.find_by(uuid: params[:company_id])
 
     if @company
       @interviews = Interview.where(

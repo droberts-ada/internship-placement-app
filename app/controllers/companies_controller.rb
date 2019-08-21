@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = Company.find_by(id: params[:id])
+    @company = Company.find_by(uuid: params[:id])
 
     if @company.nil?
       render_not_found

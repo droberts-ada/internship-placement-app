@@ -19,7 +19,7 @@
     <% if @companies -%>
       <h2>Which company are you interviewing for?</h2>
       <% @companies.each do |company| -%>
-        <%= link_to interviews_path(search_params.merge(company_id: company.id)) do %>
+        <%= link_to interviews_path(search_params.merge(company_id: company.uuid)) do %>
           <div class="interviews--company">
             <p class="company-name"><%= company.name %></p>
           </div>
