@@ -2,10 +2,10 @@ require 'test_helper'
 
 describe CompaniesController do
   describe 'index' do
-    it 'returns SUCCESS without logging in' do
+    it 'returns FAILURE without logging in' do
       get companies_path
 
-      must_respond_with :success
+      must_respond_with :redirect
     end
   end
 
