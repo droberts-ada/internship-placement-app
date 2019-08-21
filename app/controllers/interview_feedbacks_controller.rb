@@ -5,7 +5,7 @@ class InterviewFeedbacksController < ApplicationController
   before_action :find_interview_feedback, only: [:edit, :update]
 
   def new
-    @interview = Interview.find_by(id: params[:interview_id])
+    @interview = Interview.find_by(uuid: params[:interview_id])
 
     if @interview.nil?
       render_not_found
@@ -16,7 +16,7 @@ class InterviewFeedbacksController < ApplicationController
 
   def create
     feedback = InterviewFeedback.new(interview_feedback_params)
-    interview = Interview.find_by(id: params[:interview_id])
+    interview = Interview.find_by(uuid: params[:interview_id])
     feedback.interview = interview
 
     if feedback.save()

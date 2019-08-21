@@ -32,14 +32,14 @@
                     Added by <%= interview_feedback.interviewer_name %>
                     on <%= format_date(interview_feedback.updated_at) %>
                     <% if defined? edit_interview_interview_feedback_path %>
-                      (<%= link_to "edit", edit_interview_interview_feedback_path(interview.id, interview_feedback.id) %>)
+                      (<%= link_to "edit", edit_interview_interview_feedback_path(interview.uuid, interview_feedback.id) %>)
                     <% end %>
                   </li>
                 <% end %>
-                <li><%= link_to "add another", new_interview_interview_feedback_path(interview.id) %></li>
+                <li><%= link_to "add another", new_interview_interview_feedback_path(interview.uuid) %></li>
               </ul>
             <% else %>
-              <%= link_to "add feedback", new_interview_interview_feedback_path(interview.id), class: "button" %>
+              <%= link_to "add feedback", new_interview_interview_feedback_path(interview.uuid), class: "button" %>
             <% end %>
           </td>
         </tr>

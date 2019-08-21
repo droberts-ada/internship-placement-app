@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190821172022) do
+ActiveRecord::Schema.define(version: 20190821175326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,11 +52,13 @@ ActiveRecord::Schema.define(version: 20190821172022) do
     t.integer  "student_id"
     t.integer  "company_id"
     t.datetime "scheduled_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.uuid     "uuid",         default: -> { "uuid_generate_v4()" }, null: false
     t.index ["company_id"], name: "index_interviews_on_company_id", using: :btree
     t.index ["student_id", "company_id"], name: "index_interviews_on_student_id_and_company_id", unique: true, using: :btree
     t.index ["student_id"], name: "index_interviews_on_student_id", using: :btree
+    t.index ["uuid"], name: "index_interviews_on_uuid", unique: true, using: :btree
   end
 
   create_table "pairings", force: :cascade do |t|
