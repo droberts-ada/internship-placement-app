@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181217233842) do
+ActiveRecord::Schema.define(version: 20190821172022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "name"
@@ -27,10 +28,12 @@ ActiveRecord::Schema.define(version: 20181217233842) do
   create_table "companies", force: :cascade do |t|
     t.string   "name"
     t.integer  "slots"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "classroom_id"
+    t.uuid     "uuid",         default: -> { "uuid_generate_v4()" }, null: false
     t.index ["classroom_id"], name: "index_companies_on_classroom_id", using: :btree
+    t.index ["uuid"], name: "index_companies_on_uuid", unique: true, using: :btree
   end
 
   create_table "interview_feedbacks", force: :cascade do |t|
