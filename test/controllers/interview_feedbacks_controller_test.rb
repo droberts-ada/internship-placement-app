@@ -80,23 +80,7 @@ describe InterviewFeedbacksController do
   end
 
   describe 'edit' do
-    describe 'Edit and update are presently disabled for security reasons' do
-      it 'GET must not route' do
-        feedback = InterviewFeedback.new(required_params).tap do |f|
-          f.interview = Interview.first
-        end
-
-        feedback.save!
-
-        expect do
-          get edit_interview_interview_feedback_path(feedback.interview.uuid, feedback)
-        end.must_raise NoMethodError
-      end
-    end
-
     it 'Must return SUCCESS without login' do
-      skip
-
       feedback = InterviewFeedback.new(required_params).tap do |f|
         f.interview = Interview.first
       end
@@ -109,8 +93,6 @@ describe InterviewFeedbacksController do
     end
 
     it 'Must return NOT FOUND if interview feedback is missing' do
-      skip
-
       get edit_interview_interview_feedback_path(Interview.first.uuid, InterviewFeedback.maximum(:id).next)
 
       must_respond_with :not_found
@@ -118,37 +100,7 @@ describe InterviewFeedbacksController do
   end
 
   describe 'update' do
-    describe 'Edit and update are presently disabled for security reasons' do
-      it 'PUT must not route' do
-        feedback = InterviewFeedback.new(required_params).tap do |f|
-          f.interview = Interview.first
-        end
-
-        feedback.save!
-
-        expect do
-          put(interview_interview_feedback_path(feedback.interview.uuid, feedback),
-              params: { interview_feedback: required_params })
-        end.must_raise NoMethodError
-      end
-
-      it 'PATCH must not route' do
-        feedback = InterviewFeedback.new(required_params).tap do |f|
-          f.interview = Interview.first
-        end
-
-        feedback.save!
-
-        expect do
-          patch(interview_interview_feedback_path(feedback.interview.uuid, feedback),
-                params: { interview_feedback: required_params })
-        end.must_raise NoMethodError
-      end
-    end
-
     it 'Must update via PUT without login' do
-      skip
-
       feedback = InterviewFeedback.new(required_params).tap do |f|
         f.interview = Interview.first
       end
@@ -173,8 +125,6 @@ describe InterviewFeedbacksController do
     end
 
     it 'Must update via PATCH without login' do
-      skip
-
       feedback = InterviewFeedback.new(required_params).tap do |f|
         f.interview = Interview.first
       end
@@ -199,16 +149,12 @@ describe InterviewFeedbacksController do
     end
 
     it 'Must return NOT FOUND if interview feedback is missing' do
-      skip
-
       patch interview_interview_feedback_path(Interview.first.uuid, InterviewFeedback.maximum(:id).next)
 
       must_respond_with :not_found
     end
 
     it 'Must fail if given an invalid interview_result' do
-      skip
-
       feedback = InterviewFeedback.new(required_params).tap do |f|
         f.interview = Interview.first
       end
