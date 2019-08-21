@@ -51,6 +51,8 @@ gem 'oj'
 # Google API for OAuth and getting interview results
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
+
 gem 'signet'
 gem 'google-api-client', require: 'google/apis/sheets_v4'
 
