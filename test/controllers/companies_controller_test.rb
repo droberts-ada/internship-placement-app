@@ -7,6 +7,13 @@ describe CompaniesController do
 
       must_respond_with :redirect
     end
+
+    it 'returns SUCCESS when logged in' do
+      login_user(User.first)
+      get companies_path
+
+      must_respond_with :success
+    end
   end
 
   describe 'show' do

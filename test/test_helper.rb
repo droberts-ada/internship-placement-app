@@ -48,10 +48,6 @@ class ActiveSupport::TestCase
     get auth_callback_path(:google_oauth2)
   end
 
-  def typeform_id
-    SecureRandom.base64(6)
-  end
-
   def with_forgery_protection
     orig = ActionController::Base.allow_forgery_protection
     ActionController::Base.allow_forgery_protection = true

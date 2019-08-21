@@ -25,14 +25,7 @@ brew services start postgresql
 rake db:create
 rake db:migrate
 ```
-7. Log into typeform.com
-    1. Select the form you are using for that cohort.
-    2. Click "View" and save the URL in you `.env` file as `TYPEFORM_INTERVIEW_FORM`
-    3. Generate a new secret using `rails secret` and save that in your `.env` file as `TYPEFORM_SECRET`.
-    4. Put the secret into the form configuration.
-        1. Click on "Connect" from the form page.
-        2. Click on "Webhooks" and set `https://placement.adadevelopersacademy.org/interviews/feedback?typeform_secret=` using the value you generated as the value for the `typeform_secret` query parameter.
-8. Google OAuth
+7. Google OAuth
     1. Get permissions from an existing Google Cloud Platform admin.  (They need to go into "IAM & admin" > "IAM" and add you as a "Project Owner".)
     2. Go to [cloud.google.com](https://cloud.google.com).
     3. Click "Console" .  Click "Select a project".  Chose "ADADEVELOPERSACADEMY.ORG" as the organization you are selecting from and pick `ada-placement-prod`.
