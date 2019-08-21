@@ -15,13 +15,13 @@ describe CompaniesController do
                         company: Company.first,
                         scheduled_at: Date.today + 1)
 
-      get company_path(Company.first)
+      get company_path(Company.first.uuid)
 
       must_respond_with :success
     end
 
     it 'returns NOT FOUND if Company is missing' do
-      get company_path(Company.maximum(:id).next)
+      get company_path('invalid-uuid')
 
       must_respond_with :not_found
     end

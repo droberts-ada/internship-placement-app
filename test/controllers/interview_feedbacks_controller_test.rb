@@ -18,13 +18,13 @@ describe InterviewFeedbacksController do
 
   describe 'new' do
     it 'returns SUCCESS without logging in' do
-      get new_interview_interview_feedback_path(Interview.first)
+      get new_interview_interview_feedback_path(Interview.first.uuid)
 
       must_respond_with :success
     end
 
     it 'returns NOT FOUND if Interview is missing' do
-      get new_interview_interview_feedback_path(Interview.maximum(:id).next)
+      get new_interview_interview_feedback_path(InterviewFeedback.maximum(:id).next)
 
       must_respond_with :not_found
     end
@@ -34,10 +34,10 @@ describe InterviewFeedbacksController do
     it 'Successfully creates an InterviewFeedback with only required params' do
       interview = Interview.first
 
-      post(interview_interview_feedbacks_path(interview), params: { interview_feedback: required_params })
+      post(interview_interview_feedbacks_path(interview.uuid), params: { interview_feedback: required_params })
 
       must_respond_with :redirect
-      must_redirect_to company_path(interview.company)
+      must_redirect_to company_path(interview.company.uuid)
 
       feedback = InterviewFeedback.last
 
@@ -49,10 +49,10 @@ describe InterviewFeedbacksController do
     it 'Successfully creates an InterviewFeedback with optional params' do
       interview = Interview.first
 
-      post(interview_interview_feedbacks_path(interview), params: { interview_feedback: all_params })
+      post(interview_interview_feedbacks_path(interview.uuid), params: { interview_feedback: all_params })
 
       must_respond_with :redirect
-      must_redirect_to company_path(interview.company)
+      must_redirect_to company_path(interview.company.uuid)
 
       feedback = InterviewFeedback.last
 
@@ -69,13 +69,13 @@ describe InterviewFeedbacksController do
         feedback_nontechnical: "Nontechnical Feedback!"
       }
 
-      post(interview_interview_feedbacks_path(Interview.first),
+      post(interview_interview_feedbacks_path(Interview.first.uuid),
            params: { interview_feedback: params })
 
       expect(flash[:status]).must_equal :failure
 
       must_respond_with :redirect
-      must_redirect_to company_path(Interview.first.company)
+      must_redirect_to company_path(Interview.first.company.uuid)
     end
   end
 
@@ -89,7 +89,7 @@ describe InterviewFeedbacksController do
         feedback.save!
 
         expect do
-          get edit_interview_interview_feedback_path(feedback.interview, feedback)
+          get edit_interview_interview_feedback_path(feedback.interview.uuid, feedback)
         end.must_raise NoMethodError
       end
     end
@@ -103,7 +103,7 @@ describe InterviewFeedbacksController do
 
       feedback.save!
 
-      get edit_interview_interview_feedback_path(feedback.interview, feedback)
+      get edit_interview_interview_feedback_path(feedback.interview.uuid, feedback)
 
       must_respond_with :success
     end
@@ -111,7 +111,7 @@ describe InterviewFeedbacksController do
     it 'Must return NOT FOUND if interview feedback is missing' do
       skip
 
-      get edit_interview_interview_feedback_path(Interview.first, InterviewFeedback.maximum(:id).next)
+      get edit_interview_interview_feedback_path(Interview.first.uuid, InterviewFeedback.maximum(:id).next)
 
       must_respond_with :not_found
     end
@@ -127,7 +127,7 @@ describe InterviewFeedbacksController do
         feedback.save!
 
         expect do
-          put(interview_interview_feedback_path(feedback.interview, feedback),
+          put(interview_interview_feedback_path(feedback.interview.uuid, feedback),
               params: { interview_feedback: required_params })
         end.must_raise NoMethodError
       end
@@ -140,7 +140,7 @@ describe InterviewFeedbacksController do
         feedback.save!
 
         expect do
-          patch(interview_interview_feedback_path(feedback.interview, feedback),
+          patch(interview_interview_feedback_path(feedback.interview.uuid, feedback),
                 params: { interview_feedback: required_params })
         end.must_raise NoMethodError
       end
@@ -160,11 +160,11 @@ describe InterviewFeedbacksController do
           interviewer_name: "Updated Name"
         })
 
-      put(interview_interview_feedback_path(feedback.interview, feedback),
+      put(interview_interview_feedback_path(feedback.interview.uuid, feedback),
           params: { interview_feedback: params })
 
       must_respond_with :redirect
-      must_redirect_to company_path(feedback.interview.company)
+      must_redirect_to company_path(feedback.interview.company.uuid)
 
       feedback.reload
 
@@ -186,11 +186,11 @@ describe InterviewFeedbacksController do
           interviewer_name: "Updated Name"
         })
 
-      patch(interview_interview_feedback_path(feedback.interview, feedback),
+      patch(interview_interview_feedback_path(feedback.interview.uuid, feedback),
             params: { interview_feedback: params })
 
       must_respond_with :redirect
-      must_redirect_to company_path(feedback.interview.company)
+      must_redirect_to company_path(feedback.interview.company.uuid)
 
       feedback.reload
 
@@ -201,7 +201,7 @@ describe InterviewFeedbacksController do
     it 'Must return NOT FOUND if interview feedback is missing' do
       skip
 
-      patch interview_interview_feedback_path(Interview.first, InterviewFeedback.maximum(:id).next)
+      patch interview_interview_feedback_path(Interview.first.uuid, InterviewFeedback.maximum(:id).next)
 
       must_respond_with :not_found
     end
@@ -220,7 +220,7 @@ describe InterviewFeedbacksController do
           interview_result: 42
         })
 
-      patch(interview_interview_feedback_path(feedback.interview, feedback),
+      patch(interview_interview_feedback_path(feedback.interview.uuid, feedback),
             params: { interview_feedback: params })
 
       feedback.reload
