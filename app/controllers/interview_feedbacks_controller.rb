@@ -20,13 +20,13 @@ class InterviewFeedbacksController < ApplicationController
     feedback.interview = interview
 
     if feedback.save()
-      redirect_to company_path(interview.company)
+      redirect_to company_path(interview.company.uuid)
     else
       report_error(
         :bad_request,
         "Could not save your feedback",
         errors: feedback.errors,
-        redirect_path: company_path(feedback.interview.company))
+        redirect_path: company_path(feedback.interview.company.uuid))
     end
   end
 
@@ -39,7 +39,7 @@ class InterviewFeedbacksController < ApplicationController
     if @interview_feedback.save
       flash[:status] = :success
       flash[:message] = "Updated feedback for #{@interview.student.name}"
-      redirect_to company_path(@interview.company)
+      redirect_to company_path(@interview.company.uuid)
     else
       report_error(
         :bad_request,
