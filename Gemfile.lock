@@ -126,7 +126,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
     mini_mime (1.0.1)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.10.3)
     minitest-rails (3.0.0)
       minitest (~> 5.8)
@@ -143,8 +143,8 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (2.3.1)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.4)
+      mini_portile2 (~> 2.4.0)
     oauth2 (1.4.1)
       faraday (>= 0.8, < 0.16.0)
       jwt (>= 1.0, < 3.0)
@@ -284,6 +284,7 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   minitest-spec-rails
+  nokogiri (>= 1.10.4)
   oj
   omniauth
   omniauth-google-oauth2
@@ -307,4 +308,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.17.3
