@@ -5,6 +5,11 @@ require 'minitest/rails'
 require 'minitest/reporters'
 require 'securerandom'
 
+require 'simplecov'
+SimpleCov.start do
+  add_filter 'test/' # Tests should not be checked for coverage.
+end
+
 Minitest::Reporters.use!(
   Minitest::Reporters::SpecReporter.new,
   ENV,
