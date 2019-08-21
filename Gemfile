@@ -96,6 +96,8 @@ group :test do
   gem 'minitest-reporters'
   gem 'minitest-spec-rails'
   gem 'simplecov'
+  gem 'guard'
+  gem 'guard-minitest'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
