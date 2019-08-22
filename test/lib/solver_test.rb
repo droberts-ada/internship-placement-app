@@ -5,9 +5,24 @@ describe Solver do
   let (:solver) { Solver.new(classroom) }
 
   describe '#initialize' do
-    # TODO DPR: currently these are all in fixtures, maybe look into
-    # factorygirl?
+    it "rejects classrooms with mismatched students and companies" do
+      Classroom.transaction do
+        classroom = Classroom.create!(name: 'solver scale test', creator: User.first)
+        23.times do |i|
+          classroom.students.create!(name: "scale test student #{i}")
+        end
 
+        # The extra [1] between the 3 and the 2s is important
+        # for making student assignments line up later
+        company_slots = [3] + [1] + ([2] * 5) + ([1] * 10)
+        company_slots.sum.must_equal 24
+        company_slots.each_with_index do |s, i|
+          classroom.companies.create!(name: "scale test company #{i}", slots: s)
+        end
+
+        expect { Solver.new(classroom) }.must_raise ArgumentError
+      end
+    end
 
     it "builds a matrix of correct size" do
       expected_rows = classroom.students.count
