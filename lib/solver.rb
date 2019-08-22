@@ -4,6 +4,7 @@
 # see references at the bottom of this file
 
 require 'matrix'
+require 'invariant'
 
 # For some reason Ruby matricies aren't mutable
 # But apparently there's an easy way to make them so
@@ -11,9 +12,6 @@ require 'matrix'
 class Matrix
   public :"[]=", :set_element, :set_component
 end
-
-# Safety checks for myself
-class ProgrammingError < StandardError; end
 
 # Raised when the solution does not converge
 class SolutionError < StandardError; end
@@ -24,16 +22,14 @@ class Solver
 
   # Constraints:
   #   Number of students must equal number of company slots
-  #   initial_pairings must be empty
   #
   # Invariants:
   #   Students are rows and companies are columns
   #
   # Initialization and the initial reduction are both O(V^2).
-  def initialize(classroom, initial_pairings=[])
-    unless initial_pairings.empty?
-      raise ArgumentError.new("Cannot yet handle initial pairings")
-    end
+  #
+  # TODO: Add support for initial_pairings
+  def initialize(classroom)
     @rankings = classroom.rankings
 
     # Build row and column headers
@@ -97,9 +93,7 @@ class Solver
 
       # Safety: outside of -1, there should be no duplicate assignments
       real_assignments = assignments.select { |a| a >= 0 }
-      if real_assignments.length != real_assignments.uniq.length
-        raise ProgrammingError("maximum_matching returned a duplicate value in the assignment array: #{assignments}")
-      end
+      assert real_assignments.length == real_assignments.uniq.length, "maximum_matching returned a duplicate value in the assignment array: #{assignments}"
 
       # If every company has a student assigned, we're done
       unless assignments.include?(-1)
@@ -325,9 +319,7 @@ private
     end
 
     # Safety: there should be no duplicates in unmatched_students
-    if unmatched_students.uniq.length != unmatched_students.length
-      raise ProgrammingError.new("in Konig, unmatched students contained a duplicate: #{unmatched_students}")
-    end
+    assert unmatched_students.uniq.length == unmatched_students.length, "in Konig, unmatched students contained a duplicate: #{unmatched_students}"
 
     # Next, compute S* and C*, the sets of students and companies reachable
     # via an alternating path from S'. To do so, we use a DFS.
