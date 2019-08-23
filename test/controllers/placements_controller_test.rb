@@ -47,6 +47,68 @@ describe PlacementsController do
     expect(flash[:message]).must_equal "Could not create placement"
   end
 
+  test "Update a placement" do
+    placement = Placement.create!(
+      classroom_id: Classroom.find_by(name: "solver_test").id,
+      owner: User.first)
+
+    put placement_path(placement), params: {
+          placement: {
+            pairings: [
+              placement.companies.first.id,
+              placement.students.last.id
+            ]
+          }
+        }
+
+    assert_response :success
+  end
+
+  test "Update a placement with an invalid pairing" do
+    put placement_path(Placement.first), params: {
+          placement: {
+            pairings: [Company.first.id, Student.first.id]
+          }
+        }
+
+    assert_response :bad_request
+  end
+
+  test "Duplicates a placement" do
+    placement = Placement.create!(
+      classroom_id: Classroom.find_by(name: "solver_test").id,
+      owner: User.first)
+
+    # HTML
+    post duplicate_placement_path(placement), format: :html
+
+    assert_response :redirect
+    must_redirect_to placement_path(Placement.last)
+
+    # JSON
+    post duplicate_placement_path(placement), format: :json
+
+    assert_response :success
+  end
+
+  test "Duplicates a solved placement" do
+    placement = Placement.create!(
+      classroom_id: Classroom.find_by(name: "solver_test").id,
+      owner: User.first)
+    placement.solve
+
+    # HTML
+    post duplicate_placement_path(placement), format: :html
+
+    assert_response :redirect
+    must_redirect_to placement_path(Placement.last)
+
+    # JSON
+    post duplicate_placement_path(placement), format: :json
+
+    assert_response :success
+  end
+
   test "Show a real placement" do
     get placement_path(placements(:full))
     assert_response :success
