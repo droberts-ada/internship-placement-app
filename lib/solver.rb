@@ -47,6 +47,10 @@ class Solver
       raise ArgumentError.new("Number of students (#{@students.length}) does not match number of company slots (#{@companies.length})")
     end
 
+    unless @students.length > 0
+      raise ArgumentError.new("No students provided")
+    end
+
     @matrix = Matrix.build(@students.length, @companies.length) do |row, col|
       initial_cost(row, col)
     end

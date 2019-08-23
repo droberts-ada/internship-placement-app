@@ -31,6 +31,20 @@ describe PlacementsController do
 
     assert_response :redirect
     must_redirect_to classroom_path(classroom)
+
+    expect(flash[:status]).must_equal :failure
+    expect(flash[:message]).must_match(/no students/i)
+  end
+
+  test "Create a placement on a non-existant classroom fails" do
+    invalid_classroom_id = Classroom.maximum(:id).next
+    post classroom_placements_path(invalid_classroom_id)
+
+    assert_response :redirect
+    must_redirect_to classroom_path(invalid_classroom_id)
+
+    expect(flash[:status]).must_equal :failure
+    expect(flash[:message]).must_equal "Could not create placement"
   end
 
   test "Show a real placement" do

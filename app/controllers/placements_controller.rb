@@ -29,7 +29,7 @@ class PlacementsController < ApplicationController
       flash[:status] = :failure
       flash[:message] = "Could not create placement"
       flash[:errors] = @placement.errors.messages
-      redirect_back
+      redirect_back(fallback_location: classroom_path(params[:classroom_id]))
     end
   end
 
