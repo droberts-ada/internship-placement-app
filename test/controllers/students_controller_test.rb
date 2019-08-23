@@ -82,6 +82,27 @@ describe StudentsController do
       expect(ranks).must_equal [1, 4, 4, 5, 5, 5]
     end
 
+    it 'rejects rankings without interview' do
+      invalid_company = Company.create!(
+        name: "Professor Oak's Lab",
+        classroom: @student.classroom,
+        slots: 6
+      )
+
+      companies = [invalid_company] + @companies.take(5)
+
+      params = companies.each_with_index.map do |company, i|
+        {
+          company_id: company.id,
+          rank: i + 1
+        }
+      end
+
+      post(rankings_student_path(@student.id), params: { rankings: params })
+
+      must_respond_with :bad_request
+    end
+
     it 'Rejects invalid company rankings' do
       params = @companies.each_with_index.map do |company, i|
         {

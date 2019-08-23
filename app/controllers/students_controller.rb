@@ -34,7 +34,7 @@ class StudentsController < ApplicationController
           company = Company.find(company_id)
           interview = @student.interviews.find_by(company: company)
           if interview.nil?
-            raise ActiveRecord::RecordInvalid.new("Invalid company(##{company_id}) for student with ID #{@student.id}")
+            raise ActiveRecord::RecordNotFound.new("Invalid company(##{company_id}) for student with ID #{@student.id}")
           end
 
           @student.rankings.create!(
@@ -52,7 +52,7 @@ class StudentsController < ApplicationController
       end
     end
 
-  rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => ex
+  rescue ActiveRecord::RecordNotFound => ex
     render json: {
              error: ex.message,
            }, status: :bad_request
