@@ -44,7 +44,19 @@ describe ClassroomsController do
       must_redirect_to classroom_path(new_classroom)
 
       expect(flash[:status]).must_equal :success
-      expect(flash[:message]).must_match /created classroom/
+      expect(flash[:message]).must_match(/created classroom/)
+      expect(flash[:errors]).must_be_nil
+    end
+
+    it 'redirects to the classroom details page when generating' do
+      post classrooms_path, params: { generate: "true" }
+
+      new_classroom = Classroom.last
+      must_respond_with :redirect
+      must_redirect_to classroom_path(new_classroom)
+
+      expect(flash[:status]).must_equal :success
+      expect(flash[:message]).must_match(/created classroom/)
       expect(flash[:errors]).must_be_nil
     end
 
@@ -145,8 +157,8 @@ describe ClassroomsController do
       expect(h['Content-Type']).must_equal Mime[:csv]
 
       expect(h).must_include 'Content-Disposition'
-      expect(h['Content-Disposition']).must_match /^attachment;/
-      expect(h['Content-Disposition']).must_match /filename=".+\.csv"/
+      expect(h['Content-Disposition']).must_match(/^attachment;/)
+      expect(h['Content-Disposition']).must_match(/filename=".+\.csv"/)
 
       expect(h).must_include 'Content-Transfer-Encoding'
       expect(h['Content-Transfer-Encoding']).must_equal 'binary'

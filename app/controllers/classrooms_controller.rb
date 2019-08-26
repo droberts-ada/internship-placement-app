@@ -12,7 +12,10 @@ class ClassroomsController < ApplicationController
   def create
     if params[:generate]
       @classroom = ClassroomGenerator::build_classroom
-      redirect_to classroom_path(@classroom)
+
+      flash[:status] = :success
+      flash[:message] = "created classroom #{@classroom.name}"
+      redirect_to @classroom
     else
       begin
         # Make sure we have a valid interview file
