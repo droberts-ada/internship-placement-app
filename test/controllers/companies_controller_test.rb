@@ -6,6 +6,8 @@ describe CompaniesController do
       get companies_path
 
       must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
     end
 
     it 'returns SUCCESS when logged in' do

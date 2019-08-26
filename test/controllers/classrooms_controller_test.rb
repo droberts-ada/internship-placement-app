@@ -5,6 +5,42 @@ describe ClassroomsController do
     login_user users(:instructor)
   end
 
+  describe 'index' do
+    it 'returns FAILURE without logging in' do
+      logout_user
+
+      get classrooms_path
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it 'returns SUCCESS when logged in' do
+      get classrooms_path
+
+      must_respond_with :success
+    end
+  end
+
+  describe 'new' do
+    it 'returns FAILURE without logging in' do
+      logout_user
+
+      get new_classroom_path
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it 'returns SUCCESS when logged in' do
+      get new_classroom_path
+
+      must_respond_with :success
+    end
+  end
+
   describe 'create' do
     let(:interviews_good) do
       fixture_file_upload('files/interviews_good.csv', 'text/csv')
@@ -19,12 +55,12 @@ describe ClassroomsController do
     end
 
     let(:params_good) do {
-      classroom: {
-        name: 'Test classroom',
-        interviews_per_slot: 2,
-      },
-      interviews_csv: interviews_good,
-    } end
+classroom: {
+  name: 'Test classroom',
+  interviews_per_slot: 2,
+},
+interviews_csv: interviews_good,
+} end
 
     let(:params_bad) { params_good.merge(classroom: {name: ''}) }
 
@@ -34,6 +70,16 @@ describe ClassroomsController do
 
     let(:params_interviews_malformed) do
       params_good.merge(interviews_csv: interviews_malformed)
+    end
+
+    it 'returns FAILURE without logging in' do
+      logout_user
+
+      post classrooms_path, params: params_good
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
     end
 
     it 'redirects to the classroom details page' do
@@ -146,6 +192,16 @@ describe ClassroomsController do
 
   describe 'export_feedback' do
     let(:classroom) { classrooms(:jets) }
+
+    it 'returns FAILURE without logging in' do
+      logout_user
+
+      get export_feedback_classroom_path(classroom.id)
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
 
     it 'responds with a CSV file download' do
       get export_feedback_classroom_path(classroom.id)

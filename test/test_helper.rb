@@ -48,6 +48,10 @@ class ActiveSupport::TestCase
     get auth_callback_path(:google_oauth2)
   end
 
+  def logout_user
+    get logout_path
+  end
+
   def with_forgery_protection
     orig = ActionController::Base.allow_forgery_protection
     ActionController::Base.allow_forgery_protection = true
