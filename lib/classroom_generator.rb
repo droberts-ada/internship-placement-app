@@ -1,5 +1,6 @@
 require 'faker'
 require 'set'
+require 'invariant'
 
 puts "In generate_classroom.rb"
 
@@ -14,10 +15,7 @@ class ClassroomGenerator
     Classroom.transaction do
       classroom = Classroom.create!(name: Faker::Hacker.noun.pluralize, creator: User.first)
       SCALE.times do |i|
-        student = Faker::Cat.name
-        while students.include?(student) do
-          student = Faker::Cat.name
-        end
+        student = Faker::Name.name
         students.add(student)
         classroom.students.create!(name: student)
       end
@@ -25,14 +23,9 @@ class ClassroomGenerator
       # The extra [1] between the 3 and the 2s is important
       # for making student assignments line up later
       company_slots = [3] + [1] + ([2] * 5) + ([1] * 10)
-      if company_slots.sum != SCALE
-        raise StandardError.new "AHHHHHHHH"
-      end
+      assert company_slots.sum == SCALE
       company_slots.each_with_index do |s, i|
         company = Faker::Company.name
-        while companies.include?(company) do
-          company = Faker::Company.name
-        end
         companies.add(company)
         classroom.companies.create!(name: company, slots: s)
       end
@@ -58,15 +51,9 @@ class ClassroomGenerator
         students = student_tier.pop(interview_count)
 
         # Shouldn't run out of students
-        if students.length != interview_count
-          puts "Hit the bad state. Remaining students:"
-          students.each do |s|
-            puts "  #{s.name} with #{s.rankings.count} rankings"
-          end
-        end
-        if students.length != interview_count
-          raise StandardError.new "AHHHHHHHH"
-        end
+        remaining_students = students.map { |s| "  #{s.name} with #{s.rankings.count} rankings" }
+        assert(students.length == interview_count,
+               (["Hit the bad state. Remaining students:"] + remaining_students).join("\n"))
 
         # Build a ranking for this company for each student
         students.each do |student|
@@ -79,9 +66,7 @@ class ClassroomGenerator
       end
 
       # We should have exactly exhausted our pool of students
-      unless available_students.empty?
-        raise StandardError.new "AHHHHHHHH"
-      end
+      assert available_students.empty?
     end
 
     return classroom
