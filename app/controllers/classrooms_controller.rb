@@ -66,12 +66,10 @@ class ClassroomsController < ApplicationController
       flash[:message] = "updated classroom #{@classroom.id}"
       redirect_to classroom_path(@classroom)
     else
-      # :nocov:
-      flash[:status] = :failure
-      flash[:message] = "could not update classroom"
-      flash[:errors] = @classroom.errors.messages
-      render :edit
-      # :nocov:
+      report_error(:bad_request,
+                   "could not update classroom",
+                   errors: @classroom.errors.messages,
+                   render_view: :edit)
     end
   end
 

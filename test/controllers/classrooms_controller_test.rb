@@ -32,9 +32,9 @@ describe ClassroomsController do
       stub_request(:post, ApplicationController::REFRESH_URL)
         .to_return(status: 200,
                    body: JSON.generate({
-                     access_token: SecureRandom.base64(128),
-                     expires_in: (Time.now + 8.hours).to_i
-                   }),
+                                         access_token: SecureRandom.base64(128),
+                                         expires_in: (Time.now + 8.hours).to_i
+                                       }),
                    headers: {
                      "Content-Type": "application/json"
                    })
@@ -95,7 +95,8 @@ describe ClassroomsController do
       get classrooms_path
       must_respond_with :unauthorized
       expect(flash[:status]).must_equal :failure
-      expect(flash[:message]).must_match(/refreshing.*failed/i)
+      expect(flash[:message]).must_match(/refreshing/i)
+      expect(flash[:message]).must_match(/failed/i)
     end
   end
 
@@ -168,7 +169,7 @@ describe ClassroomsController do
       must_redirect_to classroom_path(new_classroom)
 
       expect(flash[:status]).must_equal :success
-      expect(flash[:message]).must_match(/created classroom/)
+      expect(flash[:message]).must_match(/created classroom/i)
       expect(flash[:errors]).must_be_nil
     end
 
@@ -180,7 +181,7 @@ describe ClassroomsController do
       must_redirect_to classroom_path(new_classroom)
 
       expect(flash[:status]).must_equal :success
-      expect(flash[:message]).must_match(/created classroom/)
+      expect(flash[:message]).must_match(/created classroom/i)
       expect(flash[:errors]).must_be_nil
     end
 
@@ -190,7 +191,8 @@ describe ClassroomsController do
       must_respond_with :bad_request
 
       expect(flash[:status]).must_equal :failure
-      expect(flash[:message]).must_equal "could not create classroom"
+      expect(flash[:message]).must_match(/could not/i)
+      expect(flash[:message]).must_match(/create classroom/i)
       expect(flash[:errors]).must_be_kind_of Hash
       expect(flash[:errors].keys).must_include :name
     end
@@ -201,7 +203,8 @@ describe ClassroomsController do
       must_respond_with :bad_request
 
       expect(flash[:status]).must_equal :failure
-      expect(flash[:message]).must_equal "could not create classroom"
+      expect(flash[:message]).must_match(/could not/i)
+      expect(flash[:message]).must_match(/create classroom/i)
       expect(flash[:errors]).must_be_kind_of Hash
     end
 
@@ -213,7 +216,8 @@ describe ClassroomsController do
       must_respond_with :bad_request
 
       expect(flash[:status]).must_equal :failure
-      expect(flash[:message]).must_equal "could not use interviews CSV file"
+      expect(flash[:message]).must_match(/could not/i)
+      expect(flash[:message]).must_match(/csv file/i)
       expect(flash[:errors]).must_be_kind_of Hash
       expect(flash[:errors].keys).must_include :interviews_csv
     end
@@ -224,7 +228,8 @@ describe ClassroomsController do
       must_respond_with :bad_request
 
       expect(flash[:status]).must_equal :failure
-      expect(flash[:message]).must_equal "could not use interviews CSV file"
+      expect(flash[:message]).must_match(/could not/i)
+      expect(flash[:message]).must_match(/csv file/i)
       expect(flash[:errors]).must_be_kind_of Hash
       expect(flash[:errors].keys).must_include :interviews_csv
     end
@@ -340,6 +345,25 @@ describe ClassroomsController do
 
       expect(classroom.name).must_equal updated_name
       expect(classroom.interviews_per_slot).must_equal updated_slots
+    end
+
+    it 'fails to update to nil interviews_per_slot' do
+      classroom = Classroom.last
+
+      expect(classroom.interviews_per_slot).wont_be_nil
+
+      put(classroom_path(classroom),
+          params: {
+            classroom: {
+              interviews_per_slot: nil
+            }
+          })
+
+      must_respond_with :bad_request
+
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/could not/i)
+      expect(flash[:message]).must_match(/update/i)
     end
   end
 
