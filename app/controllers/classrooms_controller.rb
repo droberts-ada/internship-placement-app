@@ -65,13 +65,13 @@ class ClassroomsController < ApplicationController
       flash[:status] = :success
       flash[:message] = "updated classroom #{@classroom.id}"
       redirect_to classroom_path(@classroom)
-
     else
+      # :nocov:
       flash[:status] = :failure
       flash[:message] = "could not update classroom"
       flash[:errors] = @classroom.errors.messages
       render :edit
-
+      # :nocov:
     end
   end
 

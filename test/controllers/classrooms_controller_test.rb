@@ -54,13 +54,15 @@ describe ClassroomsController do
       fixture_file_upload('files/interviews_malformed.csv', 'text/csv')
     end
 
-    let(:params_good) do {
-classroom: {
-  name: 'Test classroom',
-  interviews_per_slot: 2,
-},
-interviews_csv: interviews_good,
-} end
+    let(:params_good) do
+      {
+        classroom: {
+          name: 'Test classroom',
+          interviews_per_slot: 2,
+        },
+        interviews_csv: interviews_good,
+      }
+    end
 
     let(:params_bad) { params_good.merge(classroom: {name: ''}) }
 
@@ -187,6 +189,100 @@ interviews_csv: interviews_good,
           [Classroom, Interview, Student, Company].map(&:count).sum
         end
       end
+    end
+  end
+
+  describe 'show' do
+    it "can successfully show a classroom" do
+      get classroom_path(Classroom.first)
+
+      must_respond_with :success
+    end
+
+    it "returns not_found for a missing classroom" do
+      get classroom_path(Classroom.maximum(:id).next)
+
+      must_respond_with :not_found
+    end
+  end
+
+  describe 'edit' do
+    it "can successfully edit a classroom" do
+      get edit_classroom_path(Classroom.first)
+
+      must_respond_with :success
+    end
+
+    it "returns not_found for a missing classroom" do
+      get edit_classroom_path(Classroom.maximum(:id).next)
+
+      must_respond_with :not_found
+    end
+  end
+
+
+  describe 'update' do
+    it 'returns FAILURE without logging in' do
+      logout_user
+
+      put classroom_path(Classroom.last.id)
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it "returns not_found for a missing classroom" do
+      put classroom_path(Classroom.maximum(:id).next)
+
+      must_respond_with :not_found
+    end
+
+    it 'successfully updates name and interviews_per_slot' do
+      updated_slots = 1
+      updated_name = "Updated Name!"
+      classroom = Classroom.last
+
+      expect(classroom.name).wont_equal updated_name
+      expect(classroom.interviews_per_slot).wont_equal updated_slots
+
+      put(classroom_path(classroom),
+          params: {
+            classroom: {
+              name: updated_name,
+              interviews_per_slot: updated_slots
+            }
+          })
+
+      must_respond_with :redirect
+      must_redirect_to classroom_path(Classroom.last.id)
+
+      expect(flash[:status]).must_equal :success
+      expect(flash[:message]).must_match(/updated/i)
+
+      classroom.reload
+
+      expect(classroom.name).must_equal updated_name
+      expect(classroom.interviews_per_slot).must_equal updated_slots
+    end
+  end
+
+  describe 'destroy' do
+    it "Successfully destroys a classroom" do
+      classroom = Classroom.create!(creator: User.first, name: "Doomed Classroom")
+
+      delete classroom_path(classroom)
+
+      must_respond_with :redirect
+      must_redirect_to classrooms_path
+
+      expect(Classroom.find_by(id: classroom.id)).must_be_nil
+    end
+
+    it "returns not_found for a missing classroom" do
+      delete classroom_path(Classroom.maximum(:id).next)
+
+      must_respond_with :not_found
     end
   end
 
