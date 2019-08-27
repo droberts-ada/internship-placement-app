@@ -4,6 +4,7 @@ require 'rails/test_help'
 require 'minitest/rails'
 require 'minitest/reporters'
 require 'securerandom'
+require 'webmock/minitest'
 
 require 'simplecov'
 SimpleCov.start do

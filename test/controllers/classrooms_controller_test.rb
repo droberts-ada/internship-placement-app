@@ -1,3 +1,5 @@
+require 'json'
+
 require 'test_helper'
 
 describe ClassroomsController do
@@ -20,6 +22,80 @@ describe ClassroomsController do
       get classrooms_path
 
       must_respond_with :success
+    end
+
+    it 'refreshes token if expired and fails if upstream succeeds' do
+      logout_user
+
+      user = User.first
+
+      stub_request(:post, ApplicationController::REFRESH_URL)
+        .to_return(status: 200,
+                   body: JSON.generate({
+                     access_token: SecureRandom.base64(128),
+                     expires_in: (Time.now + 8.hours).to_i
+                   }),
+                   headers: {
+                     "Content-Type": "application/json"
+                   })
+
+      expired_auth_hash = {
+        provider: user.oauth_provider,
+        uid: user.oauth_uid,
+        info: {
+          name: user.name,
+          email: user.email
+        },
+        credentials: {
+          token: SecureRandom.base64(128),
+          refresh_token: SecureRandom.base64(64),
+          expires_at: Time.now - 8.hours
+        }
+      }
+
+      auth_hash = OmniAuth::AuthHash.new(expired_auth_hash)
+      OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
+
+      get auth_callback_path(:google_oauth2)
+      must_respond_with :redirect
+
+      get classrooms_path
+      must_respond_with :success
+      expect(flash[:status]).must_equal nil
+    end
+
+    it 'refreshes token if expired and fails if upstream fails' do
+      logout_user
+
+      user = User.first
+
+      stub_request(:post, ApplicationController::REFRESH_URL)
+        .to_return(status: 401, body: "", headers: {})
+
+      expired_auth_hash = {
+        provider: user.oauth_provider,
+        uid: user.oauth_uid,
+        info: {
+          name: user.name,
+          email: user.email
+        },
+        credentials: {
+          token: SecureRandom.base64(128),
+          refresh_token: SecureRandom.base64(64),
+          expires_at: Time.now - 8.hours
+        }
+      }
+
+      auth_hash = OmniAuth::AuthHash.new(expired_auth_hash)
+      OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
+
+      get auth_callback_path(:google_oauth2)
+      must_respond_with :redirect
+
+      get classrooms_path
+      must_respond_with :unauthorized
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/refreshing.*failed/i)
     end
   end
 

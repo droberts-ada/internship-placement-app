@@ -15,7 +15,7 @@ private
           flash.now[:message] = message
           flash.now[:errors] = errors
 
-          render render_view
+          render render_view, status: code
         elsif redirect_path
           flash[:status] = :failure
           flash[:message] = message
