@@ -1,7 +1,7 @@
 language: ruby
 rvm:
 - 2.5.1
-install: gem install bundler -v 1.17.3
+install: gem install bundler -v 1.17.3 && bundle install
 services:
 - postgresql
 before_script:
