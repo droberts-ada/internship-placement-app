@@ -65,8 +65,6 @@ describe ClassroomsController do
     end
 
     it 'refreshes token if expired and fails if upstream fails' do
-      logout_user
-
       user = User.first
 
       stub_request(:post, ApplicationController::REFRESH_URL)
@@ -89,6 +87,8 @@ describe ClassroomsController do
       auth_hash = OmniAuth::AuthHash.new(expired_auth_hash)
       OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
 
+      # HTML
+      logout_user
       get auth_callback_path(:google_oauth2)
       must_respond_with :redirect
 
@@ -97,6 +97,17 @@ describe ClassroomsController do
       expect(flash[:status]).must_equal :failure
       expect(flash[:message]).must_match(/refreshing/i)
       expect(flash[:message]).must_match(/failed/i)
+
+      # JSON
+      logout_user
+      get auth_callback_path(:google_oauth2)
+      must_respond_with :redirect
+
+      get classrooms_path, format: :json
+      must_respond_with :unauthorized
+      expect(response.parsed_body['status']).must_equal 'failure'
+      expect(response.parsed_body['message']).must_match(/refreshing/i)
+      expect(response.parsed_body['message']).must_match(/failed/i)
     end
   end
 
