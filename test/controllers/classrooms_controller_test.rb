@@ -24,7 +24,7 @@ describe ClassroomsController do
       must_respond_with :success
     end
 
-    it 'refreshes token if expired and fails if upstream succeeds' do
+    it 'refreshes token if expired and fails if upstream fails' do
       logout_user
 
       user = User.first
