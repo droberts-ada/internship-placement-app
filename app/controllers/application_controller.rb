@@ -72,12 +72,8 @@ private
       response = refresh.parsed_response
       @current_user.oauth_token = response['access_token']
       @current_user.token_expires_at = Time.now + response['expires_in']
-      unless @current_user.save
-        report_error(:unauthorized,
-            "Refreshed user auth token, but could not write to database!",
-            errors: @current_user.errors.messages,
-            render_view: 'main/index')
-      end
+
+      @current_user.save!
     else
       report_error(:unauthorized,
           "Refreshing user auth token failed with status \'#{refresh['error']}\': #{refresh['error_description']}",
@@ -95,7 +91,6 @@ private
     elsif @current_user.token_expires_at < Time.now
       # Token is expired -> need to refresh
       refresh_token
-
     end
   end
 end
