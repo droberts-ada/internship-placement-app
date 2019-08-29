@@ -1,4 +1,11 @@
 language: ruby
 rvm:
- - 2.5.1
-install: gem install rails bundler
+- 2.5.1
+install: gem install bundler -v 1.17.3
+services:
+- postgresql
+before_script:
+- bin/rails db:create
+- bin/rails db:migrate
+script:
+- bin/rails test
