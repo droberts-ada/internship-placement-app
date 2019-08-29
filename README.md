@@ -1,5 +1,7 @@
 # Internship Placer
 
+[![Build Status](https://travis-ci.org/Ada-Developers-Academy/internship-placement-app.svg?branch=master)](https://travis-ci.org/Ada-Developers-Academy/internship-placement-app)
+
 ## Setup
 
 1. Install the Ruby listed in `.ruby-version`
