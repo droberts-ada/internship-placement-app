@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
 private
-  def report_error(code, message, errors: nil, redirect_path: root_path, render_view: nil)
+  def report_error(code, message, errors: [], redirect_path: root_path, render_view: nil)
     respond_to do |format|
       format.html do
         if render_view
@@ -29,9 +29,7 @@ private
           status: :failure,
           message: message
         }
-        if errors
-          response[:errors] = errors
-        end
+        response[:errors] = errors
         render status: code, json: response
       end
     end
