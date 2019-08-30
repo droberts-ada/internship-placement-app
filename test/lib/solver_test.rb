@@ -118,7 +118,7 @@ describe Solver do
 
     SCALE = 24
     INTERVIEWS_PER_SLOT = 6
-    def build_classroom(rng)
+    def build_classroom()
       # Build students and companies
       classroom = nil
       Classroom.transaction do
@@ -140,7 +140,7 @@ describe Solver do
         # in order, to avoid ending up with a student needing to
         # inteveiw at the same company multiple times at the end
         available_students = 6.times.map do
-          classroom.students.to_a.shuffle
+          classroom.students.to_a.shuffle()
         end
         student_tier = []
 
@@ -168,8 +168,8 @@ describe Solver do
           students.each do |student|
             student.rankings.create!(
             company: company,
-            student_preference: rng.rand(5)+1,
-            interview_result: rng.rand(5)+1
+            student_preference: rand(5) + 1,
+            interview_result: rand(5) + 1
             )
           end
         end
@@ -194,13 +194,7 @@ describe Solver do
     end
 
     it "Can handle a full-scale classroom" do
-      # Report the RNG seed for repeatability
-      seed = Random.new_seed
-      puts
-      puts "In full-scale test, using seed #{seed}"
-      rng = Random.new(seed)
-
-      classroom = build_classroom(rng)
+      classroom = build_classroom()
       total_time, iterations = solve_classroom(classroom)
       puts "Converged in #{total_time} seconds, #{iterations} iterations"
     end
@@ -210,18 +204,13 @@ describe Solver do
       # Haven't looked into actually proving this (it probably doesn't), so for
       # now we'll just try it 100 times and see what we get
 
-      seed = Random.new_seed
-      puts
-      puts "In many iteration test, using seed #{seed}"
-      rng = Random.new(seed)
-
       times = []
       iterations = []
       failures = 0
       start_time = Time.now
       100.times do |i|
         begin
-          classroom = build_classroom(rng)
+          classroom = build_classroom()
           run_time, run_iterations = solve_classroom(classroom)
           puts "Run #{i} finished in #{run_time} seconds, #{run_iterations} iterations"
           times << run_time
