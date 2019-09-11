@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190911171748) do
+ActiveRecord::Schema.define(version: 20190911231046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,9 @@ ActiveRecord::Schema.define(version: 20190911171748) do
     t.integer "mentorship_experience",                                       null: false
     t.integer "team_age",                                                    null: false
     t.integer "team_size",                                                   null: false
+    t.integer "company_id",                                                  null: false
     t.index ["classrooms_id"], name: "index_company_surveys_on_classrooms_id", using: :btree
+    t.index ["company_id"], name: "index_company_surveys_on_company_id", using: :btree
     t.index ["uuid"], name: "index_company_surveys_on_uuid", unique: true, using: :btree
   end
 
@@ -135,6 +137,7 @@ ActiveRecord::Schema.define(version: 20190911171748) do
   add_foreign_key "classrooms", "users", column: "creator_id"
   add_foreign_key "companies", "classrooms"
   add_foreign_key "company_surveys", "classrooms", column: "classrooms_id"
+  add_foreign_key "company_surveys", "companies"
   add_foreign_key "interview_feedbacks", "interviews"
   add_foreign_key "interviews", "companies"
   add_foreign_key "interviews", "students"
