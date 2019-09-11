@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190821175326) do
+ActiveRecord::Schema.define(version: 20190911171748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 20190821175326) do
     t.uuid     "uuid",         default: -> { "uuid_generate_v4()" }, null: false
     t.index ["classroom_id"], name: "index_companies_on_classroom_id", using: :btree
     t.index ["uuid"], name: "index_companies_on_uuid", unique: true, using: :btree
+  end
+
+  create_table "company_surveys", force: :cascade do |t|
+    t.uuid    "uuid",                  default: -> { "uuid_generate_v4()" }, null: false
+    t.integer "classrooms_id"
+    t.integer "onboarding",                                                  null: false
+    t.integer "pair_programming",                                            null: false
+    t.integer "structure",                                                   null: false
+    t.integer "diverse_bg",                                                  null: false
+    t.integer "other_adies",                                                 null: false
+    t.integer "meet_with_mentor",                                            null: false
+    t.integer "meet_with_lead",                                              null: false
+    t.integer "meet_with_manager",                                           null: false
+    t.integer "mentorship_experience",                                       null: false
+    t.integer "team_age",                                                    null: false
+    t.integer "team_size",                                                   null: false
+    t.index ["classrooms_id"], name: "index_company_surveys_on_classrooms_id", using: :btree
+    t.index ["uuid"], name: "index_company_surveys_on_uuid", unique: true, using: :btree
   end
 
   create_table "interview_feedbacks", force: :cascade do |t|
@@ -116,6 +134,7 @@ ActiveRecord::Schema.define(version: 20190821175326) do
 
   add_foreign_key "classrooms", "users", column: "creator_id"
   add_foreign_key "companies", "classrooms"
+  add_foreign_key "company_surveys", "classrooms", column: "classrooms_id"
   add_foreign_key "interview_feedbacks", "interviews"
   add_foreign_key "interviews", "companies"
   add_foreign_key "interviews", "students"
