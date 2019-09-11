@@ -1,0 +1,14 @@
+<%= form_for @company_survey, html: {multipart: true}, url: url do |f| %>
+  <% questions.each do |question| %>
+    <%= f.label question[:name], question[:text].html_safe %><abbr title="This field is mandatory">*</abbr>
+    <!-- TODO: Map these to scores internally. -->
+    <fieldset>
+      <% question[:answers].each_with_index do |answer, index| %>
+        <div class="radio">
+          <%= f.radio_button "#{question[:name]}", index, required: true %>
+          <%= f.label "#{question[:name]}", answer[:text], value: index %>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+<% end %>

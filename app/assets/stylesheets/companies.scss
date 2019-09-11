@@ -1,10 +1,51 @@
-// Place all the styles related to the classrooms controller here.
+// Place all the styles related to the companies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// TODO: Move these into application.scss or a public.scss?
 .public {
   h2 {
     font-family: Palatino;
+    font-size: 3em;
+    text-align: center;
+    margin-right: 1.9em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    width: 100%;
+    padding: 0.25em 0;
+    border-bottom: 0.1em solid #ddd;
+    margin-bottom: 0.5em;
+  }
+
+  label {
+    display: inline-block;
+    margin-right: 0.1em;
+  }
+
+  .form-subhead {
+    opacity: 0.7;
+  }
+
+  form {
+    max-width: 50rem;
+
+    fieldset {
+      margin-bottom: 1em;
+    }
+
+    .radio {
+      margin-left: 0.25em;
+
+      input {
+        margin-bottom: 0;
+      }
+    }
+
+    input[type="text"] {
+      max-width: 20rem;
+    }
   }
 }
 
