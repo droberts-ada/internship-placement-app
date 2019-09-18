@@ -6,10 +6,9 @@
       <h3>Company Support Survey</h3>
 
       <p>Please complete the following survey:</p>
-      <%= render partial: "form", locals: {url: root_path, questions: @questions} %>
+      <%= render partial: "form", locals: {url: survey_company_path, questions: @questions} %>
     </section>
   <% end %>
-
 
   <% if @interviews %>
     <section>

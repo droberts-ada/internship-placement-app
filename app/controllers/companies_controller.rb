@@ -1,6 +1,8 @@
 class CompaniesController < ApplicationController
-  skip_before_action :require_login, only: [:show]
-  skip_before_action :verify_authenticity_token, only: [:show]
+  skip_before_action :require_login, only: [:show, :create_survey]
+  skip_before_action :verify_authenticity_token, only: [:show, :create_survey]
+
+  before_action :lookup_company, only: [:show, :create_survey, :update_survey]
 
   SURVEY_QUESTIONS = [
     {
@@ -65,7 +67,7 @@ class CompaniesController < ApplicationController
     },
     {
       text: "How frequently do you expect the Adie to meet with their <strong>team lead</strong>?",
-      name: :meet_with_mentor,
+      name: :meet_with_lead,
       answers: [
         { text: "Daily", score: 4 },
         { text: "Twice Weekly", score: 3 },
@@ -75,7 +77,7 @@ class CompaniesController < ApplicationController
     },
     {
       text: "How frequently do you expect the Adie to meet with their <strong>manager</strong>?",
-      name: :meet_with_mentor,
+      name: :meet_with_manager,
       answers: [
         { text: "Daily", score: 4 },
         { text: "Twice Weekly", score: 3 },
@@ -120,10 +122,6 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = Company.find_by(uuid: params[:id])
-
-    return render_not_found if @company.nil?
-
     @company_survey = CompanySurvey.find_by(company_id: @company.id)
     @interviews = @company.interviews.order(scheduled_at: :asc) # TODO: select only future interviews.
 
@@ -131,5 +129,42 @@ class CompaniesController < ApplicationController
       @company_survey = CompanySurvey.new
       @questions = SURVEY_QUESTIONS
     end
+  end
+
+  def create_survey
+    CompanySurvey.create!(company_survey_params)
+
+    flash[:status] = :success
+    flash[:message] = "Thank you for submitting the survey!"
+    redirect_to company_path(@company.uuid)
+  rescue ActiveRecord::RecordInvalid => ex
+    report_error(:bad_request,
+                 "Failed to submit survey",
+                 errors: {company_survey: [ex.message]},
+                 render_view: :show)
+  end
+
+  private
+
+  def lookup_company
+    @company = Company.find_by(uuid: params[:id])
+
+    return render_not_found if @company.nil?
+  end
+
+  def company_survey_params
+    params.require(:company_survey).permit(
+      :onboarding,
+      :pair_programming,
+      :structure,
+      :diverse_bg,
+      :other_adies,
+      :meet_with_mentor,
+      :meet_with_lead,
+      :meet_with_manager,
+      :mentorship_experience,
+      :team_age,
+      :team_size
+    ).merge({company: @company})
   end
 end

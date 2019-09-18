@@ -15,7 +15,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :companies, only: [:index, :show]
+  resources :companies, only: [:index, :show] do
+    member do
+      post 'survey', to: 'companies#create_survey'
+      patch 'survey', to: 'companies#update_survey'
+      put 'survey', to: 'companies#update_survey'
+    end
+  end
 
   resources :interviews, only: [] do
     resources :interview_feedbacks, only: [:new, :create, :edit, :update]
