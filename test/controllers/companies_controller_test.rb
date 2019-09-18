@@ -37,6 +37,22 @@ describe CompaniesController do
   end
 
   describe "survey" do
+    let(:question_points) do
+      {
+        onboarding: [4, 3, 0, 0],
+        pair_programming: [5, 4, 3, 2, 1, 0],
+        structure: [5, 3, 2, 0, 1],
+        diverse_bg: [2, 1, 0],
+        other_adies: [1, 0],
+        meet_with_mentor: [4, 3, 2, 1],
+        meet_with_lead: [4, 3, 2, 1],
+        meet_with_manager: [4, 3, 2, 1],
+        mentorship_experience: [1, 0, 0],
+        team_age: [4, 3, 2, 1, 0],
+        team_size: [4, 3, 2, 1]
+      }
+    end
+
     let(:survey_params) do
       {
         company_survey: {
@@ -92,7 +108,7 @@ describe CompaniesController do
         expect(flash[:errors][:company_survey].first.downcase).must_include "structure"
       end
 
-      it "must create a survey" do
+      it "must create a survey with correct points" do
         expect do
           post survey_company_path(Company.first.uuid), params: survey_params
         end.must_change -> { CompanySurvey.count }, +1
@@ -102,6 +118,39 @@ describe CompaniesController do
 
         expect(flash[:status]).must_equal :success
         expect(flash[:message].downcase).must_include "submit"
+
+        survey = CompanySurvey.last
+
+        expect(survey.onboarding).must_equal(
+          question_points[:onboarding][survey_params[:company_survey][:onboarding]]
+        )
+        expect(survey.pair_programming).must_equal(
+          question_points[:pair_programming][survey_params[:company_survey][:pair_programming]]
+        )
+        expect(survey.diverse_bg).must_equal(
+          question_points[:diverse_bg][survey_params[:company_survey][:diverse_bg]]
+        )
+        expect(survey.other_adies).must_equal(
+          question_points[:other_adies][survey_params[:company_survey][:other_adies]]
+        )
+        expect(survey.meet_with_mentor).must_equal(
+          question_points[:meet_with_mentor][survey_params[:company_survey][:meet_with_mentor]]
+        )
+        expect(survey.meet_with_lead).must_equal(
+          question_points[:meet_with_lead][survey_params[:company_survey][:meet_with_lead]]
+        )
+        expect(survey.meet_with_manager).must_equal(
+          question_points[:meet_with_manager][survey_params[:company_survey][:meet_with_manager]]
+        )
+        expect(survey.mentorship_experience).must_equal(
+          question_points[:mentorship_experience][survey_params[:company_survey][:mentorship_experience]]
+        )
+        expect(survey.team_age).must_equal(
+          question_points[:team_age][survey_params[:company_survey][:team_age]]
+        )
+        expect(survey.team_size).must_equal(
+          question_points[:team_size][survey_params[:company_survey][:team_size]]
+        )
       end
     end
   end

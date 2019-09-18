@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
   SURVEY_QUESTIONS = [
     {
       text: "How structured and thorough is your planned on-boarding process?",
-      name: :onboarding,
+      name: "onboarding",
       answers: [
         { text: "Very structured", points: 4 },
         { text: "Somewhat structured", points: 3 },
@@ -17,7 +17,7 @@ class CompaniesController < ApplicationController
     },
     {
       text: "How often do you pair program?",
-      name: :pair_programming,
+      name: "pair_programming",
       answers: [
         { text: "Daily", points: 5 },
         { text: "As needed", points: 4 },
@@ -29,7 +29,7 @@ class CompaniesController < ApplicationController
     },
     {
       text: "How structured is the day to day? Is this a ticket based team or a team with more discovery/exploratory based development?",
-      name: :structure,
+      name: "structure",
       answers: [
         { text: "We use tickets or single day tasks to track individual progress.", points: 5 },
         { text: "Highly structured", points: 3 },
@@ -40,7 +40,7 @@ class CompaniesController < ApplicationController
     },
     {
       text: "Does this team have other developers from a non-traditional background, such as code boot-camp graduates or other Adies?",
-      name: :diverse_bg,
+      name: "diverse_bg",
       answers: [
         { text: "Yes, several.", points: 2 },
         { text: "We have at least 1.", points: 1 },
@@ -49,70 +49,70 @@ class CompaniesController < ApplicationController
     },
     {
       text: "Will your intern work with other Adies?",
-      name: :other_adies,
+      name: "other_adies",
       answers: [
-        { text: "Yes", score: 1 },
-        { text: "No", score: 0 }
+        { text: "Yes", points: 1 },
+        { text: "No", points: 0 }
       ]
     },
     {
       text: "How frequently do you expect the Adie to meet with their <strong>mentor</strong>?",
-      name: :meet_with_mentor,
+      name: "meet_with_mentor",
       answers: [
-        { text: "Daily", score: 4 },
-        { text: "Twice Weekly", score: 3 },
-        { text: "Weekly", score: 2 },
-        { text: "Monthly", score: 1 }
+        { text: "Daily", points: 4 },
+        { text: "Twice Weekly", points: 3 },
+        { text: "Weekly", points: 2 },
+        { text: "Monthly", points: 1 }
       ]
     },
     {
       text: "How frequently do you expect the Adie to meet with their <strong>team lead</strong>?",
-      name: :meet_with_lead,
+      name: "meet_with_lead",
       answers: [
-        { text: "Daily", score: 4 },
-        { text: "Twice Weekly", score: 3 },
-        { text: "Weekly", score: 2 },
-        { text: "Monthly", score: 1 }
+        { text: "Daily", points: 4 },
+        { text: "Twice Weekly", points: 3 },
+        { text: "Weekly", points: 2 },
+        { text: "Monthly", points: 1 }
       ]
     },
     {
       text: "How frequently do you expect the Adie to meet with their <strong>manager</strong>?",
-      name: :meet_with_manager,
+      name: "meet_with_manager",
       answers: [
-        { text: "Daily", score: 4 },
-        { text: "Twice Weekly", score: 3 },
-        { text: "Weekly", score: 2 },
-        { text: "Monthly", score: 1 }
+        { text: "Daily", points: 4 },
+        { text: "Twice Weekly", points: 3 },
+        { text: "Weekly", points: 2 },
+        { text: "Monthly", points: 1 }
       ]
     },
     {
       text: "What mentorship experience does the mentor already have?",
-      name: :mentorship_experience,
+      name: "mentorship_experience",
       answers: [
-        { text: "Mentored previous Adies or interns from non-traditional backgounds.", score: 1 },
-        { text: "Mentored other interns/CS new grads", score: 0 },
-        { text: "They will be a first time mentor!", score: 0 }
+        { text: "Mentored previous Adies or interns from non-traditional backgounds.", points: 1 },
+        { text: "Mentored other interns/CS new grads", points: 0 },
+        { text: "They will be a first time mentor!", points: 0 }
       ]
     },
     {
       text: "How old will this team be when the Adie joins?",
-      name: :team_age,
+      name: "team_age",
       answers: [
-        { text: "A year or more", score: 4 },
-        { text: "6 to 11 months", score: 3 },
-        { text: "2 to 6 months", score: 2 },
-        { text: "A few weeks", score: 1 },
-        { text: "Brand new", score: 0 },
+        { text: "A year or more", points: 4 },
+        { text: "6 to 11 months", points: 3 },
+        { text: "2 to 6 months", points: 2 },
+        { text: "A few weeks", points: 1 },
+        { text: "Brand new", points: 0 },
       ]
     },
     {
       text: "How large is this team?",
-      name: :team_size,
+      name: "team_size",
       answers: [
-        { text: "2 to 3 people", score: 4 },
-        { text: "4 to 6 people", score: 3 },
-        { text: "7 to 10 people", score: 2 },
-        { text: "More than 10 people", score: 1 },
+        { text: "2 to 3 people", points: 4 },
+        { text: "4 to 6 people", points: 3 },
+        { text: "7 to 10 people", points: 2 },
+        { text: "More than 10 people", points: 1 },
       ]
     }
   ]
@@ -132,7 +132,13 @@ class CompaniesController < ApplicationController
   end
 
   def create_survey
-    CompanySurvey.create!(company_survey_params)
+    survey_points = company_survey_params.to_h.map do |question_name, answer_index|
+      question = SURVEY_QUESTIONS.find { |q| q[:name] == question_name }
+      answer = question[:answers][answer_index.to_i]
+      [question_name, answer[:points]]
+    end.to_h
+
+    CompanySurvey.create!(survey_points.merge({company: @company}))
 
     flash[:status] = :success
     flash[:message] = "Thank you for submitting the survey!"
@@ -165,6 +171,6 @@ class CompaniesController < ApplicationController
       :mentorship_experience,
       :team_age,
       :team_size
-    ).merge({company: @company})
+    )
   end
 end
