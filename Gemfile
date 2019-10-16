@@ -60,6 +60,10 @@ gem 'google-api-client', require: 'google/apis/sheets_v4'
 gem 'faker'
 gem 'httparty'
 
+# AWS SDK
+
+gem 'aws-sdk'
+
 # Require a secure Nokogiri
 gem "nokogiri", ">= 1.10.4"
 
