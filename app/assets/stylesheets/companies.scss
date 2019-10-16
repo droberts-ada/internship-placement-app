@@ -74,6 +74,10 @@
 }
 
 #team-list {
+  h3 {
+    text-transform: capitalize;
+  }
+
   li {
     font-family: Georgia;
     font-size: 1.25em;

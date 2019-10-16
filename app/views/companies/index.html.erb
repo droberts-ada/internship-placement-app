@@ -2,9 +2,12 @@
   <h2>Team List</h2>
   <p>Select your team from below to add inteview feedback.</p>
 
-  <ul>
-    <% @companies.each do |company| %>
-      <li><%= link_to company.name, company_path(company.uuid) %></li>
-    <% end %>
-  </ul>
+  <% @classrooms.each do |classroom| %>
+    <h3><%= classroom.name %></h3>
+    <ul>
+      <% classroom.companies.order(name: :asc).each do |company| %>
+        <li><%= link_to company.name, company_path(company.uuid) %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </section>

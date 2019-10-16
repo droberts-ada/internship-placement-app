@@ -118,7 +118,7 @@ class CompaniesController < ApplicationController
   ]
 
   def index
-    @companies = Company.all.reject { |c| c.interviews_complete? }.sort_by { |c| c.name }
+    @classrooms = Classroom.order(id: :asc)
   end
 
   def show
