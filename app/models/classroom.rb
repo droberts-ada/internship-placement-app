@@ -8,6 +8,10 @@ class Classroom < ApplicationRecord
 
   validates :name, :interviews_per_slot, presence: true
 
+  def companies_with_open_interviews
+    companies.order(name: :asc).reject(&:interviews_complete?)
+  end
+
   def setup_from_interviews!(interviews)
     # Create companies w/ correct # of slots
     company_names = interviews.transpose.second.map(&:strip)

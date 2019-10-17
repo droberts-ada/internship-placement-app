@@ -17,6 +17,86 @@ describe Classroom do
     end
   end
 
+  describe "companies_with_open_interviews" do
+    it "Returns only open interviews" do
+      none = Classroom.create!(name: "None Outstanding", creator: User.first)
+
+      # Create 10
+      interviews = (0...10).map do |i|
+        company = Company.create!(
+          name: "Company #{i}",
+          classroom: none,
+          slots: 1
+        )
+        Interview.create!(
+          company: company,
+          student: Student.first,
+          scheduled_at: Time.now + 1.day
+        )
+      end
+
+      # Complete 10
+      interviews.each_with_index do |interview, i|
+        InterviewFeedback.create!(
+          interview: interview,
+          interviewer_name: "Person #{i}",
+          interview_result:  i % 5 + 1,
+          result_explanation: "They were very #{i % 5 + 1}"
+        )
+      end
+
+      expect(none.companies_with_open_interviews.length).must_equal 0
+
+      some = Classroom.create!(name: "Some Outstanding", creator: User.first)
+
+      # Create 10
+      interviews = (0...10).map do |i|
+        company = Company.create!(
+          name: "Company #{i}",
+          classroom: some,
+          slots: 1
+        )
+        Interview.create!(
+          company: company,
+          student: Student.first,
+          scheduled_at: Time.now + 1.day
+        )
+      end
+
+      # Complete 3
+      interviews.take(3).each_with_index do |interview, i|
+        InterviewFeedback.create!(
+          interview: interview,
+          interviewer_name: "Person #{i}",
+          interview_result:  i % 5 + 1,
+          result_explanation: "They were very #{i % 5 + 1}"
+        )
+      end
+
+      expect(some.companies_with_open_interviews.length).must_equal 7
+
+      all = Classroom.create!(name: "All Outstanding", creator: User.first)
+
+      # Create 10
+      interviews = (0...10).map do |i|
+        company = Company.create!(
+          name: "Company #{i}",
+          classroom: all,
+          slots: 1
+        )
+        Interview.create!(
+          company: company,
+          student: Student.first,
+          scheduled_at: Time.now + 1.day
+        )
+      end
+
+      # Complete 0
+
+      expect(all.companies_with_open_interviews.length).must_equal 10
+    end
+  end
+
   describe '#setup_from_interviews!' do
     def csv(name)
       path = File.join fixture_path, 'files', "#{name}.csv"
