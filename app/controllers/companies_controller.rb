@@ -118,7 +118,11 @@ class CompaniesController < ApplicationController
   ]
 
   def index
-    @classrooms = Classroom.order(id: :asc)
+    @companies_with_interviews = Classroom.order(id: :desc).map do |company|
+      [company, company.companies_with_open_interviews]
+    end.reject do |company, companies|
+      companies.empty?
+    end
   end
 
   def show
