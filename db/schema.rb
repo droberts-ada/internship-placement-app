@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190918210833) do
+ActiveRecord::Schema.define(version: 20191017201846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20190918210833) do
     t.datetime "updated_at",                                         null: false
     t.integer  "classroom_id"
     t.uuid     "uuid",         default: -> { "uuid_generate_v4()" }, null: false
+    t.string   "emails",                                                          array: true
     t.index ["classroom_id"], name: "index_companies_on_classroom_id", using: :btree
     t.index ["uuid"], name: "index_companies_on_uuid", unique: true, using: :btree
   end
