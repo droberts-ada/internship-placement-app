@@ -55,12 +55,17 @@ class ClassroomGenerator
         assert(students.length == interview_count,
                (["Hit the bad state. Remaining students:"] + remaining_students).join("\n"))
 
-        # Build a ranking for this company for each student
+        # Build a ranking and interview for this company for each student
         students.each do |student|
           student.rankings.create!(
-          company: company,
-          student_preference: rng.rand(5)+1,
-          interview_result: rng.rand(5)+1
+            company: company,
+            student_preference: rng.rand(5)+1,
+            interview_result: rng.rand(5)+1
+          )
+          student.interviews.create!(
+            company: company,
+            student: student,
+            scheduled_at: Time.now + (rng.rand(5)+1).days
           )
         end
       end
