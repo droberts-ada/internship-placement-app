@@ -8,6 +8,10 @@ class Classroom < ApplicationRecord
 
   validates :name, :interviews_per_slot, presence: true
 
+  def companies_with_open_surveys
+    companies.order(name: :asc).reject(&:survey_complete?)
+  end
+
   def companies_with_open_interviews
     companies.order(name: :asc).reject(&:interviews_complete?)
   end

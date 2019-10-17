@@ -118,9 +118,9 @@ class CompaniesController < ApplicationController
   ]
 
   def index
-    @companies_with_interviews = Classroom.order(id: :desc).map do |company|
-      [company, company.companies_with_open_interviews]
-    end.reject do |company, companies|
+    @companies_with_interviews = Classroom.order(id: :desc).map do |classroom|
+      [classroom, classroom.companies_with_open_surveys + classroom.companies_with_open_interviews]
+    end.reject do |classroom, companies|
       companies.empty?
     end
   end
