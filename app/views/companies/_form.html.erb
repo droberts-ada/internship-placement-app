@@ -1,0 +1,15 @@
+<%= form_for @company, html: {multipart: true}, url: company_path(@company.uuid) do |f| %>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :classroom_id, "Classroom" %>
+  <%= f.collection_select :classroom_id, Classroom.order(id: :desc), :id, :name, {}, {class: "classroom-name"} %>
+
+  <%= f.label :slots, "Number of Interviews" %>
+  <%= f.number_field :slots %>
+
+  <%= f.label :emails, "Emails (separate with commas)" %>
+  <%= f.email_field :emails, value: @company.emails.join(', '), multiple: true %>
+
+  <%= f.submit class: "button" %>
+<% end %>

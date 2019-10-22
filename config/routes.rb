@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :companies, only: [:index, :show] do
+  resources :companies, only: [:index, :show, :edit, :update] do
     member do
       post 'survey', to: 'companies#create_survey'
       patch 'survey', to: 'companies#update_survey'

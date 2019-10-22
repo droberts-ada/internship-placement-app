@@ -36,6 +36,187 @@ describe CompaniesController do
     end
   end
 
+  describe "edit" do
+    it "returns FAILURE when not logged in" do
+      get edit_company_path(Company.first.uuid)
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it "returns SUCCESS when logged in" do
+      login_user(User.first)
+      get edit_company_path(Company.first.uuid)
+
+      must_respond_with :success
+    end
+
+    it "returns not_found for a missing company" do
+      login_user(User.first)
+      get edit_company_path("not-a-real-uuid")
+
+      must_respond_with :not_found
+    end
+  end
+
+  describe "update" do
+    it "returns FAILURE when not logged in" do
+      # PUT
+      put company_path(Company.first.uuid)
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+
+      # PATCH
+      patch company_path(Company.first.uuid)
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it "returns SUCCESS when logged in" do
+      login_user(User.first)
+
+      # PUT
+      put(company_path(Company.first.uuid), params: { company: Company.first.attributes })
+
+      must_respond_with :redirect
+      must_redirect_to company_path(Company.first.uuid)
+
+      # PATCH
+      patch(company_path(Company.first.uuid), params: { company: Company.first.attributes })
+
+      must_respond_with :redirect
+      must_redirect_to company_path(Company.first.uuid)
+    end
+
+    it "returns not_found for a missing company" do
+      login_user(User.first)
+
+      # PUT
+      put company_path("not-a-real-uuid")
+
+      must_respond_with :not_found
+
+      # PATCH
+      patch company_path("not-a-real-uuid")
+
+      must_respond_with :not_found
+    end
+
+    it "can update simple fields via put" do
+      login_user(User.first)
+      company = Company.first
+
+      new_name = "A new name!"
+      new_classroom = Classroom.create!(creator: User.first, name: new_name)
+      new_slots = company.slots + 1
+
+      params = { company: company.attributes }
+
+      params[:company][:name] = new_name
+      params[:company][:classroom_id] = new_classroom.id
+      params[:company][:slots] = new_slots
+
+      company.reload
+      expect(company.name).wont_equal new_name
+
+      put(company_path(company.uuid), params: params)
+
+      must_respond_with :redirect
+      must_redirect_to company_path(company.uuid)
+
+      company.reload
+      expect(company.name).must_equal new_name
+    end
+
+    it "can update simple fields via patch" do
+      login_user(User.first)
+      company = Company.first
+
+      new_name = "A new name!"
+      new_classroom = Classroom.create!(creator: User.first, name: new_name)
+      new_slots = company.slots + 1
+
+      params = { company: company.attributes }
+
+      params[:company][:name] = new_name
+      params[:company][:classroom_id] = new_classroom.id
+      params[:company][:slots] = new_slots
+
+      company.reload
+      expect(company.name).wont_equal new_name
+
+      patch(company_path(company.uuid), params: params)
+
+      must_respond_with :redirect
+      must_redirect_to company_path(company.uuid)
+
+      company.reload
+      expect(company.name).must_equal new_name
+    end
+
+    it "can update emails via put" do
+      emails = ["dee@adadev.org", "devin@adadev.org"].join(",")
+
+      login_user(User.first)
+      company = Company.first
+      expect(company.emails.length).must_equal 0
+
+      params = { company: company.attributes }
+      params[:company][:emails] = emails
+
+      patch(company_path(company.uuid), params: params)
+
+      must_respond_with :redirect
+      must_redirect_to company_path(company.uuid)
+
+      company.reload
+      expect(company.emails.length).must_equal 2
+    end
+
+    it "can update emails via patch" do
+      emails = ["dee@adadev.org", "devin@adadev.org"].join(",")
+
+      login_user(User.first)
+      company = Company.first
+      expect(company.emails.length).must_equal 0
+
+      params = { company: company.attributes }
+      params[:company][:emails] = emails
+
+      patch(company_path(company.uuid), params: params)
+
+      must_respond_with :redirect
+      must_redirect_to company_path(company.uuid)
+
+      company.reload
+      expect(company.emails.length).must_equal 2
+    end
+
+    it "can't update an invalid number of slots" do
+      login_user(User.first)
+      company = Company.first
+
+      params = { company: company.attributes }
+
+      params[:company][:slots] = 0
+
+      patch(company_path(company.uuid), params: params)
+
+      must_respond_with :bad_request
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/update/i)
+      expect(flash[:message]).must_match(/company/i)
+
+      company.reload
+      expect(company.slots).wont_equal 0
+    end
+  end
+
   describe "survey" do
     let(:question_points) do
       {

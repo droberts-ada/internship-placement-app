@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
   skip_before_action :require_login, only: [:show, :create_survey]
   skip_before_action :verify_authenticity_token, only: [:show, :create_survey]
 
-  before_action :lookup_company, only: [:show, :create_survey, :update_survey]
+  before_action :lookup_company, except: [:index]
 
   SURVEY_QUESTIONS = [
     {
@@ -135,6 +135,22 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @company.update(company_params)
+      flash[:status] = :success
+      flash[:message] = "Company successfully updated!"
+      redirect_to company_path(@company.uuid)
+    else
+      report_error(:bad_request,
+                   "Failed to update company",
+                   errors: @company.errors.messages.map {|message| [:company, message] },
+                   render_view: :edit)
+    end
+  end
+
   def create_survey
     survey_points = company_survey_params.to_h.map do |question_name, answer_index|
       question = SURVEY_QUESTIONS.find { |q| q[:name] == question_name }
@@ -176,5 +192,17 @@ class CompaniesController < ApplicationController
       :team_age,
       :team_size
     )
+  end
+
+  def company_params
+    parsed = params.require(:company).permit(:name, :classroom_id, :slots, :emails, emails: [])
+    emails = parsed[:emails]
+    emails = emails.first if emails.kind_of? Array # Unbox Rails's 1 element arrays.
+
+    if emails
+      parsed[:emails] = emails.split(/\s*,\s*/)
+    end
+
+    return parsed
   end
 end

@@ -1,12 +1,21 @@
 <article>
   <h2><%= @company.name %></h2>
 
+  <% unless @company.emails.empty? %>
+    <h3>Contact Emails</h3>
+    <ul>
+      <% @company.emails.each do |email| %>
+        <li><%= email %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <% if @questions %>
     <section>
       <h3>Company Support Survey</h3>
 
       <p>Please complete the following survey:</p>
-      <%= render partial: "form", locals: {url: survey_company_path, questions: @questions} %>
+      <%= render partial: "survey_form", locals: {url: survey_company_path, questions: @questions} %>
     </section>
   <% end %>
 

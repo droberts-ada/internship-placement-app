@@ -81,12 +81,15 @@ private
 
   def require_login
     lookup_user
+
     if @current_user.nil?
-      report_error(:unauthorized,
+      return report_error(:unauthorized,
           "You must be logged in to see this page",
           redirect_path: root_path)
+    end
 
-    elsif @current_user.token_expires_at < Time.now
+    token_expires = @current_user.token_expires_at
+    if token_expires && token_expires < Time.now
       # Token is expired -> need to refresh
       refresh_token
     end
