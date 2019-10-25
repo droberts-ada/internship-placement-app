@@ -1,12 +1,22 @@
 <section id="team-list">
   <h2>Team List</h2>
+  <%= link_to content_tag(:button, "Add a Team", class: "button"), new_company_path, class: "action" %>
 
   <% @companies_with_interviews.each do |classroom, companies| %>
     <h3><%= classroom.name %></h3>
-    <ul>
-      <% companies.each do |company| %>
-        <li><%= link_to company.name, company_path(company.uuid) %></li>
-      <% end %>
-    </ul>
+    <table>
+      <tbody>
+        <% companies.each do |company| %>
+          <tr>
+            <td>
+              <%= link_to company.name, company_path(company.uuid) %>
+            </td>
+            <td>
+              <%= link_to content_tag(:button, "Edit", class: "button"), edit_company_path(company.uuid) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 </section>

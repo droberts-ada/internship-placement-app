@@ -1,13 +1,17 @@
 <article>
   <h2><%= @company.name %></h2>
 
-  <% unless @company.emails.empty? %>
-    <h3>Contact Emails</h3>
-    <ul>
-      <% @company.emails.each do |email| %>
-        <li><%= email %></li>
-      <% end %>
-    </ul>
+  <% if session[:user_id] %>
+    <%= link_to content_tag(:button, "Edit", class: "button"), edit_company_path(@company.uuid), class: "action" %>
+
+    <% unless @company.emails.empty? %>
+      <h3>Contact Emails</h3>
+      <ul>
+        <% @company.emails.each do |email| %>
+          <li><%= email %></li>
+        <% end %>
+      </ul>
+    <% end %>
   <% end %>
 
   <% if @questions %>

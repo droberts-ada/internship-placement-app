@@ -4,6 +4,14 @@
 
 // TODO: Move these into application.scss or a public.scss?
 .public {
+  position: relative;
+
+  .action {
+    position: absolute;
+    top: 2em;
+    right: 1.5em;
+  }
+
   h2 {
     font-family: Palatino;
     font-size: 3em;
@@ -78,10 +86,27 @@
     text-transform: capitalize;
   }
 
-  li {
+  button {
+    margin-bottom: 0;
+  }
+
+  table {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  tbody, tr {
+    display: contents;
+  }
+
+  tr {
     font-family: Georgia;
     font-size: 1.25em;
-    margin-bottom: 0.5rem;
+  }
+
+  tr:nth-child(even) > * {
+    background: #f8f8f8;
   }
 }
 
