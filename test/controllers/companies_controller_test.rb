@@ -36,6 +36,90 @@ describe CompaniesController do
     end
   end
 
+  describe "new" do
+    it "returns FAILURE when not logged in" do
+      get new_company_path
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it "returns SUCCESS when logged in" do
+      login_user(User.first)
+      get new_company_path
+
+      must_respond_with :success
+    end
+  end
+
+  describe "create" do
+    let :good_company_params do
+      { company:
+          {
+            name: "Mystery Inc.",
+            slots: 5,
+            classroom_id: Classroom.first.id
+          }
+      }
+    end
+
+    it "returns FAILURE when not logged in" do
+      post companies_path
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it "can create a company with simple fields when logged in" do
+      login_user(User.first)
+
+      expect do
+        post(companies_path, params: good_company_params)
+      end.must_change -> { Company.count }, +1
+
+      must_respond_with :redirect
+      must_redirect_to company_path(Company.last.uuid)
+    end
+
+    it "can create a company with emails" do
+      emails = ["dee@adadev.org", "devin@adadev.org"].join(",")
+
+      login_user(User.first)
+
+      params = good_company_params
+      params[:company][:emails] = emails
+
+      expect do
+        post companies_path, params: params
+      end.must_change -> { Company.count }, +1
+
+      company = Company.last
+
+      must_respond_with :redirect
+      must_redirect_to company_path(company.uuid)
+
+      expect(company.emails.length).must_equal 2
+    end
+
+    it "can't create a company with an invalid number of slots" do
+      login_user(User.first)
+
+      params = good_company_params
+      params[:company][:slots] = 0
+
+      expect do
+        post companies_path, params: params
+      end.wont_change -> { Company.count }
+
+      must_respond_with :bad_request
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/create/i)
+      expect(flash[:message]).must_match(/company/i)
+    end
+  end
+
   describe "edit" do
     it "returns FAILURE when not logged in" do
       get edit_company_path(Company.first.uuid)

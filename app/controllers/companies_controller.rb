@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
   skip_before_action :require_login, only: [:show, :create_survey]
   skip_before_action :verify_authenticity_token, only: [:show, :create_survey]
 
-  before_action :lookup_company, except: [:index]
+  before_action :lookup_company, except: [:index, :new, :create]
 
   SURVEY_QUESTIONS = [
     {
@@ -132,6 +132,26 @@ class CompaniesController < ApplicationController
     if @company_survey.nil?
       @company_survey = CompanySurvey.new
       @questions = SURVEY_QUESTIONS
+    end
+  end
+
+  def new
+    @company = Company.new(slots: Company::DEFAULT_SLOTS)
+  end
+
+  def create
+    @company = Company.new(company_params)
+
+    if @company.save
+      flash[:status] = :success
+      flash[:message] = "Company successfully created!"
+
+      redirect_to company_path(@company.reload.uuid)
+    else
+      report_error(:bad_request,
+                   "Failed create create company",
+                   errors: @company.errors.messages.map {|message| [:company, message] },
+                   render_view: :new)
     end
   end
 
