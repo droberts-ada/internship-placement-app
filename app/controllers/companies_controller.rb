@@ -118,7 +118,8 @@ class CompaniesController < ApplicationController
   ]
 
   def index
-    @companies_with_interviews = Classroom.order(id: :desc).map do |classroom|
+    # TODO: Replace this with a SQL query if there are performance issues.
+    @companies_with_interviews = Classroom.current.order(id: :desc).map do |classroom|
       [classroom, classroom.companies_with_open_surveys + classroom.companies_with_open_interviews]
     end.reject do |classroom, companies|
       companies.empty?
