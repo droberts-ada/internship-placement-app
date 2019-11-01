@@ -86,23 +86,28 @@
     text-transform: capitalize;
   }
 
-  button {
-    margin-bottom: 0;
-  }
-
   table {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     align-items: center;
   }
 
-  tbody, tr {
+  thead, tbody, tr {
     display: contents;
   }
 
   tr {
     font-family: Georgia;
     font-size: 1.25em;
+  }
+
+  button {
+    margin: -5px;
+  }
+
+  td {
+    padding: 10px;
+    margin-bottom: 5px;
   }
 
   tr:nth-child(even) > * {

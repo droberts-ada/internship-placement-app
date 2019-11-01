@@ -5,11 +5,25 @@
   <% @companies_with_interviews.each do |classroom, companies| %>
     <h3><%= classroom.name %></h3>
     <table>
+      <thead>
+        <tr>
+          <th>Team Name</th>
+          <th>Contact Email(s)</th>
+          <th></th>
+        </tr>
+      </thead>
       <tbody>
         <% companies.each do |company| %>
           <tr>
             <td>
               <%= link_to company.name, company_path(company.uuid) %>
+            </td>
+            <td>
+              <% if company.emails.empty? %>
+                &nbsp;
+              <% else %>
+                <%= company.emails.join(", ") %>
+              <% end %>
             </td>
             <td>
               <%= link_to content_tag(:button, "Edit", class: "button"), edit_company_path(company.uuid) %>
