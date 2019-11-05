@@ -149,6 +149,8 @@ class CompaniesController < ApplicationController
       flash[:status] = :success
       flash[:message] = "Company successfully created!"
 
+      send_email if params[:commit].downcase.include?("send")
+
       redirect_to company_path(@company.reload.uuid)
     else
       report_error(:bad_request,
@@ -166,6 +168,8 @@ class CompaniesController < ApplicationController
     if @company.update(company_params)
       flash[:status] = :success
       flash[:message] = "Company successfully updated!"
+
+      send_email if params[:commit].downcase.include?("send")
 
       redirect_to(flash[:referrer] || companies_path)
     else
@@ -196,6 +200,10 @@ class CompaniesController < ApplicationController
   end
 
   private
+
+  def send_email
+    puts "Sending email!"
+  end
 
   def lookup_company
     @company = Company.find_by(uuid: params[:id])

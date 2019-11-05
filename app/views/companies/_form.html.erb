@@ -11,5 +11,7 @@
   <%= f.label :emails, "Emails (separate with commas)" %>
   <%= f.email_field :emails, value: @company.emails.join(', '), multiple: true %>
 
-  <%= f.submit class: "button" %>
+  <%= f.submit "Save", class: "button" %>
+
+  <%= f.submit "Save and Send Survey", class: "button" %>
 <% end %>
