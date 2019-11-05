@@ -118,6 +118,8 @@ class CompaniesController < ApplicationController
   ]
 
   def index
+    flash[:referrer] = request.referrer
+
     # TODO: Replace this with a SQL query if there are performance issues.
     @companies_with_interviews = Classroom.current.order(id: :desc).map do |classroom|
       [classroom, classroom.companies_with_open_surveys + classroom.companies_with_open_interviews]
@@ -157,13 +159,15 @@ class CompaniesController < ApplicationController
   end
 
   def edit
+    flash[:referrer] = request.referrer
   end
 
   def update
     if @company.update(company_params)
       flash[:status] = :success
       flash[:message] = "Company successfully updated!"
-      redirect_to company_path(@company.uuid)
+
+      redirect_to(flash[:referrer] || companies_path)
     else
       report_error(:bad_request,
                    "Failed to update company",
