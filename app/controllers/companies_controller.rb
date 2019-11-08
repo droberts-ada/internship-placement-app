@@ -7,10 +7,12 @@ class CompaniesController < ApplicationController
   before_action :lookup_company, except: [:index, :new, :create]
 
   SURVEY_EMAIL_SENDER = "contact@adadevelopersacademy.org"
-  SURVEY_EMAIL_SUBJECT = "TODO: Subject!"
-  SURVEY_EMAIL_TEMPLATE = "<h1>Test</h1>
-  <p>Hello, world!</p>
-  <p>#{Time.now}</p>"
+  SURVEY_EMAIL_SUBJECT = "Please fill out this survey about internship support"
+  SURVEY_EMAIL_TEMPLATE = "Hello %{name}!
+  <p>Here's your personalized link for your internship support survey: %{link}</p>
+  <p>This link will continue to function throughout the interview process and is how you can provide feedback on interviews later.</p>
+  <p>Please fill this survey out by %{date}, thank you!</p>
+  <p>Insert Ada Logo and such.</p>"
 
   SURVEY_QUESTIONS = [
     {
@@ -210,10 +212,15 @@ class CompaniesController < ApplicationController
   private
 
   def send_survey
+    body = sprintf(SURVEY_EMAIL_TEMPLATE,
+                   name: @company.name,
+                   link: company_url(@company.uuid),
+                   date: "TODO: Friday the 13th")
+
     send_email(sender: SURVEY_EMAIL_SENDER,
                recipients: @company.emails,
                subject: SURVEY_EMAIL_SUBJECT,
-               html_body: SURVEY_EMAIL_TEMPLATE)
+               html_body: body)
   end
 
   def lookup_company
