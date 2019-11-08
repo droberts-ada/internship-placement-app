@@ -1,8 +1,16 @@
+require 'aws-sdk'
+
 class CompaniesController < ApplicationController
   skip_before_action :require_login, only: [:show, :create_survey]
   skip_before_action :verify_authenticity_token, only: [:show, :create_survey]
 
   before_action :lookup_company, except: [:index, :new, :create]
+
+  SURVEY_EMAIL_SENDER = "contact@adadevelopersacademy.org"
+  SURVEY_EMAIL_SUBJECT = "TODO: Subject!"
+  SURVEY_EMAIL_TEMPLATE = "<h1>Test</h1>
+  <p>Hello, world!</p>
+  <p>#{Time.now}</p>"
 
   SURVEY_QUESTIONS = [
     {
@@ -149,7 +157,7 @@ class CompaniesController < ApplicationController
       flash[:status] = :success
       flash[:message] = "Company successfully created!"
 
-      send_email if params[:commit].downcase.include?("send")
+      send_survey if params[:commit].downcase.include?("send")
 
       redirect_to company_path(@company.reload.uuid)
     else
@@ -169,7 +177,7 @@ class CompaniesController < ApplicationController
       flash[:status] = :success
       flash[:message] = "Company successfully updated!"
 
-      send_email if params[:commit].downcase.include?("send")
+      send_survey if params[:commit].downcase.include?("send")
 
       redirect_to(flash[:referrer] || companies_path)
     else
@@ -201,8 +209,11 @@ class CompaniesController < ApplicationController
 
   private
 
-  def send_email
-    puts "Sending email!"
+  def send_survey
+    send_email(sender: SURVEY_EMAIL_SENDER,
+               recipients: @company.emails,
+               subject: SURVEY_EMAIL_SUBJECT,
+               html_body: SURVEY_EMAIL_TEMPLATE)
   end
 
   def lookup_company
