@@ -8,6 +8,9 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 gem 'pg'
 
+# Require a secure version of loofah
+gem "loofah", ">= 2.3.1"
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
