@@ -1,5 +1,9 @@
 <article>
-  <h2><%= @company.name %></h2>
+  <% if @company_survey.team_name && session[:user_id].nil? %>
+    <h2><%= @company_survey.team_name %></h2>
+  <% else %>
+    <h2><%= @company.name %></h2>
+  <% end %>
 
   <% if session[:user_id] %>
     <%= link_to content_tag(:button, "Edit", class: "button"), edit_company_path(@company.uuid), class: "action" %>

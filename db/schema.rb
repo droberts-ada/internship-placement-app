@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191022203818) do
+ActiveRecord::Schema.define(version: 20191113211015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20191022203818) do
     t.integer "team_age",                                                    null: false
     t.integer "team_size",                                                   null: false
     t.integer "company_id",                                                  null: false
+    t.string  "team_name"
     t.index ["company_id"], name: "index_company_surveys_on_company_id", using: :btree
     t.index ["uuid"], name: "index_company_surveys_on_uuid", unique: true, using: :btree
   end

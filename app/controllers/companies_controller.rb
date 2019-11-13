@@ -197,7 +197,10 @@ class CompaniesController < ApplicationController
       [question_name, answer[:points]]
     end.to_h
 
-    CompanySurvey.create!(survey_points.merge({company: @company}))
+    CompanySurvey.create!(survey_points.merge({
+                                                company: @company,
+                                                team_name: params[:company_survey][:team_name]
+                                              }))
 
     flash[:status] = :success
     flash[:message] = "Thank you for submitting the survey!"
