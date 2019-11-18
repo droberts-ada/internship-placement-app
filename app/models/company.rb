@@ -1,5 +1,5 @@
 class Company < ApplicationRecord
-  DEFAULT_SLOTS = 6
+  DEFAULT_SLOTS = 1
 
   belongs_to :classroom
   has_many :rankings

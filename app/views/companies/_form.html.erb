@@ -5,7 +5,7 @@
   <%= f.label :classroom_id, "Classroom" %>
   <%= f.collection_select :classroom_id, Classroom.order(id: :desc), :id, :name, {}, {class: "classroom-name"} %>
 
-  <%= f.label :slots, "Number of Interviews" %>
+  <%= f.label :slots, "Number of Internship Slots" %>
   <%= f.number_field :slots %>
 
   <%= f.label :emails, "Emails (separate with commas)" %>
