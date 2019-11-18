@@ -12,7 +12,11 @@ class CompaniesController < ApplicationController
   <p>Here's your personalized link for your internship support survey: %{link}</p>
   <p>This link will continue to function throughout the interview process and is how you can provide feedback on interviews later.</p>
   <p>Please fill this survey out by %{date}, thank you!</p>
-  <p>Insert Ada Logo and such.</p>"
+  <p><img
+        src=\"https://adadevelopersacademy.org/wp-content/uploads/2019/08/logo.png\"
+        alt=\"Ada Developers Academy logo\"
+        width=250>
+  </p>"
 
   SURVEY_QUESTIONS = [
     {
