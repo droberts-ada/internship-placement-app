@@ -2,6 +2,21 @@
   <%= f.label :team_name, "What is your team name?" %>
   <%= f.text_field :team_name %>
 
+  <p>
+    Please let us know of any pre-hiring requirements that Ada should be aware of before matching Ada students for interviews prior to an internship placement.
+  </p>
+  <p>
+    These might include but are not limited to:
+  </p>
+  <ol>
+    <li>Authorization to work in the United States (i.e. Greencard holder or other status requirement).</li>
+    <li>Pre-employment drug screening (for legal or illegal substances in Washington state).</li>
+    <li>Any other restrictions or requirements that we may need to be aware of to ensure a successful placement.</li>
+  </ol>
+
+  <%= f.label :pre_hiring_requirements, "Pre-hiring requirements" %><abbr title="This field is mandatory">*</abbr>
+  <%= f.text_field :pre_hiring_requirements, required: true%>
+
   <% questions.each do |question| %>
     <%= f.label question[:name], question[:text].html_safe %><abbr title="This field is mandatory">*</abbr>
     <!-- TODO: Map these to scores internally. -->

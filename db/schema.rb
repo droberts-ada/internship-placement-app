@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191113211015) do
+ActiveRecord::Schema.define(version: 20191118025342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,20 +38,21 @@ ActiveRecord::Schema.define(version: 20191113211015) do
   end
 
   create_table "company_surveys", force: :cascade do |t|
-    t.uuid    "uuid",                  default: -> { "uuid_generate_v4()" }, null: false
-    t.integer "onboarding",                                                  null: false
-    t.integer "pair_programming",                                            null: false
-    t.integer "structure",                                                   null: false
-    t.integer "diverse_bg",                                                  null: false
-    t.integer "other_adies",                                                 null: false
-    t.integer "meet_with_mentor",                                            null: false
-    t.integer "meet_with_lead",                                              null: false
-    t.integer "meet_with_manager",                                           null: false
-    t.integer "mentorship_experience",                                       null: false
-    t.integer "team_age",                                                    null: false
-    t.integer "team_size",                                                   null: false
-    t.integer "company_id",                                                  null: false
+    t.uuid    "uuid",                    default: -> { "uuid_generate_v4()" }, null: false
+    t.integer "onboarding",                                                    null: false
+    t.integer "pair_programming",                                              null: false
+    t.integer "structure",                                                     null: false
+    t.integer "diverse_bg",                                                    null: false
+    t.integer "other_adies",                                                   null: false
+    t.integer "meet_with_mentor",                                              null: false
+    t.integer "meet_with_lead",                                                null: false
+    t.integer "meet_with_manager",                                             null: false
+    t.integer "mentorship_experience",                                         null: false
+    t.integer "team_age",                                                      null: false
+    t.integer "team_size",                                                     null: false
+    t.integer "company_id",                                                    null: false
     t.string  "team_name"
+    t.string  "pre_hiring_requirements"
     t.index ["company_id"], name: "index_company_surveys_on_company_id", using: :btree
     t.index ["uuid"], name: "index_company_surveys_on_uuid", unique: true, using: :btree
   end

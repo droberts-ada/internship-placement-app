@@ -197,9 +197,11 @@ class CompaniesController < ApplicationController
       [question_name, answer[:points]]
     end.to_h
 
+    inner_params = params[:company_survey]
     CompanySurvey.create!(survey_points.merge({
                                                 company: @company,
-                                                team_name: params[:company_survey][:team_name]
+                                                team_name: inner_params[:team_name],
+                                                pre_hiring_requirements: inner_params[:pre_hiring_requirements]
                                               }))
 
     flash[:status] = :success
