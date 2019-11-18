@@ -163,7 +163,7 @@ class CompaniesController < ApplicationController
       flash[:status] = :success
       flash[:message] = "Company successfully created!"
 
-      send_survey if params[:commit].downcase.include?("send")
+      send_survey if params[:commit] && params[:commit].downcase.include?("send")
 
       redirect_to company_path(@company.reload.uuid)
     else
@@ -183,7 +183,7 @@ class CompaniesController < ApplicationController
       flash[:status] = :success
       flash[:message] = "Company successfully updated!"
 
-      send_survey if params[:commit].downcase.include?("send")
+      send_survey if params[:commit] && params[:commit].downcase.include?("send")
 
       redirect_to(flash[:referrer] || companies_path)
     else

@@ -1,6 +1,5 @@
 require 'faker'
 require 'set'
-require 'invariant'
 
 puts "In generate_classroom.rb"
 
@@ -23,7 +22,9 @@ class ClassroomGenerator
       # The extra [1] between the 3 and the 2s is important
       # for making student assignments line up later
       company_slots = [3] + [1] + ([2] * 5) + ([1] * 10)
-      assert company_slots.sum == SCALE
+      # :nocov:
+      raise "Bad company slots!" unless company_slots.sum == SCALE
+      # :nocov:
       company_slots.each_with_index do |s, i|
         company = Faker::Company.name
         companies.add(company)
@@ -52,8 +53,10 @@ class ClassroomGenerator
 
         # Shouldn't run out of students
         remaining_students = students.map { |s| "  #{s.name} with #{s.rankings.count} rankings" }
-        assert(students.length == interview_count,
-               (["Hit the bad state. Remaining students:"] + remaining_students).join("\n"))
+
+        # :nocov:
+        raise (["Hit the bad state. Remaining students:"] + remaining_students).join("\n") unless students.length == interview_count
+        # :nocov:
 
         # Build a ranking and interview for this company for each student
         students.each do |student|
@@ -71,7 +74,7 @@ class ClassroomGenerator
       end
 
       # We should have exactly exhausted our pool of students
-      assert available_students.empty?
+      raise "There were leftover students!  #{available_students}" unless available_students.empty?
     end
 
     return classroom

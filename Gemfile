@@ -95,9 +95,6 @@ group :development do
 
   # Improve the error message you get in the browser
   gem 'better_errors'
-
-  # Assertions!
-  gem 'invariant'
 end
 
 group :test do

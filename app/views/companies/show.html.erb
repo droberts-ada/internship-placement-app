@@ -1,5 +1,5 @@
 <article>
-  <% if @company_survey.team_name && session[:user_id].nil? %>
+  <% if @company_survey && @company_survey.team_name && session[:user_id].nil? %>
     <h2><%= @company_survey.team_name %></h2>
   <% else %>
     <h2><%= @company.name %></h2>

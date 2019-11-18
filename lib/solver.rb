@@ -4,7 +4,6 @@
 # see references at the bottom of this file
 
 require 'matrix'
-require 'invariant'
 
 # For some reason Ruby matricies aren't mutable
 # But apparently there's an easy way to make them so
@@ -97,7 +96,9 @@ class Solver
 
       # Safety: outside of -1, there should be no duplicate assignments
       real_assignments = assignments.select { |a| a >= 0 }
-      assert real_assignments.length == real_assignments.uniq.length, "maximum_matching returned a duplicate value in the assignment array: #{assignments}"
+      # :nocov:
+      raise "maximum_matching returned a duplicate value in the assignment array: #{assignments}" unless real_assignments.length == real_assignments.uniq.length
+      # :nocov:
 
       # If every company has a student assigned, we're done
       unless assignments.include?(-1)
@@ -323,7 +324,7 @@ private
     end
 
     # Safety: there should be no duplicates in unmatched_students
-    assert unmatched_students.uniq.length == unmatched_students.length, "in Konig, unmatched students contained a duplicate: #{unmatched_students}"
+    raise "in Konig, unmatched students contained a duplicate: #{unmatched_students}" unless unmatched_students.uniq.length == unmatched_students.length
 
     # Next, compute S* and C*, the sets of students and companies reachable
     # via an alternating path from S'. To do so, we use a DFS.

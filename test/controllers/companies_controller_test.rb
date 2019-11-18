@@ -168,13 +168,13 @@ describe CompaniesController do
       put(company_path(Company.first.uuid), params: { company: Company.first.attributes })
 
       must_respond_with :redirect
-      must_redirect_to company_path(Company.first.uuid)
+      must_redirect_to companies_path
 
       # PATCH
       patch(company_path(Company.first.uuid), params: { company: Company.first.attributes })
 
       must_respond_with :redirect
-      must_redirect_to company_path(Company.first.uuid)
+      must_redirect_to companies_path
     end
 
     it "returns not_found for a missing company" do
@@ -211,7 +211,7 @@ describe CompaniesController do
       put(company_path(company.uuid), params: params)
 
       must_respond_with :redirect
-      must_redirect_to company_path(company.uuid)
+      must_redirect_to companies_path
 
       company.reload
       expect(company.name).must_equal new_name
@@ -237,7 +237,7 @@ describe CompaniesController do
       patch(company_path(company.uuid), params: params)
 
       must_respond_with :redirect
-      must_redirect_to company_path(company.uuid)
+      must_redirect_to companies_path
 
       company.reload
       expect(company.name).must_equal new_name
@@ -256,7 +256,7 @@ describe CompaniesController do
       patch(company_path(company.uuid), params: params)
 
       must_respond_with :redirect
-      must_redirect_to company_path(company.uuid)
+      must_redirect_to companies_path
 
       company.reload
       expect(company.emails.length).must_equal 2
@@ -275,7 +275,7 @@ describe CompaniesController do
       patch(company_path(company.uuid), params: params)
 
       must_respond_with :redirect
-      must_redirect_to company_path(company.uuid)
+      must_redirect_to companies_path
 
       company.reload
       expect(company.emails.length).must_equal 2
