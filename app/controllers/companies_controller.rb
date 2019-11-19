@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
 
   before_action :lookup_company, except: [:index, :new, :create]
 
-  SURVEY_EMAIL_SENDER = "contact@adadevelopersacademy.org"
+  SURVEY_EMAIL_SENDER = "lisa@adadevelopersacademy.org"
   SURVEY_EMAIL_SUBJECT = "Please fill out this survey about internship support"
   SURVEY_EMAIL_TEMPLATE = "Hello %{name}!
   <p>Here's <b>your</b> personalized link for your internship support survey.  It is our goal to make the best placement possible for both the student and company and we hope this survey will aid in that attempt.  Please be as straight forward as you can with your responses as they will be used to ensure you are interviewing students who we believe would be the best fit at your particular company.</p>
