@@ -10,13 +10,14 @@ class CompaniesController < ApplicationController
   SURVEY_EMAIL_SENDER = "lisa@adadevelopersacademy.org"
   SURVEY_EMAIL_SUBJECT = "Please fill out this survey about internship support"
   SURVEY_EMAIL_TEMPLATE = "Hello %{name}!
-  <p>Here's <b>your</b> personalized link for your internship support survey.  It is our goal to make the best placement possible for both the student and company and we hope this survey will aid in that attempt.  Please be as straight forward as you can with your responses as they will be used to ensure you are interviewing students who we believe would be the best fit at your particular company.</p>
+  <p>Here's <b>your</b> <a href=\"%{link}\">personalized link</a> for your internship support survey.  It is our goal to make the best placement possible for both the student and company and we hope this survey will aid in that attempt.  Please be as straight forward as you can with your responses as they will be used to ensure you are interviewing students who we believe would be the best fit at your particular company.</p>
 
   <p>The second question gives you the chance to list a few students by name (1 intern = 4 suggestions) who you would definitely like to see on your interview list. These are suggestion because we will do our best to get you an interview with these students, but we will be stack ranking it next to the students suggestions, so nothing can be guaranteed.</p>
 
-  <p>You can refer to the student’s resumes and bios here to guide you.</p>
+  <p>You can refer to the student’s <a href=\"https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0\">resumes and bios</a> to guide you.</p>
 
-  <p>LINK: %{link}</p>
+  <p>Survey URL: %{link}</p>
+  <p>Resume and Bio URL: https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0</p>
 
   <p>This link will continue to function throughout the interview process and is how you can provide feedback on interviews later.</p>
   <p>Best,<br>
