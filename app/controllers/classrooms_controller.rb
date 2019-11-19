@@ -20,8 +20,7 @@ class ClassroomsController < ApplicationController
       begin
         # Make sure we have a valid interview file
         interviews_file = params[:interviews_csv]
-        raise IOError.new('No interviews CSV file uploaded') unless interviews_file
-        interviews_csv = CSV.parse(interviews_file.read).reject(&:empty?)
+        interviews_csv = CSV.parse(interviews_file.read).reject(&:empty?) if interviews_file
 
         Classroom.transaction do
           @classroom = Classroom.create(classroom_params) do |classroom|
@@ -29,7 +28,7 @@ class ClassroomsController < ApplicationController
           end
           raise ActiveRecord::RecordInvalid unless @classroom.persisted?
 
-          @classroom.setup_from_interviews!(interviews_csv)
+          @classroom.setup_from_interviews!(interviews_csv) if interviews_csv
         end
 
         flash[:status] = :success

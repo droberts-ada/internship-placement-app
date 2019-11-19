@@ -224,13 +224,11 @@ describe ClassroomsController do
 
       post classrooms_path, params: params_good
 
-      must_respond_with :bad_request
+      new_classroom = Classroom.last
+      must_respond_with :redirect
+      must_redirect_to classroom_path(new_classroom)
 
-      expect(flash[:status]).must_equal :failure
-      expect(flash[:message]).must_match(/could not/i)
-      expect(flash[:message]).must_match(/csv file/i)
-      expect(flash[:errors]).must_be_kind_of Hash
-      expect(flash[:errors].keys).must_include :interviews_csv
+      expect(flash[:status]).must_equal :success
     end
 
     it 'returns 400 Bad Request with malformed interviews CSV file' do
