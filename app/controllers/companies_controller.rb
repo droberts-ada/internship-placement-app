@@ -10,21 +10,18 @@ class CompaniesController < ApplicationController
   SURVEY_EMAIL_SENDER = "lisa@adadevelopersacademy.org"
   SURVEY_EMAIL_SUBJECT = "Ada Cohort 12 Internship Survey [Due 11/21 EOD]"
   SURVEY_EMAIL_TEMPLATE = "Hello %{name}!
-  <p>Here's YOUR <a href=\"%{link}\">personalized link</a> to the internship support survey. It is our goal to make the best placement possible you and the intern and we hope this survey will aid in that attempt.  Please respond to the best of your ability as your answers will be used to ensure he best fit at your company.</p>
+  <p>Here's YOUR <a href=\"%{link}\">personalized link</a> to the internship support survey. It is our goal to make the best placement possible you and the intern and we hope this survey will aid in that attempt.  Please respond to the best of your ability as your answers will be used to ensure the best fit at your company.</p>
 
-  <p>You will have the opportunity to request up to four students per internship slot for interview in the third question.  We will take your requests into consideration, but cannot guarantee that you will be able to interview or be matched with all of the students that you list. For your reference, we have provided a link to the students’ <a href=\"https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0\">resumes and bios</a>.<p>
-
-  <p>The third question gives you the chance to list up to four students per intern, who you would definitely like to see on your interview list. While we would like your input, we cannot guarantee that you will be able to interview or be matched with all of the students that you list.</p>
+  <p>You will have the opportunity to request up to four students per internship slot to interview in the third question.  We will take your requests into consideration, but cannot guarantee that you will be able to interview or be matched with all of the students that you list. For your reference, we have provided a link to the students’ <a href=\"https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0\">resumes and bios</a>.<p>
 
   <p>Survey link: %{link}</p>
   <p>Resume and Bio link: https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0</p>
 
-  <p>This link will function throughout the interview process and is how you will provide interview feedback.</p>
+  <p>The survey link will function throughout interview week and is how you will provide interview feedback. Please reach out if you have any questions.</p>
   <p>Best,<br><br>
-  <img
-        src=\"https://adadevelopersacademy.org/wp-content/uploads/2019/08/logo.png\"
-        alt=\"Ada Developers Academy\"
-        width=250>
+  <img src=\"https://adadevelopersacademy.org/wp-content/uploads/2019/08/logo.png\"
+       alt=\"Ada Developers Academy\"
+       width=250>
   </p>"
 
   SURVEY_QUESTIONS = [
