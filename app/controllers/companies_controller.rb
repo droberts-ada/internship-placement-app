@@ -110,7 +110,7 @@ class CompaniesController < ApplicationController
       ]
     },
     {
-      text: "What management experience does the hiring manager already have?",
+      text: "What management experience does the hiring <strong>manager</strong> already have?",
       name: "manager_experience",
       answers: [
         { text: "Managed previous Adies or interns from non-traditional backgrounds.", points: 1 },
@@ -119,7 +119,7 @@ class CompaniesController < ApplicationController
       ]
     },
     {
-      text: "What mentorship experience does the mentor already have?",
+      text: "What mentorship experience does the <strong>mentor</strong> already have?",
       name: "mentorship_experience",
       answers: [
         { text: "Mentored previous Adies or interns from non-traditional backgrounds.", points: 1 },
