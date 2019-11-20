@@ -310,8 +310,9 @@ describe CompaniesController do
         diverse_bg: [2, 1, 0],
         other_adies: [1, 0],
         meet_with_mentor: [4, 3, 2, 1],
-        meet_with_lead: [4, 3, 2, 1],
+        meet_with_lead: [4, 3, 2, 1, 2],
         meet_with_manager: [4, 3, 2, 1],
+        manager_experience: [1, 0, 0],
         mentorship_experience: [1, 0, 0],
         team_age: [4, 3, 2, 1, 0],
         team_size: [4, 3, 2, 1]
@@ -329,6 +330,7 @@ describe CompaniesController do
           meet_with_mentor: rand(4),
           meet_with_lead: rand(4),
           meet_with_manager: rand(4),
+          manager_experience: rand(3),
           mentorship_experience: rand(3),
           team_age: rand(5),
           team_size: rand(4),
