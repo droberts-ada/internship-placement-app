@@ -12,15 +12,15 @@ class CompaniesController < ApplicationController
   SURVEY_EMAIL_TEMPLATE = "Hello %{name}!
   <p>Here's YOUR <a href=\"%{link}\">personalized link</a> for your internship support survey. It is our goal to make the best placement possible for both the student and company and we hope this survey will aid in that attempt.  Please be as straight forward as you can with your responses as they will be used to ensure you are interviewing students who we believe would be the best fit at your particular company.</p>
 
+  <p>You will have the opportunity to request up to four students per internship slot for interview in the third question.  We will take your requests into consideration, but cannot guarantee that you will be able to interview or be matched with all of the students that you list. For your reference, we have provided a link to the students’ <a href=\"https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0\">resumes and bios</a>.<p>
+
   <p>The third question gives you the chance to list up to four students per intern, who you would definitely like to see on your interview list. While we would like your input, we cannot guarantee that you will be able to interview or be matched with all of the students that you list.</p>
 
-  <p>You can refer to the student’s <a href=\"https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0\">resumes and bios</a> to guide you.</p>
+  <p>Survey link: %{link}</p>
+  <p>Resume and Bio link: https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0</p>
 
-  <p>Survey URL: %{link}</p>
-  <p>Resume and Bio URL: https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0</p>
-
-  <p>This link will continue to function throughout the interview process and is how you can provide feedback on interviews later.</p>
-  <p>Best,<br>
+  <p>This link will function throughout the interview process and is how you will provide interview feedback.</p>
+  <p>Best,<br><br>
   <img
         src=\"https://adadevelopersacademy.org/wp-content/uploads/2019/08/logo.png\"
         alt=\"Ada Developers Academy\"
