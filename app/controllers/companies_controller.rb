@@ -111,7 +111,7 @@ class CompaniesController < ApplicationController
     },
     {
       text: "What management experience does the hiring manager already have?",
-      name: "manager experience",
+      name: "manager_experience",
       answers: [
         { text: "Managed previous Adies or interns from non-traditional backgrounds.", points: 1 },
         { text: "Managed other interns/CS new grads", points: 0 },
