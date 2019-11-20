@@ -8,11 +8,11 @@ class CompaniesController < ApplicationController
   before_action :lookup_company, except: [:index, :new, :create]
 
   SURVEY_EMAIL_SENDER = "lisa@adadevelopersacademy.org"
-  SURVEY_EMAIL_SUBJECT = "Please fill out this survey about internship support"
+  SURVEY_EMAIL_SUBJECT = "Ada Cohort 12 Internship Survey [Due 11/21 EOD]"
   SURVEY_EMAIL_TEMPLATE = "Hello %{name}!
-  <p>Here's <b>your</b> <a href=\"%{link}\">personalized link</a> for your internship support survey.  It is our goal to make the best placement possible for both the student and company and we hope this survey will aid in that attempt.  Please be as straight forward as you can with your responses as they will be used to ensure you are interviewing students who we believe would be the best fit at your particular company.</p>
+  <p>Here's YOUR <a href=\"%{link}\">personalized link</a> for your internship support survey. It is our goal to make the best placement possible for both the student and company and we hope this survey will aid in that attempt.  Please be as straight forward as you can with your responses as they will be used to ensure you are interviewing students who we believe would be the best fit at your particular company.</p>
 
-  <p>The second question gives you the chance to list a few students by name (1 intern = 4 suggestions) who you would definitely like to see on your interview list. These are suggestion because we will do our best to get you an interview with these students, but we will be stack ranking it next to the students suggestions, so nothing can be guaranteed.</p>
+  <p>The third question gives you the chance to list up to four students per intern, who you would definitely like to see on your interview list. While we would like your input, we cannot guarantee that you will be able to interview or be matched with all of the students that you list.</p>
 
   <p>You can refer to the student’s <a href=\"https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0\">resumes and bios</a> to guide you.</p>
 
@@ -29,7 +29,7 @@ class CompaniesController < ApplicationController
 
   SURVEY_QUESTIONS = [
     {
-      text: "How structured and thorough is your planned on-boarding process?",
+      text: "How structured and thorough is your company/team's planned on-boarding process?",
       name: "onboarding",
       answers: [
         { text: "Very structured", points: 4 },
@@ -39,7 +39,7 @@ class CompaniesController < ApplicationController
       ]
     },
     {
-      text: "How often do you pair program?",
+      text: "How often does your team pair program?",
       name: "pair_programming",
       answers: [
         { text: "Daily", points: 5 },
@@ -95,7 +95,8 @@ class CompaniesController < ApplicationController
         { text: "Daily", points: 4 },
         { text: "Twice Weekly", points: 3 },
         { text: "Weekly", points: 2 },
-        { text: "Monthly", points: 1 }
+        { text: "Monthly", points: 1 },
+        { text: "No team lead", points: 0 }
       ]
     },
     {
@@ -109,10 +110,19 @@ class CompaniesController < ApplicationController
       ]
     },
     {
+      text: "What management experience does the hiring manager already have?",
+      name: "manager experience",
+      answers: [
+        { text: "Managed previous Adies or interns from non-traditional backgrounds.", points: 1 },
+        { text: "Managed other interns/CS new grads", points: 0 },
+        { text: "They will be a first time manager!", points: 0 }
+      ]
+    },
+    {
       text: "What mentorship experience does the mentor already have?",
       name: "mentorship_experience",
       answers: [
-        { text: "Mentored previous Adies or interns from non-traditional backgounds.", points: 1 },
+        { text: "Mentored previous Adies or interns from non-traditional backgrounds.", points: 1 },
         { text: "Mentored other interns/CS new grads", points: 0 },
         { text: "They will be a first time mentor!", points: 0 }
       ]
