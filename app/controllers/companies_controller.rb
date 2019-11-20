@@ -29,7 +29,7 @@ class CompaniesController < ApplicationController
 
   SURVEY_QUESTIONS = [
     {
-      text: "How structured and thorough is your company/team's planned on-boarding process?",
+      text: "How structured and thorough is your company's/team's planned on-boarding process?",
       name: "onboarding",
       answers: [
         { text: "Very structured", points: 4 },
@@ -114,7 +114,7 @@ class CompaniesController < ApplicationController
       name: "manager_experience",
       answers: [
         { text: "Managed previous Adies or interns from non-traditional backgrounds.", points: 1 },
-        { text: "Managed other interns/CS new grads", points: 0 },
+        { text: "Managed other interns/new CS grads", points: 0 },
         { text: "They will be a first time manager!", points: 0 }
       ]
     },
@@ -128,7 +128,7 @@ class CompaniesController < ApplicationController
       ]
     },
     {
-      text: "How old will this team be when the Adie joins?",
+      text: "How old will this team be when the intern starts?",
       name: "team_age",
       answers: [
         { text: "A year or more", points: 4 },
@@ -139,7 +139,7 @@ class CompaniesController < ApplicationController
       ]
     },
     {
-      text: "How large is this team?",
+      text: "How many people are on the team?",
       name: "team_size",
       answers: [
         { text: "2 to 3 people", points: 4 },
