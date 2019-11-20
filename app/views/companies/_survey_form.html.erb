@@ -2,26 +2,30 @@
   <%= f.label :team_name, "What is your team name?" %>
   <%= f.text_field :team_name %>
 
+  <h4>Hiring Requirements</h4>
   <p>
-    Please let us know of any pre-hiring requirements that Ada should be aware of before matching Ada students for interviews prior to an internship placement.
+    Please let us know of any hiring requirements that Ada should take into account when matching Ada students with your company for internship.
   </p>
   <p>
     These might include but are not limited to:
   </p>
   <ol>
-    <li>Authorization to work in the United States (i.e. Greencard holder or other status requirement).</li>
+    <li>Authorization to work in the United States (i.e. Green Card holder or other work authorization requirement).</li>
     <li>Pre-employment drug screening (for legal or illegal substances in Washington state).</li>
     <li>Any other restrictions or requirements that we may need to be aware of to ensure a successful placement.</li>
   </ol>
 
-  <%= f.label :pre_hiring_requirements, "Pre-hiring requirements" %><abbr title="This field is mandatory">*</abbr>
+  <%= f.label :pre_hiring_requirements, "Hiring requirements" %><abbr title="This field is mandatory">*</abbr>
   <%= f.text_field :pre_hiring_requirements, required: true %>
+
+  <h4>Requested Students</h4>
 
   <%= f.label :preferred_students,  "Which students are you most interested in interviewing?  (Up to 4)" %>
   <%= f.text_area :preferred_students, rows: 4, cols: 20 %>
 
-  <% questions.each do |question| %>
-    <%= f.label question[:name], question[:text].html_safe %><abbr title="This field is mandatory">*</abbr>
+  <h4>Company and Team Structure</h4>
+  <% questions.each_with_index do |question, index| %>
+    <%= f.label question[:name], "#{index + 1}. #{question[:text]}".html_safe %><abbr title="This field is mandatory">*</abbr>
     <!-- TODO: Map these to scores internally. -->
     <fieldset>
       <% question[:answers].each_with_index do |answer, index| %>
