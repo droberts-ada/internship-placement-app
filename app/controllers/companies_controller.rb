@@ -66,7 +66,7 @@ class CompaniesController < ApplicationController
       name: "diverse_bg",
       answers: [
         { text: "Yes, several.", points: 2 },
-        { text: "We have at least 1.", points: 1 },
+        { text: "We have at least one.", points: 1 },
         { text: "This Adie will be our first!", points: 0 }
       ]
     },
@@ -96,7 +96,7 @@ class CompaniesController < ApplicationController
         { text: "Twice Weekly", points: 3 },
         { text: "Weekly", points: 2 },
         { text: "Monthly", points: 1 },
-        { text: "No team lead", points: 0 }
+        { text: "Not applicable, i.e. the manager is the team lead, they will not meet with the team lead, etc." , points: 2 }
       ]
     },
     {
