@@ -240,10 +240,12 @@ class CompaniesController < ApplicationController
   private
 
   def send_survey
+    @company.save
+    @company.reload
+
     body = sprintf(SURVEY_EMAIL_TEMPLATE,
                    name: @company.name,
-                   link: company_url(@company.uuid),
-                   date: "TODO: Friday the 13th")
+                   link: company_url(@company.uuid))
 
     send_email(sender: SURVEY_EMAIL_SENDER,
                recipients: @company.emails,
