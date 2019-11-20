@@ -17,7 +17,7 @@
   <%= f.label :pre_hiring_requirements, "Pre-hiring requirements" %><abbr title="This field is mandatory">*</abbr>
   <%= f.text_area :pre_hiring_requirements, required: true %>
 
-  <%= f.label :preferred_students,  "Which students are you most interested in interviewing?  (Up to 4)" %>
+  <%= f.label :preferred_students,  "Which students are you most interested in interviewing?  (Up to 4, please stack rank.)" %>
   <%= f.text_area :preferred_students, rows: 4, cols: 20 %>
 
   <% questions.each do |question| %>
