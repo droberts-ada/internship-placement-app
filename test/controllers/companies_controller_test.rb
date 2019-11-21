@@ -375,6 +375,28 @@ describe CompaniesController do
         expect(flash[:errors][:company_survey].first.downcase).must_include "structure"
       end
 
+      it "saves team_name, pre_hiring_requirements, preferred_students" do
+        params = survey_params
+        params[:company_survey][:team_name] = "Team Avatar"
+        params[:company_survey][:pre_hiring_requirements] = "Must be okay with riding a flying bison."
+        params[:company_survey][:preferred_students] = "Sokka,
+Katara,
+Toph"
+
+        expect do
+          post survey_company_path(Company.first.uuid), params: params
+        end.must_change -> { CompanySurvey.count }, +1
+
+        survey = CompanySurvey.last
+
+        must_respond_with :redirect
+        must_redirect_to company_path(survey.company.uuid)
+
+        expect(survey.team_name).must_equal params[:company_survey][:team_name]
+        expect(survey.pre_hiring_requirements).must_equal params[:company_survey][:pre_hiring_requirements]
+        expect(survey.preferred_students).must_equal params[:company_survey][:preferred_students]
+      end
+
       it "must create a survey with correct points" do
         expect do
           post survey_company_path(Company.first.uuid), params: survey_params
