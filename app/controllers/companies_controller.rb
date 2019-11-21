@@ -221,7 +221,8 @@ class CompaniesController < ApplicationController
     CompanySurvey.create!(survey_points.merge({
                                                 company: @company,
                                                 team_name: inner_params[:team_name],
-                                                pre_hiring_requirements: inner_params[:pre_hiring_requirements]
+                                                pre_hiring_requirements: inner_params[:pre_hiring_requirements],
+                                                preferred_students: inner_params[:preferred_students]
                                               }))
 
     flash[:status] = :success
