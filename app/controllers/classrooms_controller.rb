@@ -90,6 +90,15 @@ class ClassroomsController < ApplicationController
     send_data serializer.to_csv, type: :csv, filename: "#{@classroom.name}-feedback.csv"
   end
 
+  def export_survey
+    surveys = CompanySurvey.all.select {|survey| survey.company.classroom == @classroom }
+
+    serializer = CompanySurveySerializer.new(surveys)
+
+    send_data serializer.to_csv, type: :csv, filename: "#{@classroom.name}-company_surveys.csv"
+  end
+
+
   private
   def classroom_params
     params.require(:classroom).permit(:name, :interviews_per_slot)

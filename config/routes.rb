@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     member do
       get 'export-feedback'
+      get 'export-survey'
     end
   end
 

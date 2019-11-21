@@ -11,6 +11,7 @@
     <%= link_to "Edit Classroom", edit_classroom_path(@classroom), class: "button" %>
     <%= link_to "New Empty Placement", classroom_placements_path(@classroom, run_solver: false), method: :post, class: "button" %>
     <%= link_to "New Seeded Placement", classroom_placements_path(@classroom, run_solver: true), method: :post, class: "button" %>
+    <%= link_to "Export Company Surveys", export_survey_classroom_path(@classroom), class: "secondary button" %>
     <%= link_to "Export Feedback", export_feedback_classroom_path(@classroom), class: "secondary button" %>
     <%= link_to "Delete Classroom", classroom_path, method: :delete, data: { confirm: "This will destroy all placements for this classroom! Are you absolutely sure?" }, class: "alert button" %>
   </section>
