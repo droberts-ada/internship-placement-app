@@ -152,7 +152,7 @@ class CompaniesController < ApplicationController
 
     # TODO: Replace this with a SQL query if there are performance issues.
     @companies_with_interviews = Classroom.current.order(id: :desc).map do |classroom|
-      [classroom, classroom.companies_with_open_surveys + classroom.companies_with_open_interviews]
+      [classroom, classroom.companies.order(:name)]
     end.reject do |classroom, companies|
       companies.empty?
     end

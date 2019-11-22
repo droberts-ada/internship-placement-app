@@ -10,10 +10,6 @@ class Classroom < ApplicationRecord
 
   scope :current, -> { where("created_at > now() - '9 months'::interval") }
 
-  def companies_with_open_surveys
-    companies.order(name: :asc).reject(&:survey_complete?)
-  end
-
   def companies_with_open_interviews
     companies.order(name: :asc).reject(&:interviews_complete?)
   end

@@ -95,7 +95,7 @@
 
   table {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto auto auto auto;
     align-items: center;
   }
 
@@ -119,6 +119,11 @@
 
   tr:nth-child(even) > * {
     background: #f8f8f8;
+  }
+
+  .not-started {
+    color: #aaa;
+    font-style: italic;
   }
 }
 

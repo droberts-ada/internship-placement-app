@@ -9,6 +9,8 @@
         <tr>
           <th>Team Name</th>
           <th>Contact Email(s)</th>
+          <th>Survey</th>
+          <th>Interview Feedback</th>
           <th></th>
         </tr>
       </thead>
@@ -23,6 +25,22 @@
                 &nbsp;
               <% else %>
                 <%= company.emails.join(", ") %>
+              <% end %>
+            </td>
+            <td>
+              <% if company.survey_complete? %>
+                Complete
+              <% else %>
+                &nbsp;
+              <% end %>
+            </td>
+            <td>
+              <% if company.interviews.empty? %>
+                <span class="not-started">Not Scheduled</span>
+              <% elsif company.interviews_complete? %>
+                Complete
+              <% else %>
+                &nbsp;
               <% end %>
             </td>
             <td>
