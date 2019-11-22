@@ -106,6 +106,7 @@ group :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'webmock'
+  gem 'vcr'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
