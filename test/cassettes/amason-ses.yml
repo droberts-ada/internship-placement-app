@@ -364,4 +364,472 @@ http_interactions:
         </SendEmailResponse>
     http_version: 
   recorded_at: Fri, 22 Nov 2019 18:32:43 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F9d98fd5e-51db-46ed-aca7-050cdc0dafbe%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F9d98fd5e-51db-46ed-aca7-050cdc0dafbe%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F9d98fd5e-51db-46ed-aca7-050cdc0dafbe%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2F9d98fd5e-51db-46ed-aca7-050cdc0dafbe%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F9d98fd5e-51db-46ed-aca7-050cdc0dafbe%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T184333Z
+      X-Amz-Content-Sha256:
+      - 3ce4cf3b46dc775328e40e58e7c511092bd73265e2338569274b98e11f6c6aad
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=26d168c79b43551db5e5312a26d57226d17bc8614acdbf9e28423dd34b845f69
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 1d92d850-455b-4459-9699-4cb9e7f549e4
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 18:43:34 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e946d33e3-91ca1ede-0add-4a2a-a988-5ce0d9d065f1-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>1d92d850-455b-4459-9699-4cb9e7f549e4</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 18:43:34 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F483df5cd-79fc-4dd8-8a1e-8f31a479e2f7%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F483df5cd-79fc-4dd8-8a1e-8f31a479e2f7%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F483df5cd-79fc-4dd8-8a1e-8f31a479e2f7%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2F483df5cd-79fc-4dd8-8a1e-8f31a479e2f7%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F483df5cd-79fc-4dd8-8a1e-8f31a479e2f7%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T184357Z
+      X-Amz-Content-Sha256:
+      - d52300c0fdc601dfb07b26eaaedde2be994586d8fc31ae0e9abd5b71052a047a
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=787250eb4bf790db2dd2cf68a8bb2c10eb494632370a56b7466c735d852300ce
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 8876b2b9-7d12-4024-9dc5-24565af92b45
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 18:43:57 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e946d8d96-96d05e5a-d7a0-4285-bbb8-5cad1304322f-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>8876b2b9-7d12-4024-9dc5-24565af92b45</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 18:43:57 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F19e5d54b-4f66-4f73-bb9d-e7fd973d4c67%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F19e5d54b-4f66-4f73-bb9d-e7fd973d4c67%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F19e5d54b-4f66-4f73-bb9d-e7fd973d4c67%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2F19e5d54b-4f66-4f73-bb9d-e7fd973d4c67%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F19e5d54b-4f66-4f73-bb9d-e7fd973d4c67%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T184536Z
+      X-Amz-Content-Sha256:
+      - d08547779ee848587fd4aa8615f397fef930082fc9693d1241196b0c757198d1
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=57e6713278a757b542d3f8f6348e6bec5c360ec8e9d362d65f156457633ea7d5
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5fe78131-01c4-45fd-b6d5-06a61f067993
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 18:45:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e946f13f6-b9dc20e3-54c4-4e5b-8f81-95d97cc55138-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>5fe78131-01c4-45fd-b6d5-06a61f067993</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 18:45:37 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F8e87486b-ebce-4018-a00c-fcd28cb477d2%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F8e87486b-ebce-4018-a00c-fcd28cb477d2%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F8e87486b-ebce-4018-a00c-fcd28cb477d2%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2F8e87486b-ebce-4018-a00c-fcd28cb477d2%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F8e87486b-ebce-4018-a00c-fcd28cb477d2%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T184822Z
+      X-Amz-Content-Sha256:
+      - 0c7b98dd3a5fda71fc25dcc7ee66594abe77b5f2f956baa101f2a26144caefd2
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=3b6d820e70583b98406aeb25b2e28bf6b2a42e990cd70b7d9152196f84b0aca6
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2f540dfd-b7a4-4d17-aaf5-489dda0d0a4a
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 18:48:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e94719b12-b3f0d18c-158a-4f28-a9b5-1926797d396d-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>2f540dfd-b7a4-4d17-aaf5-489dda0d0a4a</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 18:48:22 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F225bee18-ddd6-44d8-842a-7b899d022adc%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F225bee18-ddd6-44d8-842a-7b899d022adc%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F225bee18-ddd6-44d8-842a-7b899d022adc%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2F225bee18-ddd6-44d8-842a-7b899d022adc%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F225bee18-ddd6-44d8-842a-7b899d022adc%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T185800Z
+      X-Amz-Content-Sha256:
+      - f4fbd97e97d2e439f7160ee5925e22849a2ba3d2cbec44a8406ad0d151d4c273
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=4e0c8c0ef97462055f0a6ae9524b5a6bbc33c78898e72983b2a2020a682d7182
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 0ec634f7-7259-4eb8-ae44-c0abb07b52df
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 18:58:01 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e947a6c5c-8cb31953-d2fd-477c-8908-89c596a1dd1f-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>0ec634f7-7259-4eb8-ae44-c0abb07b52df</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 18:58:00 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F2256cd0c-852e-4482-ba41-47386c1b4fac%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F2256cd0c-852e-4482-ba41-47386c1b4fac%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2F2256cd0c-852e-4482-ba41-47386c1b4fac%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2F2256cd0c-852e-4482-ba41-47386c1b4fac%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2F2256cd0c-852e-4482-ba41-47386c1b4fac%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T185830Z
+      X-Amz-Content-Sha256:
+      - ab1be45b83e589ad3fd55be1895f2fcc1027dc2fe2c53ed937e9977eb3ee1641
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=e0cc04725a972d36d178e3908a821b6ba0a0a051948b34ec9305a818c4448d08
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - ceae4341-638f-4928-bfc1-8c1efeede62d
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 18:58:31 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e947ae1dd-ad52e0ef-4161-43ed-8646-ce3cff4dc9b9-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>ceae4341-638f-4928-bfc1-8c1efeede62d</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 18:58:30 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2Ff008e8ca-e98a-4933-8e9a-6c0ec11f3fc0%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2Ff008e8ca-e98a-4933-8e9a-6c0ec11f3fc0%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2Ff008e8ca-e98a-4933-8e9a-6c0ec11f3fc0%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2Ff008e8ca-e98a-4933-8e9a-6c0ec11f3fc0%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2Ff008e8ca-e98a-4933-8e9a-6c0ec11f3fc0%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T185947Z
+      X-Amz-Content-Sha256:
+      - b96815351140096fe0162ab614cd0300f0267ef5e878419a694c257279a3739e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=b980f4a37767adf92d853117ef5c00512d354cc269945fb0e84030919c2232fb
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - b9a7484b-c712-4314-9921-8b27eb469d43
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 18:59:48 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e947c0d25-2cb8c481-1349-4642-824c-4e3688c04ff2-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>b9a7484b-c712-4314-9921-8b27eb469d43</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 18:59:47 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2Fc7f1de2a-d0fa-4d9a-8af3-9251616f89f2%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2Fc7f1de2a-d0fa-4d9a-8af3-9251616f89f2%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2Fc7f1de2a-d0fa-4d9a-8af3-9251616f89f2%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2Fc7f1de2a-d0fa-4d9a-8af3-9251616f89f2%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2Fc7f1de2a-d0fa-4d9a-8af3-9251616f89f2%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T190140Z
+      X-Amz-Content-Sha256:
+      - 16b2db63595e0bb7ea6ff6f841d50f0bf54d80d72dc6e5255658960c7a179980
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=4163f72f8d1f32c29f6bbdf7d1c844b31282591f4b0479f0510662e4a269fd79
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4edc5bb1-bda0-4f91-8998-f0c268be3a6c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 19:01:40 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e947dc7c7-277e5eff-40a4-4841-b1b7-db8f8fe84a59-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>4edc5bb1-bda0-4f91-8998-f0c268be3a6c</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 19:01:40 GMT
+- request:
+    method: post
+    uri: https://email.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SendEmail&Destination.ToAddresses.member.1=success%40simulator.amazonses.com&Message.Body.Html.Charset=UTF-8&Message.Body.Html.Data=Hello%20Mystery%20Inc.%21%0A%20%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2Fe07a2cee-a84e-46d4-9aba-a3d8912abcea%22%3Epersonalized%20link%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%20%20%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%3C%2Fa%3E.%3Cp%3E%0A%0A%20%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2Fe07a2cee-a84e-46d4-9aba-a3d8912abcea%3C%2Fp%3E%0A%20%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%20%20%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%0A%20%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%0A%20%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%0A%20%20%20%20%20%20%20alt%3D%22Ada%20Developers%20Academy%22%0A%20%20%20%20%20%20%20width%3D250%3E%0A%20%20%3C%2Fp%3E&Message.Body.Text.Charset=UTF-8&Message.Body.Text.Data=%3Cp%3EHello%20Mystery%20Inc.%21%20%3C%2Fp%3E%20%3Cp%3EHere%27s%20YOUR%20%3Ca%20href%3D%22http%3A%2F%2Fwww.example.com%2Fcompanies%2Fe07a2cee-a84e-46d4-9aba-a3d8912abcea%22%3Epersonalized%20link%20%28http%3A%2F%2Fwww.example.com%2Fcompanies%2Fe07a2cee-a84e-46d4-9aba-a3d8912abcea%29%3C%2Fa%3E%20to%20the%20internship%20support%20survey.%20It%20is%20our%20goal%20to%20make%20the%20best%20placement%20possible%20you%20and%20the%20intern%20and%20we%20hope%20this%20survey%20will%20aid%20in%20that%20attempt.%20%20Please%20respond%20to%20the%20best%20of%20your%20ability%20as%20your%20answers%20will%20be%20used%20to%20ensure%20the%20best%20fit%20at%20your%20company.%3C%2Fp%3E%0A%0A%3Cp%3EYou%20will%20have%20the%20opportunity%20to%20request%20up%20to%20four%20students%20per%20internship%20slot%20to%20interview%20in%20the%20third%20question.%20%20We%20will%20take%20your%20requests%20into%20consideration%2C%20but%20cannot%20guarantee%20that%20you%20will%20be%20able%20to%20interview%20or%20be%20matched%20with%20all%20of%20the%20students%20that%20you%20list.%20For%20your%20reference%2C%20we%20have%20provided%20a%20link%20to%20the%20students%E2%80%99%20%3Ca%20href%3D%22https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%22%3Eresumes%20and%20bios%20%28https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%29%3C%2Fa%3E.%3C%2Fp%3E%20%3Cp%3E%0A%0A%3C%2Fp%3E%20%3Cp%3ESurvey%20link%3A%20http%3A%2F%2Fwww.example.com%2Fcompanies%2Fe07a2cee-a84e-46d4-9aba-a3d8912abcea%3C%2Fp%3E%20%3Cp%3EResume%20and%20Bio%20link%3A%20https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM%2Fedit%23gid%3D0%3C%2Fp%3E%0A%0A%3Cp%3EThe%20survey%20link%20will%20function%20throughout%20interview%20week%20and%20is%20how%20you%20will%20provide%20interview%20feedback.%20Please%20reach%20out%20if%20you%20have%20any%20questions.%3C%2Fp%3E%20%3Cp%3EBest%2C%3Cbr%3E%3Cbr%3E%20%3Cimg%20src%3D%22https%3A%2F%2Fadadevelopersacademy.org%2Fwp-content%2Fuploads%2F2019%2F08%2Flogo.png%22%20alt%3D%22Ada%20Developers%20Academy%22%20width%3D%22250%22%3E%20%3C%2Fp%3E&Message.Subject.Charset=UTF-8&Message.Subject.Data=Ada%20Cohort%2012%20Internship%20Survey%20%5BDue%2011%2F21%20EOD%5D&Source=lisa%40adadevelopersacademy.org&Version=2010-12-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.68.1 ruby/2.5.1 x86_64-darwin18 aws-sdk-ses/1.26.0
+      Host:
+      - email.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20191122T190353Z
+      X-Amz-Content-Sha256:
+      - ad2c21401381602efb249ab5892b7db0c6efc59e3168485d0a38d592ee708af6
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_KEY_ID>/20191122/us-west-2/ses/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=f843a5b06afd6f1aa1bb30b35be3835bbde3f9d8b8dc3067c0680912f91a9139
+      Content-Length:
+      - '4585'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 8647cbb4-86c7-4284-9511-5d4c6fc4a4cc
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '326'
+      Date:
+      - Fri, 22 Nov 2019 19:03:54 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">
+          <SendEmailResult>
+            <MessageId>0101016e947fd09f-dac930e6-a8ad-499d-9610-0d847392ffee-000000</MessageId>
+          </SendEmailResult>
+          <ResponseMetadata>
+            <RequestId>8647cbb4-86c7-4284-9511-5d4c6fc4a4cc</RequestId>
+          </ResponseMetadata>
+        </SendEmailResponse>
+    http_version: 
+  recorded_at: Fri, 22 Nov 2019 19:03:54 GMT
 recorded_with: VCR 4.0.0
