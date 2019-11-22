@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+space_labs_survey:
+  company: space_labs
+  onboarding: 1
+  pair_programming: 1
+  structure: 1
+  diverse_bg: 1
+  other_adies: 1
+  meet_with_mentor: 1
+  meet_with_lead: 1
+  meet_with_manager: 1
+  manager_experience: 1
+  mentorship_experience: 1
+  team_age: 1
+  team_size: 1
