@@ -2,7 +2,7 @@ require "test_helper"
 
 describe CompaniesController do
   # These are integration tests because they require a functioning Amazon SDK to work.
-  it "sends the survey to a good email when \"Save and Send Survey\" is selected" do
+  it "sends the survey to a good email when \"Create and Send Survey\" is selected" do
     VCR.use_cassette('amason-ses') do
       login_user(User.first)
       email = "success@simulator.amazonses.com"
