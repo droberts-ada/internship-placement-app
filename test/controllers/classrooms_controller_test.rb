@@ -467,13 +467,32 @@ describe ClassroomsController do
     end
 
     it 'returns valid CSV data in the response body' do
+      survey = company_surveys(:space_labs_survey)
+
       get export_survey_classroom_path(classroom.id)
 
       rows = CSV.parse(response.body)
-      expect(rows.length).must_be :>, 0
+      expect(rows.length).must_equal 2
+      expect(rows[0]).must_equal CompanySurveySerializer::HEADERS
+      expect(rows[1]).must_equal([
+                                   survey.company.name.to_s,
+                                   survey.team_name.to_s,
+                                   survey.pre_hiring_requirements.to_s,
+                                   survey.preferred_students.to_s,
+                                   survey.score.to_s,
+                                   survey.onboarding.to_s,
+                                   survey.pair_programming.to_s,
+                                   survey.structure.to_s,
+                                   survey.diverse_bg.to_s,
+                                   survey.other_adies.to_s,
+                                   survey.meet_with_mentor.to_s,
+                                   survey.meet_with_lead.to_s,
+                                   survey.meet_with_manager.to_s,
+                                   survey.manager_experience.to_s,
+                                   survey.mentorship_experience.to_s,
+                                   survey.team_age.to_s,
+                                   survey.team_size.to_s
+                                 ])
     end
-
-    # TODO: Test the data returned more thoroughly
-    # e.g. returns all data for this classroom, and only that data
   end
 end

@@ -2,15 +2,18 @@
 
 space_labs_survey:
   company: space_labs
-  onboarding: 1
-  pair_programming: 1
-  structure: 1
-  diverse_bg: 1
+  team_name: "Space Labs: Research and Development"
+  pre_hiring_requirements: "None"
+  preferred_students: ""
+  onboarding: 4
+  pair_programming: 5
+  structure: 5
+  diverse_bg: 2
   other_adies: 1
-  meet_with_mentor: 1
-  meet_with_lead: 1
-  meet_with_manager: 1
+  meet_with_mentor: 4
+  meet_with_lead: 4
+  meet_with_manager: 3
   manager_experience: 1
-  mentorship_experience: 1
-  team_age: 1
-  team_size: 1
+  mentorship_experience: 0
+  team_age: 2
+  team_size: 4
