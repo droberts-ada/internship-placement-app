@@ -435,4 +435,45 @@ describe ClassroomsController do
     # TODO: Test the data returned more thoroughly
     # e.g. returns all data for this classroom, and only that data
   end
+
+  describe 'export_survey' do
+    let(:classroom) { classrooms(:jets) }
+
+    it 'returns FAILURE without logging in' do
+      logout_user
+
+      get export_survey_classroom_path(classroom.id)
+
+      must_respond_with :redirect
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:message]).must_match(/log.*in/i)
+    end
+
+    it 'responds with a CSV file download' do
+      get export_survey_classroom_path(classroom.id)
+
+      must_respond_with :success
+
+      h = response.headers
+      expect(h).must_include 'Content-Type'
+      expect(h['Content-Type']).must_equal Mime[:csv]
+
+      expect(h).must_include 'Content-Disposition'
+      expect(h['Content-Disposition']).must_match(/^attachment;/)
+      expect(h['Content-Disposition']).must_match(/filename=".+\.csv"/)
+
+      expect(h).must_include 'Content-Transfer-Encoding'
+      expect(h['Content-Transfer-Encoding']).must_equal 'binary'
+    end
+
+    it 'returns valid CSV data in the response body' do
+      get export_survey_classroom_path(classroom.id)
+
+      rows = CSV.parse(response.body)
+      expect(rows.length).must_be :>, 0
+    end
+
+    # TODO: Test the data returned more thoroughly
+    # e.g. returns all data for this classroom, and only that data
+  end
 end
