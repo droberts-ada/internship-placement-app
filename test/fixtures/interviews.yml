@@ -17,3 +17,9 @@ no_rankings_freedom:
   student: no_rankings
   company: freedom_inc
   scheduled_at: <%= Date.yesterday.at_noon + 80.minutes %>
+
+tiger_hammerhead:
+  student: tiger
+  company: hammerhead_labs
+  scheduled_at: <%= Date.yesterday.at_noon + 90.minutes %>
+  

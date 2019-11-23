@@ -39,3 +39,7 @@ st_stu_three:
 st_stu_four:
   name: st_stu_four
   classroom: solver_test
+
+tiger:
+  name: Tiger Sharkington
+  classroom: sharks

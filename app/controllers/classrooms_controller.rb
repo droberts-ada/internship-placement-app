@@ -84,6 +84,7 @@ class ClassroomsController < ApplicationController
                   .includes(interview: [:company, student: :classroom])
                   .where('classrooms.id = ?', @classroom.id)
                   .references(:interviews, :companies, :students, :classrooms)
+                  .order(:id)
 
     serializer = InterviewFeedbackSerializer.new(feedbacks)
 
@@ -91,7 +92,7 @@ class ClassroomsController < ApplicationController
   end
 
   def export_survey
-    surveys = CompanySurvey.all.select {|survey| survey.company.classroom == @classroom }
+    surveys = CompanySurvey.order(:id).select {|survey| survey.company.classroom == @classroom }
 
     serializer = CompanySurveySerializer.new(surveys)
 

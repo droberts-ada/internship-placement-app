@@ -426,14 +426,46 @@ describe ClassroomsController do
     end
 
     it 'returns valid CSV data in the response body' do
+      feedback1 = interview_feedbacks(:ada_space)
+      feedback2 = interview_feedbacks(:no_rankings_space)
+      feedback3 = interview_feedbacks(:no_rankings_freedom)
+
       get export_feedback_classroom_path(classroom.id)
 
       rows = CSV.parse(response.body)
-      expect(rows.length).must_be :>, 0
+      expect(rows.length).must_equal 4
+      expect(rows[0]).must_equal InterviewFeedbackSerializer::HEADERS
+      expect(rows[1]).must_equal([
+                                   feedback1.interview.company.classroom.name.to_s,
+                                   feedback1.interview.student.name.to_s,
+                                   feedback1.interview.company.name.to_s,
+                                   feedback1.interviewer_name.to_s,
+                                   feedback1.interview_result.to_s,
+                                   feedback1.result_explanation.to_s,
+                                   feedback1.feedback_technical.to_s,
+                                   feedback1.feedback_nontechnical.to_s
+                                 ])
+      expect(rows[2]).must_equal([
+                                   feedback2.interview.company.classroom.name.to_s,
+                                   feedback2.interview.student.name.to_s,
+                                   feedback2.interview.company.name.to_s,
+                                   feedback2.interviewer_name.to_s,
+                                   feedback2.interview_result.to_s,
+                                   feedback2.result_explanation.to_s,
+                                   feedback2.feedback_technical.to_s,
+                                   feedback2.feedback_nontechnical.to_s
+                                 ])
+      expect(rows[3]).must_equal([
+                                   feedback3.interview.company.classroom.name.to_s,
+                                   feedback3.interview.student.name.to_s,
+                                   feedback3.interview.company.name.to_s,
+                                   feedback3.interviewer_name.to_s,
+                                   feedback3.interview_result.to_s,
+                                   feedback3.result_explanation.to_s,
+                                   feedback3.feedback_technical.to_s,
+                                   feedback3.feedback_nontechnical.to_s
+                                 ])
     end
-
-    # TODO: Test the data returned more thoroughly
-    # e.g. returns all data for this classroom, and only that data
   end
 
   describe 'export_survey' do

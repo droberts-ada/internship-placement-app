@@ -17,3 +17,21 @@ space_labs_survey:
   mentorship_experience: 0
   team_age: 2
   team_size: 4
+
+hammerhead_labs_survey:
+  company: hammerhead_labs
+  team_name: "Hammerhead Labs: Swimming and eating"
+  pre_hiring_requirements: "Gills."
+  preferred_students: ""
+  onboarding: 3
+  pair_programming: 4
+  structure: 4
+  diverse_bg: 1
+  other_adies: 0
+  meet_with_mentor: 3
+  meet_with_lead: 3
+  meet_with_manager: 2
+  manager_experience: 0
+  mentorship_experience: 1
+  team_age: 1
+  team_size: 3

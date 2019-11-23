@@ -34,3 +34,8 @@ st_co_three:
   name: st_co_three
   slots: 2
   classroom: solver_test
+
+hammerhead_labs:
+  name: Hammerhead Labs
+  slots: 1
+  classroom: sharks

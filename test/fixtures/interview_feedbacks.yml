@@ -3,9 +3,9 @@ ada_space:
   interviewer_name: Irene Interviewer
 
   interview_result: 5
-  result_explanation: 'This candidate was great!'
+  result_explanation: This candidate was great!
 
-  feedback_technical: 'Technical feedback for the student'
+  feedback_technical: Technical feedback for the student
   feedback_nontechnical: ''
 
 no_rankings_space:
@@ -15,7 +15,7 @@ no_rankings_space:
   interview_result: 2
   result_explanation: 'This candidate was not great.'
 
-  feedback_technical: 'Technical feedback for the student'
+  feedback_technical: Technical feedback for the student
   feedback_nontechnical: ''
 
 no_rankings_freedom:
@@ -23,7 +23,17 @@ no_rankings_freedom:
   interviewer_name: No Rankings Interviewer 2
 
   interview_result: 5
-  result_explanation: 'This candidate was great!'
+  result_explanation: This candidate was great!
 
-  feedback_technical: 'Technical feedback for the student'
+  feedback_technical: Technical feedback for the student
   feedback_nontechnical: ''
+
+tiger_hammerhead_feedback:
+  interview: tiger_hammerhead
+  interviewer_name: Sting Ray
+
+  interview_result: 4
+  result_explanation: Not bad!
+  
+  feedback_technical: Good code style!
+  feedback_nontechnical: Work on your nerves.
