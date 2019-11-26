@@ -1,3 +1,16 @@
 <h2><%= @company.name %></h2>
 
-<%= render partial: "form", locals: {url: company_path(@company.uuid), verb: "Update", method: :patch} %>
+<section>
+  <h3>Company Data</h3>
+
+  <%= render partial: "form", locals: {url: company_path(@company.uuid), verb: "Update", method: :patch} %>
+</section>
+
+<% if @questions && @company_survey %>
+  <section>
+    <h3>Company Support Survey</h3>
+
+    <p>Please complete the following questions based on your knowledge of the team/company.</p>
+    <%= render partial: "survey_form", locals: {url: survey_company_path, questions: @questions, method: :patch} %>
+  </section>
+<% end %>

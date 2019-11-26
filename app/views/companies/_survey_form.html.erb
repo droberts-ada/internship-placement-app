@@ -1,4 +1,4 @@
-<%= form_for @company_survey, html: {multipart: true}, url: url do |f| %>
+<%= form_for @company_survey, html: {multipart: true}, url: url, method: method do |f| %>
   <%= f.label :team_name, "What is your team name?" %>
   <%= f.text_field :team_name %>
 
@@ -36,5 +36,9 @@
     </fieldset>
   <% end %>
 
-  <%= f.submit "Submit", class: "button" %>
+  <% if method == :patch || method == :post %>
+    <%= f.submit "Update Survey", class: "button" %>
+  <% else %>
+    <%= f.submit "Submit", class: "button" %>
+  <% end %>
 <% end %>

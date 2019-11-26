@@ -322,6 +322,8 @@ describe CompaniesController do
     let(:survey_params) do
       {
         company_survey: {
+          team_name: "good",
+          pre_hiring_requirements: "none",
           onboarding: rand(4),
           pair_programming: rand(6),
           structure: rand(5),
@@ -440,6 +442,142 @@ Toph"
         expect(survey.team_size).must_equal(
           question_points[:team_size][survey_params[:company_survey][:team_size]]
         )
+      end
+    end
+
+    describe "update" do
+      describe "put" do
+        it "returns FAILURE when not logged in" do
+          put survey_company_path(Company.last.uuid)
+
+          must_respond_with :redirect
+          expect(flash[:status]).must_equal :failure
+          expect(flash[:message]).must_match(/log.*in/i)
+        end
+
+        it "returns NOT FOUND if Company is missing" do
+          login_user(User.first)
+
+          put survey_company_path("invalid-uuid")
+
+          must_respond_with :not_found
+        end
+
+        it "returns NOT FOUND if CompanySurvey is missing" do
+          login_user(User.first)
+
+          no_survey = Company.create!(classroom: Classroom.first, name: "no survey company", slots: 1)
+
+          put survey_company_path(no_survey.reload.uuid)
+
+          must_respond_with :not_found
+        end
+
+        it "can update team_name" do
+          login_user(User.first)
+
+          new_name = "Better!"
+
+          company = Company.first
+          survey = CompanySurvey.create!(survey_params[:company_survey].merge(company: company))
+
+          params = survey_params
+          params[:company_survey][:team_name] = new_name
+
+          put survey_company_path(company.uuid), params: params
+
+          flash[:status] = :success
+
+          must_respond_with :redirect
+          must_redirect_to company_path(company.uuid)
+
+          expect(survey.reload.team_name).must_equal new_name
+        end
+
+        it "can't update a survey to remove :manager_experience" do
+          login_user(User.first)
+
+          CompanySurvey.create!(survey_params[:company_survey].merge(company: Company.first))
+
+          params = survey_params
+          params[:company_survey][:manager_experience] = nil
+
+          put survey_company_path(Company.first.uuid), params: params
+
+          must_respond_with :bad_request
+          expect(flash[:status]).must_equal :failure
+          expect(flash[:message].downcase).must_include "survey"
+          expect(flash[:message].downcase).must_include "failed"
+          expect(flash[:errors][:company_survey].length).must_equal 1
+          expect(flash[:errors][:company_survey].first.downcase).must_include "manager experience"
+        end
+      end
+
+      describe "patch" do
+        it "returns FAILURE when not logged in" do
+          patch survey_company_path(Company.last.uuid)
+
+          must_respond_with :redirect
+          expect(flash[:status]).must_equal :failure
+          expect(flash[:message]).must_match(/log.*in/i)
+        end
+
+        it "returns NOT FOUND if Company is missing" do
+          login_user(User.first)
+
+          patch survey_company_path("invalid-uuid")
+
+          must_respond_with :not_found
+        end
+
+        it "returns NOT FOUND if CompanySurvey is missing" do
+          login_user(User.first)
+
+          no_survey = Company.create!(classroom: Classroom.first, name: "no survey company", slots: 1)
+
+          patch survey_company_path(no_survey.reload.uuid)
+
+          must_respond_with :not_found
+        end
+
+        it "can update team_name" do
+          login_user(User.first)
+
+          new_name = "Better!"
+
+          company = Company.first
+          survey = CompanySurvey.create!(survey_params[:company_survey].merge(company: company))
+
+          params = survey_params
+          params[:company_survey][:team_name] = new_name
+
+          patch survey_company_path(company.uuid), params: params
+
+          flash[:status] = :success
+
+          must_respond_with :redirect
+          must_redirect_to company_path(company.uuid)
+
+          expect(survey.reload.team_name).must_equal new_name
+        end
+
+        it "can't update a survey to remove :manager_experience" do
+          login_user(User.first)
+
+          CompanySurvey.create!(survey_params[:company_survey].merge(company: Company.first))
+
+          params = survey_params
+          params[:company_survey][:manager_experience] = nil
+
+          patch survey_company_path(Company.first.uuid), params: params
+
+          must_respond_with :bad_request
+          expect(flash[:status]).must_equal :failure
+          expect(flash[:message].downcase).must_include "survey"
+          expect(flash[:message].downcase).must_include "failed"
+          expect(flash[:errors][:company_survey].length).must_equal 1
+          expect(flash[:errors][:company_survey].first.downcase).must_include "manager experience"
+        end
       end
     end
   end

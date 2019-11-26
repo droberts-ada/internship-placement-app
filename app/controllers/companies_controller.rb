@@ -191,6 +191,9 @@ class CompaniesController < ApplicationController
   end
 
   def edit
+    @company_survey = @company.company_survey
+    @questions = []             # Can't edit numeric questions.
+
     flash[:referrer] = request.referrer
   end
 
@@ -211,19 +214,7 @@ class CompaniesController < ApplicationController
   end
 
   def create_survey
-    survey_points = company_survey_params.to_h.map do |question_name, answer_index|
-      question = SURVEY_QUESTIONS.find { |q| q[:name] == question_name }
-      answer = question[:answers][answer_index.to_i]
-      [question_name, answer[:points]]
-    end.to_h
-
-    inner_params = params[:company_survey]
-    CompanySurvey.create!(survey_points.merge({
-                                                company: @company,
-                                                team_name: inner_params[:team_name],
-                                                pre_hiring_requirements: inner_params[:pre_hiring_requirements],
-                                                preferred_students: inner_params[:preferred_students]
-                                              }))
+    CompanySurvey.create!(company_survey_args)
 
     flash[:status] = :success
     flash[:message] = "Thank you for submitting the survey!"
@@ -231,6 +222,27 @@ class CompaniesController < ApplicationController
   rescue ActiveRecord::RecordInvalid => ex
     report_error(:bad_request,
                  "Failed to submit survey",
+                 errors: {company_survey: [ex.message]},
+                 render_view: :show)
+  end
+
+  def update_survey
+    survey = @company.company_survey
+    if survey
+      survey.update!(company_survey_args)
+
+      flash[:status] = :success
+      flash[:message] = "Survey successfully updated!"
+      redirect_to company_path(@company.uuid)
+    else
+      report_error(:not_found,
+                   "Survey does not exist!",
+                   errors: {},
+                   render_view: :show)
+    end
+  rescue ActiveRecord::RecordInvalid => ex
+    report_error(:bad_request,
+                 "Failed to update survey",
                  errors: {company_survey: [ex.message]},
                  render_view: :show)
   end
@@ -257,8 +269,8 @@ class CompaniesController < ApplicationController
     return render_not_found if @company.nil?
   end
 
-  def company_survey_params
-    params.require(:company_survey).permit(
+  def survey_points
+    points_params = params.require(:company_survey).permit(
       :onboarding,
       :pair_programming,
       :structure,
@@ -272,6 +284,35 @@ class CompaniesController < ApplicationController
       :team_age,
       :team_size
     )
+
+    return points_params.to_h.map do |question_name, answer_index|
+      question = SURVEY_QUESTIONS.find { |q| q[:name] == question_name }
+
+      if answer_index.nil?
+        answer_points = nil
+      else
+        answer_points = question[:answers][answer_index.to_i][:points]
+      end
+
+      [question_name, answer_points]
+    end.to_h
+  end
+
+  def other_answers
+    other_params = params.require(:company_survey).permit(
+      :team_name,
+      :pre_hiring_requirements,
+      :preferred_students)
+
+    return {
+      team_name: other_params[:team_name],
+      pre_hiring_requirements: other_params[:pre_hiring_requirements],
+      preferred_students: other_params[:preferred_students]
+    }
+  end
+
+  def company_survey_args
+    survey_points.merge(other_answers).merge(company: @company)
   end
 
   def company_params
