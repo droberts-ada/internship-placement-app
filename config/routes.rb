@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       patch 'survey', to: 'companies#update_survey'
       put 'survey', to: 'companies#update_survey'
     end
+
+    resources :interviews, only: [:new, :create]
   end
 
   resources :interviews, only: [] do

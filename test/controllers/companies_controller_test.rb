@@ -373,8 +373,7 @@ describe CompaniesController do
         expect(flash[:status]).must_equal :failure
         expect(flash[:message].downcase).must_include "survey"
         expect(flash[:message].downcase).must_include "failed"
-        expect(flash[:errors][:company_survey].length).must_equal 1
-        expect(flash[:errors][:company_survey].first.downcase).must_include "structure"
+        expect(flash[:message].downcase).must_include "structure"
       end
 
       it "saves team_name, pre_hiring_requirements, preferred_students" do

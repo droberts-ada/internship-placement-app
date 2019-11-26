@@ -1,0 +1,11 @@
+<h2>Schedule an Interview for <%= @company.name %> </h2>
+
+<%= form_for @interview, html: {multipart: true}, url: new_company_interview_path(@company.uuid) do |f| %>
+  <%= label_tag :student_name, "Student Name" %>
+  <%= text_field_tag :student_name %>
+
+  <%= f.label :scheduled_at, "Interview Time" %>
+  <%= f.datetime_local_field :scheduled_at %>
+
+  <%= f.submit "Schedule Interview" %>
+<% end %>

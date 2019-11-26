@@ -150,7 +150,7 @@ class CompaniesController < ApplicationController
   def index
     flash[:referrer] = request.referrer
 
-    # TODO: Replace this with a SQL query if there are performance issues.
+    # TODO: Use some joins here!  (Rails has `left_join` and `left_outer_join`.)
     @companies_with_interviews = Classroom.current.order(id: :desc).map do |classroom|
       [classroom, classroom.companies.order(:name)]
     end.reject do |classroom, companies|
@@ -160,7 +160,7 @@ class CompaniesController < ApplicationController
 
   def show
     @company_survey = CompanySurvey.find_by(company_id: @company.id)
-    @interviews = @company.interviews.order(scheduled_at: :asc) # TODO: select only future interviews.
+    @interviews = @company.interviews.order(scheduled_at: :asc)
 
     if @company_survey.nil?
       @company_survey = CompanySurvey.new
@@ -213,6 +213,7 @@ class CompaniesController < ApplicationController
     end
   end
 
+  # TODO: Split into own conroller!
   def create_survey
     CompanySurvey.create!(company_survey_args)
 
@@ -221,11 +222,11 @@ class CompaniesController < ApplicationController
     redirect_to company_path(@company.uuid)
   rescue ActiveRecord::RecordInvalid => ex
     report_error(:bad_request,
-                 "Failed to submit survey",
-                 errors: {company_survey: [ex.message]},
+                 "Failed to submit survey: #{ex.message}",
                  render_view: :show)
   end
 
+  # TODO: Split into own controller!
   def update_survey
     survey = @company.company_survey
     if survey
@@ -235,10 +236,7 @@ class CompaniesController < ApplicationController
       flash[:message] = "Survey successfully updated!"
       redirect_to company_path(@company.uuid)
     else
-      report_error(:not_found,
-                   "Survey does not exist!",
-                   errors: {},
-                   render_view: :show)
+      render_not_found
     end
   rescue ActiveRecord::RecordInvalid => ex
     report_error(:bad_request,

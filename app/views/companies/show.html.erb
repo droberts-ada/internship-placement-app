@@ -27,55 +27,61 @@
     </section>
   <% end %>
 
-  <% if @interviews && !@interviews.empty? %>
+  <% if (@interviews && !@interviews.empty?) || session[:user_id] %>
     <section>
       <h3>Interviews</h3>
 
-      <table id="interview-table">
-        <thead>
-          <tr>
-            <th>
-              Student
-            </th>
-            <th>
-              Interview Date & Time
-            </th>
-            <th>
-              Feedback
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @interviews.each do |interview| %>
+      <% if session[:user_id] %>
+        <%= link_to content_tag(:button, "Add Interview", class: "button"), new_company_interview_path(@company.uuid), class: "action" %>
+      <% end %>
+
+      <% if @interviews && !@interviews.empty? %>
+        <table id="interview-table">
+          <thead>
             <tr>
-              <td>
-                <%= interview.student.name %>
-              </td>
-              <td>
-                <%= format_date(interview.scheduled_at) %>
-              </td>
-              <td>
-                <% if interview.has_feedback? %>
-                  <ul>
-                    <% interview.interview_feedbacks.each do |interview_feedback| %>
-                      <li>
-                        Added by <%= interview_feedback.interviewer_name %>
-                        on <%= format_date(interview_feedback.updated_at) %>
-                        <% if defined? edit_interview_interview_feedback_path %>
-                          (<%= link_to "edit", edit_interview_interview_feedback_path(interview.uuid, interview_feedback.id) %>)
-                        <% end %>
-                      </li>
-                    <% end %>
-                    <li><%= link_to "add another", new_interview_interview_feedback_path(interview.uuid) %></li>
-                  </ul>
-                <% else %>
-                  <%= link_to "add feedback", new_interview_interview_feedback_path(interview.uuid), class: "button" %>
-                <% end %>
-              </td>
+              <th>
+                Student
+              </th>
+              <th>
+                Interview Date & Time
+              </th>
+              <th>
+                Feedback
+              </th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @interviews.each do |interview| %>
+              <tr>
+                <td>
+                  <%= interview.student.name %>
+                </td>
+                <td>
+                  <%= format_date(interview.scheduled_at) %>
+                </td>
+                <td>
+                  <% if interview.has_feedback? %>
+                    <ul>
+                      <% interview.interview_feedbacks.each do |interview_feedback| %>
+                        <li>
+                          Added by <%= interview_feedback.interviewer_name %>
+                          on <%= format_date(interview_feedback.updated_at) %>
+                          <% if defined? edit_interview_interview_feedback_path %>
+                            (<%= link_to "edit", edit_interview_interview_feedback_path(interview.uuid, interview_feedback.id) %>)
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <li><%= link_to "add another", new_interview_interview_feedback_path(interview.uuid) %></li>
+                    </ul>
+                  <% else %>
+                    <%= link_to "add feedback", new_interview_interview_feedback_path(interview.uuid), class: "button" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
     </section>
   <% end %>
 </article>
