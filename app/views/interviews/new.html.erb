@@ -1,4 +1,4 @@
-<h2>Schedule an Interview for <%= @company.name %> </h2>
+<h2>Schedule an Interview for <%= @company.name %> (<%= @company.classroom.name %>)</h2>
 
 <%= form_for @interview, html: {multipart: true}, url: company_interviews_path(@company.uuid) do |f| %>
   <%= label_tag :student_name, "Student Name" %>
