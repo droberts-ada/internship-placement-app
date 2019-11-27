@@ -20,6 +20,10 @@ describe CompaniesController do
 
   describe "show" do
     it "returns SUCCESS without logging in" do
+      get company_path(Company.first.uuid)
+
+      must_respond_with :success
+
       Interview.create!(student: Student.first,
                         company: Company.first,
                         scheduled_at: Date.today + 1)
@@ -33,6 +37,18 @@ describe CompaniesController do
       get company_path("invalid-uuid")
 
       must_respond_with :not_found
+    end
+
+    it "redirects if redirect_to is set" do
+      company = Company.create!(name: "Rediretly",
+                                slots: 1,
+                                classroom: Classroom.first,
+                                redirect_to: Company.first.uuid)
+
+      get company_path(company.reload.uuid)
+
+      must_respond_with :redirect
+      must_redirect_to company_path(Company.first.uuid)
     end
   end
 

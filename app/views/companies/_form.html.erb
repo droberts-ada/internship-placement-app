@@ -11,6 +11,9 @@
   <%= f.label :emails, "Emails (separate with commas)" %>
   <%= f.email_field :emails, value: @company.emails.join(', '), multiple: true %>
 
+  <%= f.label :redirect_to, "Redirect To" %>
+  <%= f.text_field :redirect_to %>
+
   <%= f.submit verb, class: "button" %>
 
   <%= f.submit "#{verb} and Send Survey", class: "button" %>

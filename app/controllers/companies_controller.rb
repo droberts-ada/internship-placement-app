@@ -159,12 +159,16 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company_survey = CompanySurvey.find_by(company_id: @company.id)
-    @interviews = @company.interviews.order(scheduled_at: :asc)
+    if @company.redirect_to
+      redirect_to company_path(@company.redirect_to)
+    else
+      @company_survey = CompanySurvey.find_by(company_id: @company.id)
+      @interviews = @company.interviews.order(scheduled_at: :asc)
 
-    if @company_survey.nil?
-      @company_survey = CompanySurvey.new
-      @questions = SURVEY_QUESTIONS
+      if @company_survey.nil?
+        @company_survey = CompanySurvey.new
+        @questions = SURVEY_QUESTIONS
+      end
     end
   end
 
@@ -314,10 +318,12 @@ class CompaniesController < ApplicationController
   end
 
   def company_params
-    parsed = params.require(:company).permit(:name, :classroom_id, :slots, :emails, emails: [])
+    parsed = params.require(:company).permit(:name, :classroom_id, :slots, :redirect_to, :emails, emails: [])
+
+    parsed[:redirect_to] = nil if parsed[:redirect_to].nil? || parsed[:redirect_to].empty?
+
     emails = parsed[:emails]
     emails = emails.first if emails.kind_of? Array # Unbox Rails's 1 element arrays.
-
     if emails
       parsed[:emails] = emails.split(/\s*,\s*/)
     end

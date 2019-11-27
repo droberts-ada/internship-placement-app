@@ -18,27 +18,27 @@
         <% companies.each do |company| %>
           <tr>
             <td>
-              <%= link_to company.name, company_path(company.uuid) %>
+              <%= display_cell(company, link_to(company.name, company_path(company.uuid))) %>
             </td>
             <td>
-              <% if company.emails.empty? %>
-                &nbsp;
+              <% unless company.emails.empty? %>
+                <%= display_cell(company, company.emails.join(", ")) %>
               <% else %>
-                <%= company.emails.join(", ") %>
+                &nbsp;
               <% end %>
             </td>
             <td>
               <% if company.survey_complete? %>
-                Complete
+                <%= display_cell(company, "Complete") %>
               <% else %>
                 &nbsp;
               <% end %>
             </td>
             <td>
               <% if company.interviews.empty? %>
-                <span class="not-started">Not Scheduled</span>
+                <%= display_cell(company, "Not Scheduled", class: "not-started") %>
               <% elsif company.interviews_complete? %>
-                Complete
+                <%= display_cell(company, "Complete") %>
               <% else %>
                 &nbsp;
               <% end %>

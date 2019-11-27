@@ -125,6 +125,12 @@
     color: #aaa;
     font-style: italic;
   }
+
+  .deleted {
+    font-style: italic;
+    text-decoration: line-through;
+    filter: contrast(25%);
+  }
 }
 
 #interview-table {
