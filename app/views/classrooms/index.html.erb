@@ -22,7 +22,7 @@
       <tr>
         <td><%= link_to classroom.name, classroom_path(classroom) %></td>
         <td><%= classroom.students.count %></td>
-        <td><%= classroom.companies.count %></td>
+        <td><%= classroom.companies.live.count %></td>
         <td><%= link_to "#{classroom.placements.count}", classroom_placements_path(classroom), class: "button" %></td>
         <td>
           <%= link_to "Blank", classroom_placements_path(classroom, run_solver: false), method: :post, class: "button" %>

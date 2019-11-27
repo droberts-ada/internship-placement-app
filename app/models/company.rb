@@ -8,8 +8,9 @@ class Company < ApplicationRecord
   has_one :company_survey, dependent: :destroy
 
   validates :name, presence: true
-
   validates :slots, numericality: { integer_only: true, greater_than: 0 }
+
+  scope :live, -> { where("redirect_to is NULL") }
 
   def interviews_complete?
     interviews.all?(&:has_feedback?)

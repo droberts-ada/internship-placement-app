@@ -74,4 +74,19 @@ describe Company do
       expect(company.interviews_complete?).must_equal false
     end
   end
+
+  describe "live" do
+    it "returns only companies without redirect_to set" do
+      include = Company.create!(classroom: Classroom.first,
+                                slots: 1,
+                                name: "included")
+      exclude = Company.create!(classroom: Classroom.first,
+                                slots: 1,
+                                name: "excluded",
+                                redirect_to: include.reload.uuid)
+
+      expect(Company.live).must_include(include)
+      expect(Company.live).wont_include(exclude)
+    end
+  end
 end
