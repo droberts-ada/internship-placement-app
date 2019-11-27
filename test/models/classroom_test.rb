@@ -139,4 +139,27 @@ describe Classroom do
       }.must_change -> { Interview.count }, interviews.count
     end
   end
+
+  describe "current" do
+    it "only returns current classrooms" do
+      included = [Classroom.create!(creator: User.first,
+                                    name: "today",
+                                    created_at: Time.now),
+                  Classroom.create!(creator: User.first,
+                                    name: "six months ago",
+                                    created_at: Time.now - 6.months),
+                  Classroom.create!(creator: User.first,
+                                    name: "nine months ago",
+                                    created_at: Time.now - 9.months)]
+      excluded = Classroom.create!(creator: User.first,
+                                   name: "one day more than nine months ago",
+                                   created_at: Time.now - 9.months - 1.day)
+
+      included.each do |room|
+        expect(Classroom.current).must_include(room)
+      end
+
+      expect(Classroom.current).wont_include(excluded)
+    end
+  end
 end
