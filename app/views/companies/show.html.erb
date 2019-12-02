@@ -32,7 +32,7 @@
       <h3>Interviews</h3>
 
       <% if session[:user_id] %>
-        <%= link_to content_tag(:button, "Add Interview", class: "button"), new_company_interview_path(@company.uuid) %>
+        <%= link_to content_tag(:button, "Schedule Interviews", class: "button"), new_company_interview_path(@company.uuid) %>
       <% end %>
 
       <% if @interviews && !@interviews.empty? %>

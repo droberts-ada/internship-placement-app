@@ -1,11 +1,16 @@
 <h2>Schedule an Interview for <%= @company.name %> (<%= @company.classroom.name %>)</h2>
 
-<%= form_for @interview, html: {multipart: true}, url: company_interviews_path(@company.uuid) do |f| %>
-  <%= label_tag :student_name, "Student Name" %>
-  <%= text_field_tag :student_name %>
+<%= form_tag company_interviews_path(@company.uuid), html: {multipart: true}, method: :post do |f| %>
+  <fieldset>
+    <%= label_tag :date, "Interview Date" %>
+    <%= date_field_tag :date %>
+  </fieldset>
+  <fieldset>
+    <%= label_tag :students, "Students (#{@company.classroom.interviews_per_slot})" %>
+    <%= text_area_tag :students, nil, rows: 6 %>
+  </fieldset>
 
-  <%= f.label :scheduled_at, "Interview Time" %>
-  <%= f.datetime_local_field :scheduled_at %>
-
-  <%= f.submit "Schedule Interview" %>
+  Schedule interviews:
+  <%= submit_tag "Morning", class: "button" %>
+  <%= submit_tag "Afternoon", class: "button" %>
 <% end %>
