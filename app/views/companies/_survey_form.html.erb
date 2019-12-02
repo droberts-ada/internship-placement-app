@@ -36,9 +36,9 @@
     </fieldset>
   <% end %>
 
-  <% if method == :patch || method == :post %>
+  <% if method == :patch || method == :put %>
     <%= f.submit "Update Survey", class: "button" %>
   <% else %>
-    <%= f.submit "Submit", class: "button" %>
+    <%= f.submit "Submit Survey", class: "button" %>
   <% end %>
 <% end %>
