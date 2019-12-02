@@ -305,14 +305,14 @@ describe InterviewsController do
         expect do
           post(company_interviews_path(company.uuid), params: params)
         end.must_change -> { Interview.count }, +6
-      end.must_change -> { Student.count }, +6
+      end.wont_change -> { Student.count }
 
       must_respond_with :redirect
       must_redirect_to company_path(company.uuid)
 
       expect(flash[:status]).must_equal :success
 
-      student_names.each_with_index do |name|
+      student_names.each_with_index do |name, i|
         student = Student.find_by(name: name)
         expect(student.name).must_equal name
 
