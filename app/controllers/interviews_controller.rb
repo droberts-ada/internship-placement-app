@@ -57,23 +57,23 @@ class InterviewsController < ApplicationController
 
   def morning_times(date)
     return [
-      Time.new(date.year, date.month, date.day, 9, 00),
-      Time.new(date.year, date.month, date.day, 9, 40),
-      Time.new(date.year, date.month, date.day, 10, 20),
-      Time.new(date.year, date.month, date.day, 11, 00),
-      Time.new(date.year, date.month, date.day, 11, 40),
-      Time.new(date.year, date.month, date.day, 12, 20)
+      "#{date} 09:00",
+      "#{date} 09:40",
+      "#{date} 10:20",
+      "#{date} 11:00",
+      "#{date} 11:40",
+      "#{date} 12:20",
     ]
   end
 
   def afternoon_times(date)
     return [
-      Time.new(date.year, date.month, date.day, 13, 00),
-      Time.new(date.year, date.month, date.day, 13, 40),
-      Time.new(date.year, date.month, date.day, 14, 20),
-      Time.new(date.year, date.month, date.day, 15, 00),
-      Time.new(date.year, date.month, date.day, 15, 40),
-      Time.new(date.year, date.month, date.day, 16, 20)
+      "#{date} 13:00",
+      "#{date} 13:40",
+      "#{date} 14:20",
+      "#{date} 15:00",
+      "#{date} 15:40",
+      "#{date} 16:20",
     ]
   end
 end
