@@ -55,25 +55,38 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def zone_offset
+    prefix = '+'
+    offset_raw = Time.now.in_time_zone('America/Los_Angeles').utc_offset
+    if offset_raw < 0
+      prefix = '-'
+      offset_raw *= -1
+    end
+    offset_hours = offset_raw / 60 / 60
+    offset_mins = offset_raw / 60 % 60
+
+    return sprintf("%s%02d:%02d", prefix, offset_hours, offset_mins)
+  end
+
   def morning_times(date)
     return [
-      Time.new(date.year, date.month, date.day, 9, 00).utc.to_s,
-      Time.new(date.year, date.month, date.day, 9, 40).utc.to_s,
-      Time.new(date.year, date.month, date.day, 10, 20).utc.to_s,
-      Time.new(date.year, date.month, date.day, 11, 00).utc.to_s,
-      Time.new(date.year, date.month, date.day, 11, 40).utc.to_s,
-      Time.new(date.year, date.month, date.day, 12, 20).utc.to_s
+      Time.new(date.year, date.month, date.day, 9, 0, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 9, 40, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 10, 20, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 11, 0, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 11, 40, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 12, 20, 0, zone_offset)
     ]
   end
 
   def afternoon_times(date)
     return [
-      Time.new(date.year, date.month, date.day, 13, 00).utc.to_s,
-      Time.new(date.year, date.month, date.day, 13, 40).utc.to_s,
-      Time.new(date.year, date.month, date.day, 14, 20).utc.to_s,
-      Time.new(date.year, date.month, date.day, 15, 00).utc.to_s,
-      Time.new(date.year, date.month, date.day, 15, 40).utc.to_s,
-      Time.new(date.year, date.month, date.day, 16, 20).utc.to_s
+      Time.new(date.year, date.month, date.day, 13, 0, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 13, 40, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 14, 20, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 15, 0, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 15, 40, 0, zone_offset),
+      Time.new(date.year, date.month, date.day, 16, 20, 0, zone_offset)
     ]
   end
 end

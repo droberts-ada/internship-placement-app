@@ -19,6 +19,6 @@ module InternshipPlacer
     config.eager_load_paths << Rails.root.join('lib')
 
     # Use PST by default
-    config.time_zone = 'Pacific Time (US & Canada)'
+    config.time_zone = 'America/Los_Angeles'
   end
 end
