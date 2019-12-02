@@ -40,7 +40,8 @@
               <% elsif company.interviews_complete? %>
                 <%= display_cell(company, "Complete") %>
               <% else %>
-                &nbsp;
+                <%= display_cell(company, 
+                                 "#{company.feedback_count}/#{company.classroom.interviews_per_slot}") %>
               <% end %>
             </td>
             <td>

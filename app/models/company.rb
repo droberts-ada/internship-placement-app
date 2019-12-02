@@ -12,6 +12,10 @@ class Company < ApplicationRecord
 
   scope :live, -> { where("redirect_to is NULL") }
 
+  def feedback_count
+    interviews.select(&:has_feedback?).length
+  end
+
   def interviews_complete?
     interviews.all?(&:has_feedback?)
   end
