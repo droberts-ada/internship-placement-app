@@ -56,24 +56,26 @@ class InterviewsController < ApplicationController
   end
 
   def morning_times(date)
-    return [
-      Time.new(date.year, date.month, date.day, 9, 00),
-      Time.new(date.year, date.month, date.day, 9, 40),
-      Time.new(date.year, date.month, date.day, 10, 20),
-      Time.new(date.year, date.month, date.day, 11, 00),
-      Time.new(date.year, date.month, date.day, 11, 40),
-      Time.new(date.year, date.month, date.day, 12, 20)
-    ]
+    Time.use_zone("Pacific Time (US & Canada)") do
+      return [
+        Time.new(date.year, date.month, date.day, 9, 00).utc,
+        Time.new(date.year, date.month, date.day, 9, 40).utc,
+        Time.new(date.year, date.month, date.day, 10, 20).utc,
+        Time.new(date.year, date.month, date.day, 11, 00).utc,
+        Time.new(date.year, date.month, date.day, 11, 40).utc,
+        Time.new(date.year, date.month, date.day, 12, 20).utc
+      ]
+    end
   end
 
   def afternoon_times(date)
     return [
-      Time.new(date.year, date.month, date.day, 13, 00),
-      Time.new(date.year, date.month, date.day, 13, 40),
-      Time.new(date.year, date.month, date.day, 14, 20),
-      Time.new(date.year, date.month, date.day, 15, 00),
-      Time.new(date.year, date.month, date.day, 15, 40),
-      Time.new(date.year, date.month, date.day, 16, 20)
+      Time.new(date.year, date.month, date.day, 13, 00).utc,
+      Time.new(date.year, date.month, date.day, 13, 40).utc,
+      Time.new(date.year, date.month, date.day, 14, 20).utc,
+      Time.new(date.year, date.month, date.day, 15, 00).utc,
+      Time.new(date.year, date.month, date.day, 15, 40).utc,
+      Time.new(date.year, date.month, date.day, 16, 20).utc
     ]
   end
 end
