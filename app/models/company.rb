@@ -16,6 +16,10 @@ class Company < ApplicationRecord
     interviews.select(&:has_feedback?).length
   end
 
+  def done_at
+    interviews.max_by { |i| i.done_at }.done_at
+  end
+
   def interviews_complete?
     interviews.all?(&:has_feedback?)
   end

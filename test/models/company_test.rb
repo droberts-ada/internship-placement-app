@@ -89,4 +89,27 @@ describe Company do
       expect(Company.live).wont_include(exclude)
     end
   end
+
+  describe "done_at" do
+    it "returns the latest interview time" do
+      company = Company.create!(classroom: Classroom.first,
+                                slots: 1,
+                                name: "included")
+      start = Time.now + 1.day
+      students = [
+        Student.create!(name: "Gideon", classroom: Classroom.first),
+        Student.create!(name: "Jace", classroom: Classroom.first),
+        Student.create!(name: "Liliana", classroom: Classroom.first),
+        Student.create!(name: "Chandra", classroom: Classroom.first),
+        Student.create!(name: "Nissa", classroom: Classroom.first),
+        Student.create!(name: "Ajani", classroom: Classroom.first)
+      ]
+
+      students.each_with_index do |student, i|
+        Interview.create!(student: student, company: company, scheduled_at: start + i.hours)
+      end
+
+      expect(company.done_at).must_equal start + 5.hours + 30.minutes
+    end
+  end
 end

@@ -1,4 +1,6 @@
 class Interview < ApplicationRecord
+  INTERVIEW_LENGTH = 30.minutes
+
   belongs_to :student
   belongs_to :company
   has_many :interview_feedbacks, dependent: :destroy
@@ -20,6 +22,10 @@ class Interview < ApplicationRecord
     results = interview_feedbacks.map(&:interview_result)
 
     (results.sum.to_f / results.count).round
+  end
+
+  def done_at
+    return scheduled_at + INTERVIEW_LENGTH
   end
 
   private
