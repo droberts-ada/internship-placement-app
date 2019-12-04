@@ -1,115 +1,85 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 ada_space:
-  student: ada
-  company: space_labs
+  interview: ada_space
   student_preference: 4
-  interview_result: 3
 
 ada_freedom:
-  student: ada
-  company: freedom_inc
+  interview: ada_freedom
   student_preference: 1
-  interview_result: 5
 
 ada_stark:
-  student: ada
-  company: stark
+  interview: ada_stark
   student_preference: 5
-  interview_result: 4
 
 grace_space:
-  student: grace
-  company: space_labs
+  interview: grace_space
   student_preference: 5
-  interview_result: 2
 
 grace_freedom:
-  student: grace
-  company: freedom_inc
+  interview: grace_freedom
   student_preference: 4
-  interview_result: 3
 
 grace_stark:
-  student: grace
-  company: stark
+  interview: grace_stark
   student_preference: 1
-  interview_result: 5
 
 katherine_space:
-  student: katherine
-  company: space_labs
+  interview: katherine_space
   student_preference: 1
-  interview_result: 4
 
 katherine_freedom:
-  student: katherine
-  company: freedom_inc
+  interview: katherine_freedom
   student_preference: 4
-  interview_result: 5
 
 katherine_stark:
-  student: katherine
-  company: stark
+  interview: katherine_stark
   student_preference: 5
-  interview_result: 5
 
 anita_space:
-  student: anita
-  company: space_labs
+  interview: anita_space
   student_preference: 5
-  interview_result: 5
 
 anita_stark:
-  student: anita
-  company: stark
+  interview: anita_stark
   student_preference: 4
-  interview_result: 4
 
 st_rank_1_2:
-  student: st_stu_one
-  company: st_co_two
+  interview: st_rank_1_2
   student_preference: 5
-  interview_result: 5
 
 st_rank_1_3:
-  student: st_stu_one
-  company: st_co_three
+  interview: st_rank_1_3
   student_preference: 4
-  interview_result: 3
 
 st_rank_2_2:
-  student: st_stu_two
-  company: st_co_two
+  interview: st_rank_2_2
   student_preference: 2
-  interview_result: 4
 
 st_rank_2_3:
-  student: st_stu_two
-  company: st_co_three
+  interview: st_rank_2_3
   student_preference: 2
-  interview_result: 2
 
 st_rank_3_1:
-  student: st_stu_three
-  company: st_co_one
+  interview: st_rank_3_1
   student_preference: 3
-  interview_result: 3
 
 st_rank_3_3:
-  student: st_stu_three
-  company: st_co_three
+  interview: st_rank_3_3
   student_preference: 5
-  interview_result: 4
 
 st_rank_4_1:
-  student: st_stu_four
-  company: st_co_one
+  interview: st_rank_4_1
   student_preference: 2
-  interview_result: 1
 
 st_rank_4_3:
-  student: st_stu_four
-  company: st_co_three
+  interview: st_rank_4_3
   student_preference: 4
-  interview_result: 3
+
+no_feedback_jane_freedom:
+  interview: no_feedback_jane_freedom
+  student_preference: 4
+
+no_feedback_jane_stark:
+  interview: no_feedback_jane_stark
+  student_preference: 2

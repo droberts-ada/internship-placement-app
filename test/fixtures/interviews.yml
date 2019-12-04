@@ -3,9 +3,104 @@ ada_space:
   company: space_labs
   scheduled_at: <%= Date.yesterday.at_noon %>
 
+ada_freedom:
+  student: ada
+  company: freedom_inc
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+ada_stark:
+  student: ada
+  company: stark
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+grace_space:
+  student: grace
+  company: space_labs
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
 grace_freedom:
   student: grace
   company: freedom_inc
+  scheduled_at: <%= Date.tomorrow.at_noon %>
+
+grace_stark:
+  student: grace
+  company: stark
+  scheduled_at: <%= Date.tomorrow.at_noon %>
+
+katherine_space:
+  student: katherine
+  company: space_labs
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+katherine_freedom:
+  student: katherine
+  company: freedom_inc
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+katherine_stark:
+  student: katherine
+  company: stark
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+anita_space:
+  student: anita
+  company: space_labs
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+anita_stark:
+  student: anita
+  company: stark
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_1_2:
+  student: st_stu_one
+  company: st_co_two
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_1_3:
+  student: st_stu_one
+  company: st_co_three
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_2_2:
+  student: st_stu_two
+  company: st_co_two
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_2_3:
+  student: st_stu_two
+  company: st_co_three
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_3_1:
+  student: st_stu_three
+  company: st_co_one
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_3_3:
+  student: st_stu_three
+  company: st_co_three
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_4_1:
+  student: st_stu_four
+  company: st_co_one
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+st_rank_4_3:
+  student: st_stu_four
+  company: st_co_three
+  scheduled_at: <%= Date.yesterday.at_noon %>
+
+no_feedback_jane_freedom:
+  student: jane
+  company: freedom_inc
+  scheduled_at: <%= Date.tomorrow.at_noon %>
+
+no_feedback_jane_stark:
+  student: jane
+  company: stark
   scheduled_at: <%= Date.tomorrow.at_noon %>
 
 no_rankings_space:

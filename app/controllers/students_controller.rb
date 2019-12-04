@@ -37,10 +37,9 @@ class StudentsController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Invalid company(##{company_id}) for student with ID #{@student.id}")
           end
 
-          @student.rankings.create!(
-            company: company,
-            student_preference: rank,
-            interview_result: interview.interview_result,
+          Ranking.create!(
+            interview: interview,
+            student_preference: rank
           )
         end
 

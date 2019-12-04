@@ -1,6 +1,14 @@
 require 'test_helper'
 
 describe Interview do
+  let(:interview_without_feedback) do
+    student = students(:grace)
+    company = Company.create!(name: "no feedback", classroom: Classroom.first, slots: 1)
+
+    Interview.create!(student: student, company: company, scheduled_at: Time.now + 1.day)
+  end
+
+
   describe 'associations' do
     it 'has many interview feedbacks' do
       feedback_assoc = Interview.reflect_on_association(:interview_feedbacks)
@@ -47,7 +55,7 @@ describe Interview do
         has_feedback = Interview.all.has_feedback
 
         expect(has_feedback).must_include interviews(:ada_space)
-        expect(has_feedback).wont_include interviews(:grace_freedom)
+        expect(has_feedback).wont_include interview_without_feedback
 
         has_feedback.each do |interview|
           expect(interview.interview_feedbacks).wont_be :empty?
@@ -66,11 +74,10 @@ describe Interview do
     end
 
     it 'returns false when the interview does not have feedback' do
-      i = interviews(:grace_freedom)
       # Sanity check
-      expect(InterviewFeedback.where(interview: i).count).must_equal 0
+      expect(InterviewFeedback.where(interview: interview_without_feedback).count).must_equal 0
 
-      expect(i.has_feedback?).must_equal false
+      expect(interview_without_feedback.has_feedback?).must_equal false
     end
   end
 
@@ -103,11 +110,40 @@ describe Interview do
     end
 
     it 'returns nil when there are no interview feedbacks' do
-      i = interviews(:grace_freedom)
       # Sanity check
-      expect(InterviewFeedback.where(interview: i).count).must_equal 0
+      expect(InterviewFeedback.where(interview: interview_without_feedback).count).must_equal 0
 
-      expect(i.interview_result).must_be_nil
+      expect(interview_without_feedback.interview_result).must_be_nil
+    end
+  end
+
+    describe '#score' do
+    it 'returns the product of the student preference and interview result' do
+      interview = interviews(:ada_space)
+      student_preference = interview.student_preference
+      interview_result = interview.interview_result
+
+      expect(interview.score).must_equal student_preference * interview_result
+    end
+
+    it 'updates the score when student_preference is updated' do
+      interview = interviews(:ada_space)
+      interview_result = interview.interview_result
+      original_score = interview.score
+
+      interview.ranking.student_preference += 1
+
+      expect(interview.score).must_equal original_score + interview_result
+    end
+
+    it 'updates the score when student_preference is updated' do
+      interview = interviews(:ada_space)
+      student_preference = interview.student_preference
+      original_score = interview.score
+
+      interview.interview_feedbacks.each { |f| f.interview_result += 1 }
+
+      expect(interview.score).must_equal original_score + student_preference
     end
   end
 end

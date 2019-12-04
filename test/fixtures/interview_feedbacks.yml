@@ -8,6 +8,114 @@ ada_space:
   feedback_technical: Technical feedback for the student
   feedback_nontechnical: ''
 
+ada_freedom:
+  interview: ada_freedom
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 5
+
+ada_stark:
+  interview: ada_stark
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 4
+
+grace_space:
+  interview: grace_space
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 2
+
+grace_freedom:
+  interview: grace_freedom
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 3
+
+grace_stark:
+  interview: grace_stark
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 5
+
+katherine_space:
+  interview: katherine_space
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 4
+
+katherine_freedom:
+  interview: katherine_freedom
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 5
+
+katherine_stark:
+  interview: katherine_stark
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 5
+
+anita_space:
+  interview: anita_space
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 5
+
+anita_stark:
+  interview: anita_stark
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 4
+
+st_rank_1_2:
+  interview: st_rank_1_2
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 5
+
+st_rank_1_3:
+  interview: st_rank_1_3
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 3
+
+st_rank_2_2:
+  interview: st_rank_2_2
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 4
+
+st_rank_2_3:
+  interview: st_rank_2_3
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 2
+
+st_rank_3_1:
+  interview: st_rank_3_1
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 3
+
+st_rank_3_3:
+  interview: st_rank_3_3
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 4
+
+st_rank_4_1:
+  interview: st_rank_4_1
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 1
+
+st_rank_4_3:
+  interview: st_rank_4_3
+  interviewer_name: Irene Interviewer
+  result_explanation: EXPLANATION!
+  interview_result: 3
+
 no_rankings_space:
   interview: no_rankings_space
   interviewer_name: No Rankings Interviewer 1

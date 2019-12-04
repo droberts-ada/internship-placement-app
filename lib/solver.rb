@@ -131,9 +131,9 @@ private
   # Requires @rankings, @students and @companies to have been initialized
   def initial_cost(row, col)
     # Retrieve the ranking for this student-company pair
-    ranking = @rankings.find_by(student: @students[row], company: @companies[col])
+    interview = Interview.find_by(student: @students[row], company: @companies[col])
 
-    if ranking.nil?
+    if interview.nil?
       # Students who did not interview with a company are assigned a value of
       # Float::INFINITY, to represent the fact that they cannot intern there.
       # XXX: not sure how this affects performance
@@ -150,7 +150,7 @@ private
     # To build the cost: subtract each number from 6 (so it's 5 to 1,
     # with 5 the worst and 1 the best) then multiply.
     # TODO DPR: might make sense to adopt this schema gloabally
-    return -ranking.score
+    return -interview.score
   end
 
   # Optimization: reduce the number of times the algorithm

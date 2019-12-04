@@ -36,10 +36,15 @@ describe Solver do
 
     it "builds a matrix with correct values" do
       solver.matrix.each_with_index do |value, row, col|
-        rank = classroom.rankings.find_by(
-        student: solver.students[row],
-        company: solver.companies[col]
+        interview = Interview.find_by(
+          student: solver.students[row],
+          company: solver.companies[col]
         )
+
+        rank = Ranking.find_by(
+          interview: interview
+        )
+
         if rank.nil?
           value.must_equal Float::INFINITY
         else
@@ -97,17 +102,78 @@ describe Solver do
 
     it "produces an error on an unsolvable classroom" do
       classroom.students.each do |student|
-        student.rankings.destroy_all
+        student.interviews.each do |interview|
+          interview.ranking.destroy
+        end
       end
 
+      classroom = Classroom.create(creator: User.first, name: "Unsolveable")
+
+      student1 = Student.create!(name: "Student 1", classroom: classroom)
+      student2 = Student.create!(name: "Student 2", classroom: classroom)
+      student3 = Student.create!(name: "Student 3", classroom: classroom)
+      student4 = Student.create!(name: "Student 4", classroom: classroom)
+
+      company1 = Company.create!(name: "Company 1", classroom: classroom, slots: 2)
+      company2 = Company.create!(name: "Company 2", classroom: classroom, slots: 1)
+      company3 = Company.create!(name: "Company 3", classroom: classroom, slots: 1)
+
       # students 1, 2 and 3 interviewed with company 1
-      Ranking.create!(student: Student.find_by(name: :st_stu_one), company: Company.find_by(name: :st_co_one), student_preference: 5, interview_result: 5)
-      Ranking.create!(student: Student.find_by(name: :st_stu_two), company: Company.find_by(name: :st_co_one), student_preference: 5, interview_result: 5)
-      Ranking.create!(student: Student.find_by(name: :st_stu_three), company: Company.find_by(name: :st_co_one), student_preference: 5, interview_result: 5)
+      interview = Interview.create!(
+        student: student1,
+        company: company1,
+        scheduled_at: Time.now + 1.day
+      )
+      InterviewFeedback.create!(interview: interview,
+                                interviewer_name: "Niv Mizzet",
+                                interview_result: 5,
+                                result_explanation: "Very creative solution!")
+      Ranking.create!(interview: interview, student_preference: 5)
+
+      interview = Interview.create!(
+        student: student2,
+        company: company1,
+        scheduled_at: Time.now + 1.day
+      )
+      InterviewFeedback.create!(interview: interview,
+                                interviewer_name: "Niv Mizzet",
+                                interview_result: 5,
+                                result_explanation: "Very creative solution!")
+      Ranking.create!(interview: interview, student_preference: 5)
+
+      interview = Interview.create!(
+        student: student3,
+        company: company1,
+        scheduled_at: Time.now + 1.day
+      )
+      InterviewFeedback.create!(interview: interview,
+                                interviewer_name: "Niv Mizzet",
+                                interview_result: 5,
+                                result_explanation: "Very creative solution!")
+      Ranking.create!(interview: interview, student_preference: 5)
 
       # student 4 interviewed with companies 2 and 3
-      Ranking.create!(student: Student.find_by(name: :st_stu_four), company: Company.find_by(name: :st_co_two), student_preference: 5, interview_result: 5)
-      Ranking.create!(student: Student.find_by(name: :st_stu_four), company: Company.find_by(name: :st_co_three), student_preference: 5, interview_result: 5)
+      interview = Interview.create!(
+        student: student4,
+        company: company2,
+        scheduled_at: Time.now + 1.day
+      )
+      InterviewFeedback.create!(interview: interview,
+                                interviewer_name: "Niv Mizzet",
+                                interview_result: 5,
+                                result_explanation: "Very creative solution!")
+      Ranking.create!(interview: interview, student_preference: 5)
+
+      interview = Interview.create!(
+        student: student4,
+        company: company3,
+        scheduled_at: Time.now + 1.day
+      )
+      InterviewFeedback.create!(interview: interview,
+                                interviewer_name: "Niv Mizzet",
+                                interview_result: 5,
+                                result_explanation: "Very creative solution!")
+      Ranking.create!(interview: interview, student_preference: 5)
 
       solver = Solver.new(classroom)
       proc {
@@ -166,10 +232,20 @@ describe Solver do
 
           # Build a ranking for this company for each student
           students.each do |student|
-            student.rankings.create!(
-            company: company,
-            student_preference: rand(5) + 1,
-            interview_result: rand(5) + 1
+            interview = student.interviews.create!(
+              company: company,
+              scheduled_at: Time.now + 1.day
+            )
+
+            interview.interview_feedbacks.create!(
+              interviewer_name: "Archmage Jodah",
+              interview_result: rand(5) + 1,
+              result_explanation: "Study harder"
+            )
+
+            Ranking.create!(
+              interview: interview,
+              student_preference: rand(5) + 1,
             )
           end
         end

@@ -8,6 +8,10 @@ grace:
   name: Grace Hooper
   classroom: jets
 
+jane:
+  name: Jane Doe
+  classroom: jets
+
 katherine:
   name: Katherine Johnson
   classroom: jets

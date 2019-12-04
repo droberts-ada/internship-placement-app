@@ -426,9 +426,45 @@ describe ClassroomsController do
     end
 
     it 'returns valid CSV data in the response body' do
-      feedback1 = interview_feedbacks(:ada_space)
-      feedback2 = interview_feedbacks(:no_rankings_space)
-      feedback3 = interview_feedbacks(:no_rankings_freedom)
+      classroom = Classroom.create!(creator: User.first, name: "Export Room")
+      company = Company.create(classroom: classroom, name: "Export company", slots: 1)
+
+      feedback1 = InterviewFeedback.create!(
+        interviewer_name: "Irene Interviewer",
+        interview_result: 5,
+        result_explanation: "Great job!",
+        feedback_technical: "You know Ruby well!",
+        feedback_nontechnical: "You were very nice!",
+        interview: Interview.create!(
+          student: Student.create!(classroom: classroom, name: "Student 1"),
+          company: company,
+          scheduled_at: Time.now + 1.day
+        )
+      )
+
+      feedback2 = InterviewFeedback.create!(
+        interviewer_name: "Ivan Interviewer",
+        interview_result: 3,
+        result_explanation: "Fine.",
+        feedback_nontechnical: "You were very friendly!",
+        interview: Interview.create!(
+          student: Student.create!(classroom: classroom, name: "Student 2"),
+          company: company,
+          scheduled_at: Time.now + 1.day
+        )
+      )
+
+      feedback3 = InterviewFeedback.create!(
+        interviewer_name: "Impatient Interviewer",
+        interview_result: 2,
+        result_explanation: "Took too long!",
+        feedback_technical: "Didn't finish the problem!",
+        interview: Interview.create!(
+          student: Student.create!(classroom: classroom, name: "Student 3"),
+          company: company,
+          scheduled_at: Time.now + 1.day
+        )
+      )
 
       get export_feedback_classroom_path(classroom.id)
 
@@ -452,7 +488,7 @@ describe ClassroomsController do
                                    feedback2.interviewer_name.to_s,
                                    feedback2.interview_result.to_s,
                                    feedback2.result_explanation.to_s,
-                                   feedback2.feedback_technical.to_s,
+                                   feedback2.feedback_technical, # It's nil
                                    feedback2.feedback_nontechnical.to_s
                                  ])
       expect(rows[3]).must_equal([
@@ -463,7 +499,7 @@ describe ClassroomsController do
                                    feedback3.interview_result.to_s,
                                    feedback3.result_explanation.to_s,
                                    feedback3.feedback_technical.to_s,
-                                   feedback3.feedback_nontechnical.to_s
+                                   feedback3.feedback_nontechnical
                                  ])
     end
   end

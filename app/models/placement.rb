@@ -42,9 +42,9 @@ class Placement < ApplicationRecord
   def score
     sum = 0
     self.pairings.each do |pairing|
-      ranking = Ranking.find_by(student_id: pairing.student_id, company_id: pairing.company_id)
-      if ranking
-        sum += ranking.score
+      interview = Interview.find_by(student_id: pairing.student_id, company_id: pairing.company_id)
+      if interview
+        sum += interview.score
       end
     end
     return sum

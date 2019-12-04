@@ -21,7 +21,7 @@ class Pairing < ApplicationRecord
 
   def student_interviewed_with_company
     return unless self.company and self.student
-    if Ranking.where(student: self.student, company: self.company).empty?
+    if Interview.where(student: self.student, company: self.company).empty?
       errors.add(:match, "student #{self.student.name} did not interview with company #{self.company.name}")
     end
   end

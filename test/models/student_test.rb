@@ -75,6 +75,8 @@ describe Student do
 
     it 'returns false when not all associated interviews are complete' do
       student = students(:grace)
+      company = Company.create!(name: "no feedback", classroom: Classroom.first, slots: 1)
+      Interview.create!(student: student, company: company, scheduled_at: Time.now + 1.day)
 
       # Sanity check
       all_completed = true

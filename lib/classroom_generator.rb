@@ -52,7 +52,9 @@ class ClassroomGenerator
         students = student_tier.pop(interview_count)
 
         # Shouldn't run out of students
-        remaining_students = students.map { |s| "  #{s.name} with #{s.rankings.count} rankings" }
+        remaining_students = students.map do |s|
+          "  #{s.name} with #{s.interviews.select(&:ranking).count} rankings"
+        end
 
         # :nocov:
         raise (["Hit the bad state. Remaining students:"] + remaining_students).join("\n") unless students.length == interview_count
@@ -60,15 +62,21 @@ class ClassroomGenerator
 
         # Build a ranking and interview for this company for each student
         students.each do |student|
-          student.rankings.create!(
-            company: company,
-            student_preference: rng.rand(5)+1,
-            interview_result: rng.rand(5)+1
-          )
-          student.interviews.create!(
+          interview = student.interviews.create!(
             company: company,
             student: student,
             scheduled_at: Time.now + (rng.rand(5)+1).days
+          )
+
+          Ranking.create!(
+            interview: interview,
+            student_preference: rng.rand(5)+1
+          )
+
+          interview.interview_feedbacks.create!(
+            interviewer_name: "Mother Luti",
+            interview_result: rng.rand(5)+1,
+            result_explanation: "Of course you should fight fire with fire. You should fight everything with fire."
           )
         end
       end

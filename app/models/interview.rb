@@ -4,6 +4,7 @@ class Interview < ApplicationRecord
   belongs_to :student
   belongs_to :company
   has_many :interview_feedbacks, dependent: :destroy
+  has_one :ranking, dependent: :destroy
 
   validates :student, uniqueness: {scope: :company}
   validate :scheduled_in_future, on: :create
@@ -22,6 +23,14 @@ class Interview < ApplicationRecord
     results = interview_feedbacks.map(&:interview_result)
 
     (results.sum.to_f / results.count).round
+  end
+
+  def student_preference
+    ranking.student_preference
+  end
+
+  def score
+    student_preference * interview_result
   end
 
   def done_at

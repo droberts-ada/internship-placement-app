@@ -72,10 +72,10 @@ describe StudentsController do
 
       must_respond_with :success
 
-      rankings = Ranking.where(student: @student)
+      rankings = Interview.where(student: @student).map(&:ranking)
 
       expect(rankings.length).must_equal 6
-      ranked_names = rankings.map { |r| r.company.name }.sort
+      ranked_names = rankings.map { |r| r.interview.company.name }.sort
       ranks = rankings.map { |r| r.student_preference }.sort
 
       expect(ranked_names).must_equal @company_names.sort

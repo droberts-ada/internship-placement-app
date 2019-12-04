@@ -93,8 +93,8 @@ class PairingTest < ActiveSupport::TestCase
   end
 
   test "Cannot place a student in a company with which they have not interviewed" do
-    assert_empty Ranking.where(student: students(:anita),
-                               company: companies(:freedom_inc))
+    assert_empty Interview.where(student: students(:anita),
+                                 company: companies(:freedom_inc))
     assert_empty Pairing.where(placement: placements(:empty), company: companies(:freedom_inc))
     pairing_data = {
       placement: placements(:empty),
