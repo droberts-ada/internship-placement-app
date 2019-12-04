@@ -34,14 +34,19 @@
                 &nbsp;
               <% end %>
             </td>
-            <td>
+            <td class="status">
               <% if company.interviews.empty? %>
                 <%= display_cell(company, "Not Scheduled", class: "not-started") %>
               <% elsif company.interviews_complete? %>
                 <%= display_cell(company, "Complete") %>
+              <% elsif company.done_at > Time.now %>
+                <%= display_cell(company, "Done: #{company.done_at.strftime('%a %l:%M %p')}")%>
               <% else %>
                 <%= display_cell(company, 
                                  "#{company.feedback_count}/#{company.classroom.interviews_per_slot}") %>
+                <% if company.done_at.to_date < Date.today && company.redirect_to.nil? %>
+                  <%= link_to content_tag(:button, "Remind", class: "button"), send_reminder_company_path(company.uuid), method: :post %>
+                <% end %>
               <% end %>
             </td>
             <td>

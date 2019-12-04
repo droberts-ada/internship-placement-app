@@ -131,6 +131,12 @@
     text-decoration: line-through;
     filter: contrast(25%);
   }
+
+  .status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 #interview-table {

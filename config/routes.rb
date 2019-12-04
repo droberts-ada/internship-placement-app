@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       post 'survey', to: 'companies#create_survey'
       patch 'survey', to: 'companies#update_survey'
       put 'survey', to: 'companies#update_survey'
+      post 'send-reminder', to: 'companies#send_reminder'
     end
 
     resources :interviews, only: [:new, :create]

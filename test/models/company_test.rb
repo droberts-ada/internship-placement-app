@@ -75,6 +75,35 @@ describe Company do
     end
   end
 
+  describe "feedback_count" do
+    it "calculates the correct counts" do
+      company = Company.create!(classroom: Classroom.first,
+                                slots: 1,
+                                name: "included")
+      students = [
+        Student.create!(name: "Gideon", classroom: Classroom.first),
+        Student.create!(name: "Jace", classroom: Classroom.first),
+        Student.create!(name: "Liliana", classroom: Classroom.first),
+        Student.create!(name: "Chandra", classroom: Classroom.first),
+        Student.create!(name: "Nissa", classroom: Classroom.first),
+        Student.create!(name: "Ajani", classroom: Classroom.first)
+      ]
+
+      interviews = students.each_with_index.map do |student, i|
+        Interview.create!(student: student, company: company, scheduled_at: Time.now + 1.day)
+      end
+
+      interviews.each_with_index do |interview, i|
+        InterviewFeedback.create!(interview: interview,
+                                  interviewer_name: "person #{i}",
+                                  interview_result: 5,
+                                  result_explanation: "done!")
+      end
+
+      expect(company.feedback_count).must_equal(6)
+    end
+  end
+
   describe "live" do
     it "returns only companies without redirect_to set" do
       include = Company.create!(classroom: Classroom.first,

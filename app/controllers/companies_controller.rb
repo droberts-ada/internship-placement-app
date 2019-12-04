@@ -7,9 +7,24 @@ class CompaniesController < ApplicationController
 
   before_action :lookup_company, except: [:index, :new, :create]
 
+  REMINDER_EMAIL_SENDER = "lisa@adadevelopersacademy.org"
+  REMINDER_EMAIL_SUBJECT = "Action Required: Ada Cohort 12 Interview Feedback"
+  REMINDER_EMAIL_TEMPLATE = "<p>Hello %{name}!</p>
+  <p>Thank you for taking time to interview our students!</p>
+  <p>This is a reminder to submit your interview feedback as soon as possible. Your feedback plays a critical role in determining the placement of our students. In order to create and share the internship matches on time, we need to receive all of your feedback.</p>
+  <p>You can access your unfinished feedback via your YOUR <a href=\"%{link}\">personalized link</a>.</p>
+  <p>Feedback link: %{link}</p>
+  <p>Thank you!<br><br>
+  <img src=\"https://adadevelopersacademy.org/wp-content/uploads/2019/08/logo.png\"
+       alt=\"Ada Developers Academy\"
+       width=250>
+  </p>"
+
+  # TODO: Split into own controller!
+  # TODO: Allow editing!
   SURVEY_EMAIL_SENDER = "lisa@adadevelopersacademy.org"
   SURVEY_EMAIL_SUBJECT = "Ada Cohort 12 Internship Survey [Due 11/21 EOD]"
-  SURVEY_EMAIL_TEMPLATE = "Hello %{name}!
+  SURVEY_EMAIL_TEMPLATE = "<p>Hello %{name}!</p>
   <p>Here's YOUR <a href=\"%{link}\">personalized link</a> to the internship support survey. It is our goal to make the best placement possible you and the intern and we hope this survey will aid in that attempt.  Please respond to the best of your ability as your answers will be used to ensure the best fit at your company.</p>
 
   <p>You will have the opportunity to request up to four students per internship slot to interview in the third question.  We will take your requests into consideration, but cannot guarantee that you will be able to interview or be matched with all of the students that you list. For your reference, we have provided a link to the students’ <a href=\"https://docs.google.com/spreadsheets/d/1s7P2xeKnxa7-uY6mSjIWq7rny7r3GvAOXewXOXKThpM/edit#gid=0\">resumes and bios</a>.<p>
@@ -24,6 +39,7 @@ class CompaniesController < ApplicationController
        width=250>
   </p>"
 
+  # TODO: Move into yaml?
   SURVEY_QUESTIONS = [
     {
       text: "How structured and thorough is your company's/team's planned on-boarding process?",
@@ -217,6 +233,22 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def send_reminder
+    name = @company.name
+    name = @company.company_survey.team_name if @company.company_survey
+
+    body = sprintf(REMINDER_EMAIL_TEMPLATE,
+                   name: name,
+                   link: company_url(@company.uuid))
+
+    send_email(sender: REMINDER_EMAIL_SENDER,
+               recipients: @company.emails,
+               subject: REMINDER_EMAIL_SUBJECT,
+               html_body: body)
+
+    redirect_to(companies_path)
+  end
+
   # TODO: Split into own conroller!
   def create_survey
     CompanySurvey.create!(company_survey_args)
@@ -251,6 +283,7 @@ class CompaniesController < ApplicationController
 
   private
 
+  # TODO: Split into own controller!
   def send_survey
     @company.save
     @company.reload
@@ -271,6 +304,7 @@ class CompaniesController < ApplicationController
     return render_not_found if @company.nil?
   end
 
+  # TODO: Split into own controller!
   def survey_points
     points_params = params.require(:company_survey).permit(
       :onboarding,
@@ -300,6 +334,7 @@ class CompaniesController < ApplicationController
     end.to_h
   end
 
+  # TODO: Split into own controller!
   def other_answers
     other_params = params.require(:company_survey).permit(
       :team_name,
@@ -313,6 +348,7 @@ class CompaniesController < ApplicationController
     }
   end
 
+  # TODO: Split into own controller!
   def company_survey_args
     survey_points.merge(other_answers).merge(company: @company)
   end
