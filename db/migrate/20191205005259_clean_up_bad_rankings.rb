@@ -16,6 +16,7 @@ class CleanUpBadRankings < ActiveRecord::Migration[5.0]
       end
 
       ranking.interview = interview
+      ranking.student_preference = [1, [ranking.student_preference, 5].min].max
       ranking.save!
     end
 
