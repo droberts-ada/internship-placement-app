@@ -169,8 +169,8 @@ class CompaniesController < ApplicationController
     flash[:referrer] = request.referrer
 
     # TODO: Use some joins here!  (Rails has `left_join` and `left_outer_join`.)
-    @companies_with_interviews = Classroom.current.order(id: :desc).limit(CLASSES_PER_COHORT).map do |classroom|
-      [classroom, classroom.companies.order(:name)]
+    @companies_with_interviews = Classroom.current.includes(companies: [:company_survey, {interviews: :interview_feedbacks}]).order(id: :desc).map do |classroom|
+      [classroom, classroom.companies.sort_by(&:name)]
     end.reject do |classroom, companies|
       companies.empty?
     end
@@ -180,8 +180,8 @@ class CompaniesController < ApplicationController
     if @company.redirect_to
       redirect_to company_path(@company.redirect_to)
     else
-      @company_survey = CompanySurvey.find_by(company_id: @company.id)
-      @interviews = @company.interviews.order(scheduled_at: :asc)
+      @company_survey = @company.company_survey
+      @interviews = @company.interviews.sort_by(&:scheduled_at)
 
       if @company_survey.nil?
         @company_survey = CompanySurvey.new
@@ -301,7 +301,7 @@ class CompaniesController < ApplicationController
   end
 
   def lookup_company
-    @company = Company.find_by(uuid: params[:id])
+    @company = Company.where(uuid: params[:id]).includes(interviews: [:interview_feedbacks, :student]).first
 
     return render_not_found if @company.nil?
   end
