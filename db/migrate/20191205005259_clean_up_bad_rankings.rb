@@ -6,19 +6,13 @@ class CleanUpBadRankings < ActiveRecord::Migration[5.0]
     # remove_column :rankings, :company_id
     # remove_column :rankings, :interview_result
 
-    Ranking.all.each do |ranking|
-      if ranking.interview.nil?
-        interview = Interview.find_by(student_id: ranking.student_id,
-                                      company_id: ranking.company_id)
-        unless interview
-          interview = Interview.create!(student_id: ranking.student_id,
-                                        company_id: ranking.company_id,
-                                        scheduled_at: Time.now + 1.second)
-        end
+    Ranking.where(interview: nil).each do |ranking|
+      interview = Interview.create!(student_id: ranking.student_id,
+                                    company_id: ranking.company_id,
+                                    scheduled_at: Time.now + 1.second)
 
-        ranking.interview = interview
-        ranking.save
-      end
+      ranking.interview = interview
+      ranking.save!
     end
 
     change_column :rankings, :interview_id, :integer, null: false
