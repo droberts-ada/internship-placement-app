@@ -3,7 +3,7 @@ class MakeRankingsReferenceInterviews < ActiveRecord::Migration[5.0]
     add_reference :rankings, :interview, index: true
 
     Ranking.all.each do |ranking|
-      ranking.interview = Interview.find_by(student: ranking.student, company: ranking.company)
+      ranking.interview = Interview.find_by(student_id: ranking.student_id, company_id: ranking.company_id)
     end
 
     change_column :rankings, :interview_id, :integer, null: false
