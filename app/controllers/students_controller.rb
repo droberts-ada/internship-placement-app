@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
   end
 
   def companies
-    companies = @student.interviews.has_feedback.map(&:company)
+    companies = @student.interviews.map(&:company)
 
     render json: companies.as_json(only: [:id, :name]), status: :ok
   end
