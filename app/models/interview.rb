@@ -17,6 +17,10 @@ class Interview < ApplicationRecord
     interview_feedbacks.present?
   end
 
+  def complete?
+    scheduled_at + INTERVIEW_LENGTH < Time.now
+  end
+
   def interview_result
     return nil if interview_feedbacks.empty?
 

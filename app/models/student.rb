@@ -13,6 +13,6 @@ class Student < ApplicationRecord
   end
 
   def interviews_complete?
-    interviews.all?(&:has_feedback?)
+    interviews.all?(&:complete?)
   end
 end

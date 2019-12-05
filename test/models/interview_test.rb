@@ -117,7 +117,7 @@ describe Interview do
     end
   end
 
-    describe '#score' do
+  describe '#score' do
     it 'returns the product of the student preference and interview result' do
       interview = interviews(:ada_space)
       student_preference = interview.student_preference
@@ -144,6 +144,33 @@ describe Interview do
       interview.interview_feedbacks.each { |f| f.interview_result += 1 }
 
       expect(interview.score).must_equal original_score + student_preference
+    end
+  end
+
+  describe "complete?" do
+    it "returns done after the interview finishes" do
+      company = Company.first
+
+      ongoing = Interview.create!(
+        student: Student.create!(name: "Ongoing", classroom: company.classroom),
+        company: company,
+        scheduled_at: Time.now + 29.minutes
+      )
+
+      finished = Interview.create!(
+        student: Student.create!(name: "Finished", classroom: company.classroom),
+        company: company,
+        scheduled_at: Time.now + 1.second
+      )
+
+      # Set finished to 30 minutes ago.
+      ActiveRecord::Base.connection.execute(
+        "update interviews set scheduled_at = now() - interval '30 minutes' where id = #{finished.id}"
+      )
+      finished.reload
+
+      expect(ongoing.complete?).must_equal false
+      expect(finished.complete?).must_equal true
     end
   end
 end
