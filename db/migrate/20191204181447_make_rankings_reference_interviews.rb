@@ -7,7 +7,7 @@ class MakeRankingsReferenceInterviews < ActiveRecord::Migration[5.0]
       ranking.save
     end
 
-    change_column :rankings, :interview_id, :integer, null: false
+    # change_column :rankings, :interview_id, :integer, null: false
     remove_column :rankings, :student_id
     remove_column :rankings, :company_id
     remove_column :rankings, :interview_result
