@@ -7,6 +7,8 @@ class CompaniesController < ApplicationController
 
   before_action :lookup_company, except: [:index, :new, :create]
 
+  CLASSES_PER_COHORT = 2
+
   REMINDER_EMAIL_SENDER = "lisa@adadevelopersacademy.org"
   REMINDER_EMAIL_SUBJECT = "Action Required: Ada Cohort 12 Interview Feedback"
   REMINDER_EMAIL_TEMPLATE = "<p>Hello %{name}!</p>
@@ -167,7 +169,7 @@ class CompaniesController < ApplicationController
     flash[:referrer] = request.referrer
 
     # TODO: Use some joins here!  (Rails has `left_join` and `left_outer_join`.)
-    @companies_with_interviews = Classroom.current.order(id: :desc).map do |classroom|
+    @companies_with_interviews = Classroom.current.order(id: :desc).limit(CLASSES_PER_COHORT).map do |classroom|
       [classroom, classroom.companies.order(:name)]
     end.reject do |classroom, companies|
       companies.empty?
