@@ -101,7 +101,9 @@ class StudentsController < ApplicationController
   end
 
   def send_confirmation(email)
-    rankings = @student.rankings.includes(:interview).map { |ranking| ranking.interview.company.name }
+    rankings = @student.rankings.includes(:interview).reverse.map do |ranking|
+      ranking.interview.company.name
+    end
 
     body = sprintf(
       CONFIRMATION_EMAIL_TEMPLATE,
