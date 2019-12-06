@@ -110,10 +110,10 @@
             <% student.rankings.each_with_index do |ranking, i| %>
               <tr>
                 <td><%= i == 0 ? student.name : "" %></td>
-                <td><%= ranking.company.name %></td>
-                <td><%= ranking.student_preference %></td>
-                <td><%= ranking.interview_result %></td>
-                <td><%= ranking.interview_result_reason %></td>
+                <td><%= ranking.interview.company.name %></td>
+                <td><%= ranking.interview.student_preference %></td>
+                <td><%= ranking.interview.interview_result %></td>
+                <td><%= ranking.interview.result_explanation %></td>
               </tr>
             <% end %>
           <% end %>

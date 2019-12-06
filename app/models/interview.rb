@@ -33,6 +33,14 @@ class Interview < ApplicationRecord
     ranking.student_preference
   end
 
+  def result_explanation
+    return nil if interview_feedbacks.empty?
+
+    explanations = interview_feedbacks.map(&:result_explanation)
+
+    explanations.join(' ; ')
+  end
+
   def score
     student_preference * interview_result
   end

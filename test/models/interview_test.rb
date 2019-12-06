@@ -147,6 +147,34 @@ describe Interview do
     end
   end
 
+  describe "result_explanation" do
+    it "handles a single explanation" do
+      interview = interviews(:ada_space)
+
+      feedback = interview.interview_feedbacks
+
+      expect(feedback.length).must_equal 1
+
+      expect(interview.result_explanation).must_equal feedback.first.result_explanation
+    end
+
+    it "handles multiple explanations" do
+      interview = interviews(:ada_space)
+
+      feedback1 = interview.interview_feedbacks.first
+      feedback2 = interview.interview_feedbacks.create!(
+        interviewer_name: "Second Interviewer",
+        interview_result: 5,
+        result_explanation: "Woo!"
+      )
+
+      expect(interview.interview_feedbacks.length).must_equal 2
+
+      expect(interview.result_explanation).must_include feedback1.result_explanation
+      expect(interview.result_explanation).must_include feedback2.result_explanation
+    end
+  end
+
   describe "complete?" do
     it "returns done after the interview finishes" do
       company = Company.first
