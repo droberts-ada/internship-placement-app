@@ -101,7 +101,10 @@ class StudentsController < ApplicationController
   end
 
   def send_confirmation(email)
-    rankings = @student.rankings.includes(:interview).reverse.map do |ranking|
+    rankings = @student.rankings.includes(:interview).order(
+      student_preference: :desc,
+      id: :desc
+    ).map do |ranking|
       ranking.interview.company.name
     end
 
