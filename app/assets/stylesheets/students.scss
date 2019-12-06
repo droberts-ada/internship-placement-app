@@ -77,6 +77,23 @@
       }
     }
   }
+
+  .student-feedback--email {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 1em;
+    max-width: 600px;
+    align-items: center;
+    margin: 0 auto;
+
+    input[type="email"] {
+      margin: 0;
+    }
+
+    *:first-child {
+      grid-column: span 2;
+    }
+  }
 }
 
 .student-feedback--note {

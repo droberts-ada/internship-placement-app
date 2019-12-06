@@ -76,10 +76,15 @@ const StudentFeedbackView = Backbone.View.extend({
       return { company_id: company.id, rank: index + 1 };
     });
 
+    const data = {
+      email: document.getElementById('email').value,
+      rankings: rankings
+    }
+
     const endpoint = this._studentEndpoint(this.model.studentId) + '/rankings';
     $.post({
       url: endpoint,
-      data: JSON.stringify({rankings: rankings}),
+      data: JSON.stringify(data),
       success: (response) => {
         this.$el.html('<h1>Thank you for submitting your feedback.</h1>');
       },

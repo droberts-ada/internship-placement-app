@@ -19,17 +19,10 @@ describe StudentsController do
     end
 
     @companies.each do |company|
-      interview = Interview.create!(
+      Interview.create!(
         student: @student,
         company: company,
         scheduled_at: Date.today + 1
-      )
-
-      InterviewFeedback.create!(
-        interviewer_name: 'Lance',
-        interview: interview,
-        interview_result: 2,
-        result_explanation: 'Pretty evil, but might make an okay gym leader.'
       )
     end
   end
@@ -80,6 +73,55 @@ describe StudentsController do
 
       expect(ranked_names).must_equal @company_names.sort
       expect(ranks).must_equal [1, 4, 4, 5, 5, 5]
+    end
+
+    it 'allows omitting email' do
+      params = {
+        rankings: @companies.each_with_index.map do |company, i|
+          {
+            company_id: company.id,
+            rank: i + 1
+          }
+        end
+      }
+
+      post(rankings_student_path(@student.id), params: params)
+
+      must_respond_with :success
+    end
+
+    it 'allows empty email' do
+      params = {
+        email: "",
+        rankings: @companies.each_with_index.map do |company, i|
+          {
+            company_id: company.id,
+            rank: i + 1
+          }
+        end
+      }
+
+      post(rankings_student_path(@student.id), params: params)
+
+      must_respond_with :success
+    end
+
+    it 'rejects invalid email' do
+      bad_email = "invalid"
+      params = {
+        email: bad_email,
+        rankings: @companies.each_with_index.map do |company, i|
+          {
+            company_id: company.id,
+            rank: i + 1
+          }
+        end
+      }
+
+      post(rankings_student_path(@student.id), params: params)
+
+      must_respond_with :bad_request
+      expect(response.body).must_include(bad_email)
     end
 
     it 'rejects rankings without interview' do

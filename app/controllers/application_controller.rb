@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   AWS_REGION = "us-west-2"
+  VALID_EMAIL_REGEXP = /[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*/
 
   protect_from_forgery with: :exception
   before_action :require_login
