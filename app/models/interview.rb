@@ -42,7 +42,9 @@ class Interview < ApplicationRecord
   end
 
   def score
-    student_preference * interview_result
+    return 0 if !student_preference || !interview_result
+
+    return student_preference * interview_result
   end
 
   def done_at
