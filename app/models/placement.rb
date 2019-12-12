@@ -44,12 +44,9 @@ class Placement < ApplicationRecord
     self.pairings.each do |pairing|
       interview = Interview.find_by(student_id: pairing.student_id, company_id: pairing.company_id)
       if interview
-        sum += interview.interview_feedbacks.reduce(0) do |local_sum, individual_feedback|
-          local_sum + individual_feedback.interview_result
-        end
+        sum += interview.score
       end
     end
-    
     return sum
   end
 
