@@ -147,13 +147,13 @@ describe Classroom do
                                     created_at: Time.now),
                   Classroom.create!(creator: User.first,
                                     name: "six months ago",
-                                    created_at: Time.now - 6.months),
+                                    created_at: Time.now - 180.days),
                   Classroom.create!(creator: User.first,
-                                    name: "nine months ago",
-                                    created_at: Time.now - 9.months)]
+                                    name: "269 days ago",
+                                    created_at: Time.now - 269.days)]
       excluded = Classroom.create!(creator: User.first,
-                                   name: "one day more than nine months ago",
-                                   created_at: Time.now - 9.months - 1.day)
+                                   name: "270 days ago",
+                                   created_at: Time.now - 270.days)
 
       included.each do |room|
         expect(Classroom.current).must_include(room)

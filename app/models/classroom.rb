@@ -8,7 +8,7 @@ class Classroom < ApplicationRecord
 
   validates :name, :interviews_per_slot, presence: true
 
-  scope :current, -> { where("created_at > now() - '9 months'::interval") }
+  scope :current, -> { where("created_at > now() - '270 days'::interval") }
 
   def companies_with_open_interviews
     companies.order(name: :asc).reject(&:interviews_complete?)
