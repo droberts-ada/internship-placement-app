@@ -2,13 +2,8 @@ object @placement
 attributes :id, :whiteboard
 child :students do
   attributes :id, :name
-  child :interviews do |interview|
-    child :rankings do |ranking|
-      attributes :student_preference, :score
-    end
-    child :interview_feedbacks do |feedback|
-      attributes :interview_result, :result_explanation
-    end
+  child :rankings do |ranking|
+    attributes :student_preference, :interview_result, :score, :interview_result_reason
   end
 end
 child :companies do

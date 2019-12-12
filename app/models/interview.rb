@@ -38,7 +38,7 @@ class Interview < ApplicationRecord
 
     explanations = interview_feedbacks.map(&:result_explanation)
 
-    explanations.join(' ; ')
+    explanations.join("\n")
   end
 
   def score

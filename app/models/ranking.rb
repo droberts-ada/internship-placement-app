@@ -9,6 +9,15 @@ class Ranking < ApplicationRecord
               less_than_or_equal_to: 5
             }
 
+  # FIXME: Forwarders for backbone.  Remove after re-write.
+  def score
+    interview.score
+  end
+
+  def interview_result
+    interview.interview_result
+  end
+
   def interview_result_reason
     return nil unless interview && interview.has_feedback?
 
