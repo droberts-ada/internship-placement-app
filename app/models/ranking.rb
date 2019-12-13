@@ -22,4 +22,10 @@ class Ranking < ApplicationRecord
   def company_id
     return self.interview.company_id
   end
+
+  def score
+    return 0 if !self.interview_result || !self.student_preference
+    
+    return self.interview_result * self.student_preference
+  end
 end
