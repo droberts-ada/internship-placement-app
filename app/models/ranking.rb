@@ -14,4 +14,12 @@ class Ranking < ApplicationRecord
 
     interview.interview_feedbacks.order(updated_at: :asc).map(&:result_explanation).join("\n")
   end
+
+  def interview_result 
+    return self.interview.interview_result
+  end
+
+  def company_id
+    return self.interview.company_id
+  end
 end
